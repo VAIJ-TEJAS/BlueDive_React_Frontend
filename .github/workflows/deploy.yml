@@ -27,7 +27,13 @@ jobs:
       - name: Set up sshpass
         run: sudo apt-get install -y sshpass
 
-      - name: Deploy to Server
+      - name: Upload files to Server
+        env:
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+        run: |
+          sshpass -p "$SSH_PASSWORD" scp -o StrictHostKeyChecking=no -P 65002 -r dist/* u202480925@157.173.216.100:/home/u202480925/domains/bluedive.in/public_html/
+
+      - name: Clean up old files and deploy
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
@@ -35,5 +41,5 @@ jobs:
           cd /home/u202480925/domains/bluedive.in/public_html
           find . -type f ! -name '.htaccess' -delete
           rm -rf ./*
-          cp -r ~/github/workspace/dist/* ./
+          # No need for cp command since files are uploaded directly
           EOF
