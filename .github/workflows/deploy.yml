@@ -24,13 +24,10 @@ jobs:
       - name: Build project
         run: npm run build
 
-      - name: List build output
-        run: ls -la dist/
-
       - name: Set up sshpass
         run: sudo apt-get install -y sshpass
 
-      - name: Clean up old files and deploy
+      - name: Clean up old files
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
@@ -41,7 +38,7 @@ jobs:
 
           EOF
 
-      - name: Upload files to Server
+      - name: Upload new files
         env:
           SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
