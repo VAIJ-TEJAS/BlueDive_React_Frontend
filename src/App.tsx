@@ -2,7 +2,7 @@ function App() {
 
   return (
     <>
-      Blue Dive Konkan Wonders Test
+      Blue Dive Konkan Wonders
     </>
   )
 }
