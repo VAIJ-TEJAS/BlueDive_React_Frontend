@@ -9,7 +9,7 @@ import Client from '../components/client';
 
 import faqImg from "../assets/images/bg/6.jpg"
 
-import {FiVideo, FiSearch, FiCalendar, FiUsers,FiMapPin,FiChevronDown} from '../assets/icons/vander'
+import {FiVideo, FiMapPin, FiChevronDown} from '../assets/icons/vander'
 
 import ModalVideo from 'react-modal-video';
 import '../../node_modules/react-modal-video/scss/modal-video.scss'
@@ -23,12 +23,12 @@ export default function Home(){
         <>
         <Tagline/>
         <Navbar navclass="defaultscroll is-sticky tagline-height" navlight={true} manuclass="justify-end nav-light"/>
-        <section style={{background:`url(${faqImg})`}} className="relative py-36 bg-cover jarallax" data-jarallax data-speed="0.5">
+        <section className="relative py-36 bg-[url('../../assets/images/bg/main.jpg')] bg-cover bg-center jarallax" data-jarallax data-speed="0.5">
             <div className="absolute inset-0 bg-slate-900/40"></div>
             <div className="container relative">
                 <div className="grid lg:grid-cols-12 md:grid-cols-2 mt-10 items-center gap-6">
                     <div className="lg:col-span-7">
-                        <h5 className="text-3xl font-dancing text-white">Find Your Ideal Stay</h5>
+                        <h5 className="text-3xl font-dancing text-white">See your Sea Weekends...</h5>
                         <h4 className="font-bold text-white lg:leading-normal leading-normal text-4xl lg:text-6xl mb-6 mt-5">Where Do You <br/> Want To Go?</h4>
                         <p className="text-white/70 text-xl max-w-xl">Planning for a trip? We will organize your trip with the best places and within best budget!</p>
 
@@ -39,7 +39,7 @@ export default function Home(){
                         <ModalVideo channel="youtube" youtube={{ mute: 0, autoplay: 0 }} isOpen={isOpen} videoId="S_CGed6E610" onClose={() => setOpen(false)}/>
                     </div>
 
-                    <div className="lg:col-span-5">
+                    {/* <div className="lg:col-span-5">
                         <div className="bg-white dark:bg-slate-900 rounded-xl shadow dark:shadow-gray-800 p-6 z-10 relative lg:ms-10">
                             <h4 className="mb-5 text-2xl font-semibold">Search Your Destinations</h4>
 
@@ -90,7 +90,7 @@ export default function Home(){
                                 </div>
                             </form>
                         </div>
-                    </div>
+                    </div> */}
                 </div>
             </div>
         </section>
