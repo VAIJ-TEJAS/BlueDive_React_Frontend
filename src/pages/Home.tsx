@@ -4,15 +4,19 @@ import { Link } from "react-router-dom";
 import Tagline from "../components/tagline";
 import Navbar from "../components/navbar";
 import  Footer from "../components/footer"
-import TopDestinationTwo from '../components/top-destination-two';
+import TopDestinationOne from '../components/top-destination-one';
+import About from '../components/about';
 import Client from '../components/client';
 
 import faqImg from "../assets/images/bg/6.jpg"
+import heroImg from "../assets/images/bg/main.jpg"
 
 import {FiVideo, FiMapPin, FiChevronDown} from '../assets/icons/vander'
 
 import ModalVideo from 'react-modal-video';
 import '../../node_modules/react-modal-video/scss/modal-video.scss'
+
+import { Parallax } from 'react-parallax';
 
 import { faqData, packages } from '../data/data';
 
@@ -23,7 +27,10 @@ export default function Home(){
         <>
         <Tagline/>
         <Navbar navclass="defaultscroll is-sticky tagline-height" navlight={true} manuclass="justify-end nav-light"/>
-        <section className="relative py-36 bg-[url('../../assets/images/bg/main.jpg')] bg-cover bg-center jarallax" data-jarallax data-speed="0.5">
+        <section className="relative py-36 bg-[url('../../assets/images/bg/main.jpg')] bg-cover jarallax" data-jarallax data-speed="0.5">
+
+            <Parallax bgImage={heroImg} bgImageAlt="Beach Vacation" strength={200} className='hidden lg:block absolute inset-0'/>
+
             <div className="absolute inset-0 bg-slate-900/40"></div>
             <div className="container relative">
                 <div className="grid lg:grid-cols-12 md:grid-cols-2 mt-10 items-center gap-6">
@@ -38,59 +45,6 @@ export default function Home(){
                         </div>
                         <ModalVideo channel="youtube" youtube={{ mute: 0, autoplay: 0 }} isOpen={isOpen} videoId="S_CGed6E610" onClose={() => setOpen(false)}/>
                     </div>
-
-                    {/* <div className="lg:col-span-5">
-                        <div className="bg-white dark:bg-slate-900 rounded-xl shadow dark:shadow-gray-800 p-6 z-10 relative lg:ms-10">
-                            <h4 className="mb-5 text-2xl font-semibold">Search Your Destinations</h4>
-
-                            <form>
-                                <div className="grid grid-cols-1 gap-3">
-                                    <div>
-                                        <label className="form-label font-medium text-slate-900 dark:text-white">Search:</label>
-                                        <div className="relative mt-2">
-                                            <FiSearch className="size-[18px] absolute top-[10px] start-3"></FiSearch>
-                                            <input name="name" type="text" id="job-keyword" className="w-full py-2 px-3 ps-10 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded-md outline-none border border-gray-100 dark:border-gray-800 focus:ring-0" placeholder="Search"/>
-                                        </div>
-                                    </div>
-        
-                                    <div>
-                                        <label className="form-label font-medium text-slate-900 dark:text-white">Select Your Date:</label>
-                                        <div className="relative mt-2">
-                                            <FiCalendar className="size-[18px] absolute top-[10px] start-3"></FiCalendar>
-                                            <input name="name" type="text" id="job-keyword" className="w-full py-2 px-3 ps-10 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded-md outline-none border border-gray-100 dark:border-gray-800 focus:ring-0 start" placeholder="Select Your Date"/>
-                                        </div>
-                                    </div>
-        
-                                    <div>
-                                        <label className="form-label font-medium text-slate-900 dark:text-white">Select Your Date:</label>
-                                        <div className="relative mt-2">
-                                            <FiCalendar className="size-[18px] absolute top-[10px] start-3"></FiCalendar>
-                                            <input name="name" type="text" id="job-keyword" className="w-full py-2 px-3 ps-10 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded-md outline-none border border-gray-100 dark:border-gray-800 focus:ring-0 end" placeholder="Select Your Date"/>
-                                        </div>
-                                    </div>
-        
-                                    <div>
-                                        <label className="form-label font-medium text-slate-900 dark:text-white">No. of Person:</label>
-                                        <div className="relative mt-2">
-                                            <FiUsers className="size-[18px] absolute top-[10px] start-3"></FiUsers>
-                                            <select className="form-select w-full py-2 px-3 ps-10 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded-md outline-none border border-gray-100 dark:border-gray-800 focus:ring-0">
-                                                <option disabled>No. of person</option>
-                                                <option>1</option>
-                                                <option>2</option>
-                                                <option>3</option>
-                                                <option>4</option>
-                                                <option>5</option>
-                                            </select>
-                                        </div>
-                                    </div>
-        
-                                    <div className="">
-                                        <input type="submit" id="search-buy" name="search" className="py-1 px-5 h-10 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full cursor-pointer" value="Search"/>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div> */}
                 </div>
             </div>
         </section>
@@ -108,7 +62,7 @@ export default function Home(){
         </div>
 
         <section className="relative md:py-24 py-16">
-            <TopDestinationTwo/>
+            <TopDestinationOne/>
 
             <div className="container relative md:mt-24 mt-16">
                 <div className="grid grid-cols-1 pb-8 text-center">
@@ -117,11 +71,11 @@ export default function Home(){
                     <p className="text-slate-400 max-w-xl mx-auto">Planning for a trip? We will organize your trip with the best places and within best budget!</p>
                 </div>
 
-                <div className="grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
-                    {packages.slice(0,8).map((item,index)=>{
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 mt-6 gap-6">
+                    {packages.slice(0,3).map((item,index)=>{
                         return(
                             <div className="group rounded-md shadow dark:shadow-gray-700" key={index}>
-                                <div className="relative overflow-hidden rounded-md shadow dark:shadow-gray-700 mx-2 mt-2">
+                                <div className="relative overflow-hidden rounded-t-md shadow dark:shadow-gray-700 mx-3 mt-3">
                                     <img src={item.image} className="scale-125 group-hover:scale-100 duration-500" alt=""/>
                                     {item.tagText && (
                                         <div className="absolute top-0 start-0 p-4">
@@ -134,13 +88,13 @@ export default function Home(){
                                     </div>
                                 </div>
 
-                                <div className="p-3">
+                                <div className="p-4">
                                     <p className="flex items-center text-slate-400 font-medium mb-2"><FiMapPin className="text-red-500 size-4 me-1"></FiMapPin> {item.place}</p>
                                     <Link to={`/tour-detail-one/${item.id}`} className="text-lg font-medium hover:text-red-500 duration-500 ease-in-out">{item.title}</Link>
 
                                     <div className="flex items-center mt-2">
                                         <span className="text-slate-400">Rating:</span>
-                                        <ul className="text-lg font-medium text-amber-400 list-none ms-2">
+                                        <ul className="text-lg font-medium text-amber-400 list-none ms-2 space-x-1">
                                             <li className="inline"><i className="mdi mdi-star align-middle"></i></li>
                                             <li className="inline"><i className="mdi mdi-star align-middle"></i></li>
                                             <li className="inline"><i className="mdi mdi-star align-middle"></i></li>
@@ -150,8 +104,8 @@ export default function Home(){
                                         </ul>
                                     </div>
                                     
-                                    <div className="mt-3 pt-3 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
-                                        <h5 className="text-lg font-medium text-red-500">{item.amount}</h5>
+                                    <div className="mt-4 pt-4 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
+                                        <h5 className="text-lg font-medium text-red-500">$ 58 / Day</h5>
 
                                         <Link to="" className="text-slate-400 hover:text-red-500">Explore Now <i className="mdi mdi-arrow-right"></i></Link>
                                     </div>
@@ -165,6 +119,8 @@ export default function Home(){
                     <Link to="/grid-right-sidebar" className="text-slate-400 hover:text-red-500 inline-block">See More Tours <i className="mdi mdi-arrow-right align-middle"></i></Link>
                 </div>
             </div>
+
+            <About/>
 
             <Client/>
 
