@@ -12,10 +12,10 @@ import {
   FiClock,
   FiCoffee,
   FiMapPin,
-  GiCroissant,
   GiDolphin,
   GiScubaMask,
-  GiWaterSplash,
+  GiSurfBoard,
+  MdFreeBreakfast,
   MdLocalDining,
   MdRestaurantMenu,
 } from "../assets/icons/vander";
@@ -69,15 +69,15 @@ export default function Package() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    Pickup: <FiMapPin className="size-4 text-red-500" />,
-    Breakfast: <GiCroissant className="size-4 text-yellow-500" />,
+    "Pickup": <FiMapPin className="size-4 text-red-500" />,
+    "Breakfast": <MdFreeBreakfast className="size-4 text-yellow-500" />,
     "Tea / Coffee": <FiCoffee className="size-4 text-amber-800" />,
     "Sea Safari": <GiDolphin className="size-4 text-blue-500" />,
-    "Water Sports": <GiWaterSplash className="size-4 text-sky-500" />,
-    Lunch: <MdRestaurantMenu className="size-4 text-orange-500" />,
-    Dinner: <MdLocalDining className="size-4 text-purple-500" />,
+    "Water Sports": <GiSurfBoard className="size-4 text-sky-500" />,
+    "Lunch": <MdRestaurantMenu className="size-4 text-orange-500" />,
+    "Dinner": <MdLocalDining className="size-4 text-purple-500" />,
     "Scuba Diving": <GiScubaMask className="size-4 text-blue-600" />,
-    Drop: <FiMapPin className="size-4 text-red-500" />,
+    "Drop": <FiMapPin className="size-4 text-red-500" />,
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -432,9 +432,9 @@ export default function Package() {
             <div className="lg:col-span-4 md:col-span-5">
               <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-20">
                 <div className="flex flex-col">
-                  <label className="font-medium">Date:</label>
+                  <label className="font-medium">Trip Date:</label>
 
-                  <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
+                  <div className="flex flex-wrap gap-2 mt-4 md:mt-2">
                     {trips.map((trip, index) => {
                       const day = moment(trip.start_date).format("DD");
                       const month = moment(trip.start_date).format("MMM");
