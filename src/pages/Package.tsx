@@ -278,7 +278,9 @@ export default function Package() {
               </div>
 
               <div className="mt-6">
-                <h5 className="text-xl font-semibold  mb-6 text-sky-500">Itinerary</h5>
+                <h5 className="text-xl font-semibold  mb-6 text-sky-500">
+                  Itinerary
+                </h5>
 
                 <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
                   {packageDetails?.day_records?.map(
@@ -330,77 +332,89 @@ export default function Package() {
                 </div>
               </div>
 
-              <div className="mt-6">
-                <h5 className="text-xl font-semibold mb-6 text-sky-500">Accomodation</h5>
+              {packageDetails?.accommodation && (
+                <div className="mt-6">
+                  <h5 className="text-xl font-semibold mb-6 text-sky-500">
+                    Accomodation
+                  </h5>
 
-                <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
-                  <div>
-                    <div className="font-medium">
-                      {packageDetails?.accommodation?.name}
+                  <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
+                    <div>
+                      <div className="font-medium">
+                        {packageDetails?.accommodation?.name}
+                      </div>
+                      <p className="text-sm text-slate-400">
+                        {packageDetails?.accommodation?.details}
+                      </p>
                     </div>
-                    <p className="text-sm text-slate-400">
-                      {packageDetails?.accommodation?.details}
-                    </p>
-                  </div>
 
-                  <div className="grid grid-cols-1 relative">
-                    <div className="tiny-five-item">
-                      <TinySlider settings={settings}>
-                        {packageDetails?.accommodation?.images?.map((item, index) => {
-                          return (
-                            <div className="tiny-slide" key={index}>
-                              <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800 m-2">
-                                <img
-                                  src={item.image}
-                                  className="w-full h-72 object-cover scale-125 group-hover:scale-100 duration-500"
-                                  alt=""
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-b to-slate-900 from-transparent opacity-0 group-hover:opacity-100 duration-500"></div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </TinySlider>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <h5 className="text-xl font-semibold mb-6 text-sky-500">Travel</h5>
-
-                <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
-                  <div>
-                    <div className="font-medium">
-                      {packageDetails?.vehicle?.name}
-                    </div>
-                    <p className="text-sm text-slate-400">
-                      {packageDetails?.vehicle?.details}
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 relative">
-                    <div className="tiny-five-item">
-                      <TinySlider settings={settings}>
-                        {packageDetails?.vehicle?.images?.map((item, index) => {
-                          return (
-                            <div className="tiny-slide" key={index}>
-                              <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800 m-2">
-                                <img
-                                  src={item.image}
-                                  className="w-full h-72 object-cover scale-125 group-hover:scale-100 duration-500"
-                                  alt=""
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-b to-slate-900 from-transparent opacity-0 group-hover:opacity-100 duration-500"></div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </TinySlider>
+                    <div className="grid grid-cols-1 relative">
+                      <div className="tiny-five-item">
+                        <TinySlider settings={settings}>
+                          {packageDetails?.accommodation?.images?.map(
+                            (item, index) => {
+                              return (
+                                <div className="tiny-slide" key={index}>
+                                  <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800 m-2">
+                                    <img
+                                      src={item.image}
+                                      className="w-full h-72 object-cover scale-125 group-hover:scale-100 duration-500"
+                                      alt=""
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-b to-slate-900 from-transparent opacity-0 group-hover:opacity-100 duration-500"></div>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
+                        </TinySlider>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              )}
+
+              {packageDetails?.vehicle && (
+                <div className="mt-6">
+                  <h5 className="text-xl font-semibold mb-6 text-sky-500">
+                    Travel
+                  </h5>
+
+                  <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
+                    <div>
+                      <div className="font-medium">
+                        {packageDetails?.vehicle?.name}
+                      </div>
+                      <p className="text-sm text-slate-400">
+                        {packageDetails?.vehicle?.details}
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 relative">
+                      <div className="tiny-five-item">
+                        <TinySlider settings={settings}>
+                          {packageDetails?.vehicle?.images?.map(
+                            (item, index) => {
+                              return (
+                                <div className="tiny-slide" key={index}>
+                                  <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800 m-2">
+                                    <img
+                                      src={item.image}
+                                      className="w-full h-72 object-cover scale-125 group-hover:scale-100 duration-500"
+                                      alt=""
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-b to-slate-900 from-transparent opacity-0 group-hover:opacity-100 duration-500"></div>
+                                  </div>
+                                </div>
+                              );
+                            }
+                          )}
+                        </TinySlider>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Sidebar  */}
