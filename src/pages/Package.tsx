@@ -10,7 +10,7 @@ import image5 from "../assets/images/listing/5.jpg";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-import { FiCalendar, FiCamera, FiClock } from "../assets/icons/vander";
+import { FiActivity, FiAnchor, FiBriefcase, FiCalendar, FiCamera, FiClock, FiCoffee, FiHeart, FiMapPin, FiSun } from "../assets/icons/vander";
 
 import Lightbox from "react-18-image-lightbox";
 import axios from "../api/axios";
@@ -56,6 +56,22 @@ export default function Package() {
       ...prevValues,
       [pax]: Math.max((prevValues[pax] || 0) - 1, 0),
     }));
+  };
+
+  const iconMatrix: Record<string, JSX.Element> = {
+    "Pickup": <FiMapPin className="size-4 text-red-500" />,
+    "Breakfast": <FiCoffee className="size-4 text-yellow-500" />,
+    "Tea / Coffee": <FiCoffee className="size-4 text-amber-800" />,
+    "Sea Safari": <FiAnchor className="size-4 text-blue-500" />,
+    "Water Sports": <FiActivity className="size-4 text-sky-500" />,
+    "Lunch": <FiBriefcase className="size-4 text-orange-500" />,
+    "Dinner": <FiHeart className="size-4 text-purple-500" />,
+    "Scuba Diving": <FiSun className="size-4 text-blue-600" />,
+    "Drop": <FiMapPin className="size-4 text-red-500" />,
+  };
+
+  const getIconByName = (name: string): JSX.Element | null => {
+    return iconMatrix[name] || null;
   };
 
   useEffect(() => {
@@ -243,8 +259,8 @@ export default function Package() {
                         {dayRecord.day.event_records?.map(
                             (eventRecord: IEventRecord, eventIndex: number) => (
                             <div key={eventIndex} className="mt-2 ml-8">
-                                <div className="font-medium">
-                                    {eventRecord.event.name}
+                                <div className="font-medium inline-flex gap-1 items-center">
+                                    {getIconByName(eventRecord.event.name)} {eventRecord.event.name}
                                 </div>
                                 <p className="text-sm text-slate-400">
                                 {eventRecord.event.description}
