@@ -10,7 +10,19 @@ import image5 from "../assets/images/listing/5.jpg";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-import { FiCalendar, FiCamera, FiClock, FiCoffee, FiMapPin, FiSun, GiCroissant, GiDolphin, GiWaterSplash, MdLocalDining, MdRestaurantMenu } from "../assets/icons/vander";
+import {
+  FiCalendar,
+  FiCamera,
+  FiClock,
+  FiCoffee,
+  FiMapPin,
+  FiSun,
+  GiCroissant,
+  GiDolphin,
+  GiWaterSplash,
+  MdLocalDining,
+  MdRestaurantMenu,
+} from "../assets/icons/vander";
 
 import Lightbox from "react-18-image-lightbox";
 import axios from "../api/axios";
@@ -59,15 +71,15 @@ export default function Package() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    "Pickup": <FiMapPin className="size-4 text-red-500" />,
-    "Breakfast": <GiCroissant className="size-4 text-yellow-500" />,
+    Pickup: <FiMapPin className="size-4 text-red-500" />,
+    Breakfast: <GiCroissant className="size-4 text-yellow-500" />,
     "Tea / Coffee": <FiCoffee className="size-4 text-amber-800" />,
     "Sea Safari": <GiDolphin className="size-4 text-blue-500" />,
     "Water Sports": <GiWaterSplash className="size-4 text-sky-500" />,
-    "Lunch": <MdRestaurantMenu className="size-4 text-orange-500" />,
-    "Dinner": <MdLocalDining className="size-4 text-purple-500" />,
+    Lunch: <MdRestaurantMenu className="size-4 text-orange-500" />,
+    Dinner: <MdLocalDining className="size-4 text-purple-500" />,
     "Scuba Diving": <FiSun className="size-4 text-blue-600" />,
-    "Drop": <FiMapPin className="size-4 text-red-500" />,
+    Drop: <FiMapPin className="size-4 text-red-500" />,
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -246,44 +258,59 @@ export default function Package() {
                 <h5 className="text-lg font-semibold  mb-6">Itinerary</h5>
 
                 <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
-                    {packageDetails?.day_records?.map(
+                  {packageDetails?.day_records?.map(
                     (dayRecord: IDayRecord, dayIndex: number) => (
-                        <div key={dayIndex} className="">
+                      <div key={dayIndex} className="">
                         <div className="font-medium inline-flex gap-1 items-center">
-                        <FiCalendar className="size-4 align-middle text-red-500" /> {dayRecord.day.name}
+                          <FiCalendar className="size-4 align-middle text-red-500" />{" "}
+                          {dayRecord.day.name}
                         </div>
                         <p className="text-sm text-slate-400">
-                            {dayRecord.day.description}
+                          {dayRecord.day.description}
                         </p>
 
                         {dayRecord.day.event_records?.map(
-                            (eventRecord: IEventRecord, eventIndex: number) => (
+                          (eventRecord: IEventRecord, eventIndex: number) => (
                             <div key={eventIndex} className="mt-2 ml-8">
-                                <div className="font-medium inline-flex gap-1 items-center">
-                                    {getIconByName(eventRecord.event.name)} {eventRecord.event.name}
-                                </div>
-                                <p className="text-sm text-slate-400">
+                              <div className="font-medium inline-flex gap-1 items-center">
+                                {getIconByName(eventRecord.event.name)}{" "}
+                                {eventRecord.event.name}
+                              </div>
+                              <p className="text-sm text-slate-400">
                                 {eventRecord.event.description}
-                                </p>
+                              </p>
 
-                                {eventRecord.event.options?.map(
+                              {eventRecord.event.options?.map(
                                 (option, optionIndex) => (
-                                    <div key={optionIndex} className="ml-8">
-                                    <p className="text-red-500 ">
-                                        {option.name}
-                                    </p>
-                                    <p className="text-sm text-slate-400">
-                                        {option.description}
-                                    </p>
+                                  <div key={optionIndex} className="ml-8 flex gap-1">
+                                    <div>
+                                        •
                                     </div>
+                                    <div>
+                                      <p className="text-red-500">
+                                        {option.name}
+                                      </p>
+                                      <p className="text-sm text-slate-400">
+                                        {option.description}
+                                      </p>
+                                    </div>
+                                  </div>
                                 )
-                                )}
+                              )}
                             </div>
-                            )
+                          )
                         )}
-                        </div>
+                      </div>
                     )
-                    )}
+                  )}
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <h5 className="text-lg font-semibold mb-6">Accomodation</h5>
+
+                <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
+                    
                 </div>
               </div>
             </div>
@@ -388,7 +415,6 @@ export default function Package() {
                     ></iframe>
                   </div>
                 </div> */}
-
               </div>
             </div>
           </div>
