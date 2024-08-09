@@ -10,15 +10,17 @@ import image5 from "../assets/images/listing/5.jpg";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
+import TinySlider from "tiny-slider-react";
+
 import {
   FiCalendar,
   FiCamera,
   FiClock,
   FiCoffee,
   FiMapPin,
-  FiSun,
   GiCroissant,
   GiDolphin,
+  GiScubaMask,
   GiWaterSplash,
   MdLocalDining,
   MdRestaurantMenu,
@@ -33,9 +35,10 @@ import {
   IPaxOptions,
 } from "../types/package.types";
 import { ITrip } from "../types/trip.types";
+import moment from "moment";
 import "react-18-image-lightbox/style.css";
 import "../../node_modules/react-datepicker/dist/react-datepicker.css";
-import moment from "moment";
+import "tiny-slider/dist/tiny-slider.css";
 
 export default function Package() {
   const { package_name } = useParams();
@@ -78,7 +81,7 @@ export default function Package() {
     "Water Sports": <GiWaterSplash className="size-4 text-sky-500" />,
     Lunch: <MdRestaurantMenu className="size-4 text-orange-500" />,
     Dinner: <MdLocalDining className="size-4 text-purple-500" />,
-    "Scuba Diving": <FiSun className="size-4 text-blue-600" />,
+    "Scuba Diving": <GiScubaMask className="size-4 text-blue-600" />,
     Drop: <FiMapPin className="size-4 text-red-500" />,
   };
 
@@ -116,6 +119,26 @@ export default function Package() {
         console.error("Error fetching data", error);
       });
   }, [package_name]);
+
+  const settings = {
+    container: ".tiny-five-item",
+    controls: true,
+    mouseDrag: true,
+    loop: true,
+    rewind: true,
+    autoplay: true,
+    autoplayButtonOutput: false,
+    autoplayTimeout: 3000,
+    navPosition: "bottom",
+    controlsText: [
+      '<i class="mdi mdi-chevron-left "></i>',
+      '<i class="mdi mdi-chevron-right"></i>',
+    ],
+    nav: false,
+    speed: 400,
+    gutter: 0,
+    items: 1,
+  };
 
   return (
     <>
@@ -247,7 +270,7 @@ export default function Package() {
               </ul> */}
 
               <div className="mt-6">
-                <h5 className="text-lg font-semibold">Tour Description</h5>
+                {/* <h5 className="text-lg font-semibold">Tour Description</h5> */}
 
                 <p className="text-slate-400 mt-6">
                   {packageDetails?.description}
@@ -255,7 +278,7 @@ export default function Package() {
               </div>
 
               <div className="mt-6">
-                <h5 className="text-lg font-semibold  mb-6">Itinerary</h5>
+                <h5 className="text-xl font-semibold  mb-6 text-sky-500">Itinerary</h5>
 
                 <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
                   {packageDetails?.day_records?.map(
@@ -282,10 +305,11 @@ export default function Package() {
 
                               {eventRecord.event.options?.map(
                                 (option, optionIndex) => (
-                                  <div key={optionIndex} className="ml-8 flex gap-1">
-                                    <div>
-                                        •
-                                    </div>
+                                  <div
+                                    key={optionIndex}
+                                    className="ml-8 flex gap-1"
+                                  >
+                                    <div>•</div>
                                     <div>
                                       <p className="text-red-500">
                                         {option.name}
@@ -307,10 +331,74 @@ export default function Package() {
               </div>
 
               <div className="mt-6">
-                <h5 className="text-lg font-semibold mb-6">Accomodation</h5>
+                <h5 className="text-xl font-semibold mb-6 text-sky-500">Accomodation</h5>
 
                 <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
-                    
+                  <div>
+                    <div className="font-medium">
+                      {packageDetails?.accommodation?.name}
+                    </div>
+                    <p className="text-sm text-slate-400">
+                      {packageDetails?.accommodation?.details}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 relative">
+                    <div className="tiny-five-item">
+                      <TinySlider settings={settings}>
+                        {packageDetails?.accommodation?.images?.map((item, index) => {
+                          return (
+                            <div className="tiny-slide" key={index}>
+                              <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800 m-2">
+                                <img
+                                  src={item.image}
+                                  className="w-full h-72 object-cover scale-125 group-hover:scale-100 duration-500"
+                                  alt=""
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-b to-slate-900 from-transparent opacity-0 group-hover:opacity-100 duration-500"></div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </TinySlider>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <h5 className="text-xl font-semibold mb-6 text-sky-500">Travel</h5>
+
+                <div className="p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
+                  <div>
+                    <div className="font-medium">
+                      {packageDetails?.vehicle?.name}
+                    </div>
+                    <p className="text-sm text-slate-400">
+                      {packageDetails?.vehicle?.details}
+                    </p>
+                  </div>
+
+                  <div className="grid grid-cols-1 relative">
+                    <div className="tiny-five-item">
+                      <TinySlider settings={settings}>
+                        {packageDetails?.vehicle?.images?.map((item, index) => {
+                          return (
+                            <div className="tiny-slide" key={index}>
+                              <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800 m-2">
+                                <img
+                                  src={item.image}
+                                  className="w-full h-72 object-cover scale-125 group-hover:scale-100 duration-500"
+                                  alt=""
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-b to-slate-900 from-transparent opacity-0 group-hover:opacity-100 duration-500"></div>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </TinySlider>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
