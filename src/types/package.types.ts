@@ -6,6 +6,7 @@ export interface IPackage {
     duration?: string;
     description?: string;
     cover_image?: string;
+    images?: IPackageImages[];
     display_price?: number | null;
     display_discount_percentage?: number | null;
     day_records?: IDayRecord[];
@@ -14,6 +15,12 @@ export interface IPackage {
     vehicle?: IVehicle;
     accommodation?: IAccommodation;
     trips?: ITrip[]; 
+}
+
+export interface IPackageImages {
+    id: number; 
+    package: number; 
+    image: string; 
 }
 
 export interface IDay {

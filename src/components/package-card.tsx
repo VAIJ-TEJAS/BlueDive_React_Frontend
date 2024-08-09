@@ -20,7 +20,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ item }) => {
           <div className="absolute top-0 start-0 p-4">
             <span className="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">
               {item.display_discount_percentage}
-              {"% OFF"}
+              % OFF
             </span>
           </div>
         )}

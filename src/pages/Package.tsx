@@ -1,12 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import image1 from "../assets/images/listing/1.jpg";
-import image2 from "../assets/images/listing/2.jpg";
-import image3 from "../assets/images/listing/3.jpg";
-import image4 from "../assets/images/listing/4.jpg";
-import image5 from "../assets/images/listing/5.jpg";
-
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
@@ -32,6 +26,7 @@ import {
   IDayRecord,
   IEventRecord,
   IPackage,
+  IPackageImages,
   IPaxOptions,
 } from "../types/package.types";
 import { ITrip } from "../types/trip.types";
@@ -43,6 +38,7 @@ import "tiny-slider/dist/tiny-slider.css";
 export default function Package() {
   const { package_name } = useParams();
   const [packageDetails, setPackageDetails] = useState<IPackage | null>(null);
+  const [images, setImages] = useState<string[]>([]);
   const [trips, setTrips] = useState<ITrip[]>([]);
   const [paxOptions, setPaxOptions] = useState<IPaxOptions[]>([]);
   const [values, setValues] = useState<Record<string, number>>({});
@@ -50,7 +46,6 @@ export default function Package() {
     null
   );
 
-  let images = [image1, image2, image3, image4, image5];
   let [photoIndex, setActiveIndex] = useState(0);
   let [isOpen, setOpen] = useState(false);
 
@@ -94,13 +89,17 @@ export default function Package() {
     axios
       .get(`/packages-trips/?name=${package_name}`)
       .then((response) => {
-        const packageData = response.data[0];
+
+        const packageData:IPackage = response.data[0];
+
         setPackageDetails({
           ...packageData,
           trips: undefined,
           pax_options: undefined,
+          images: undefined,
         });
 
+        setImages(packageData?.images?.map((image: IPackageImages) => image.image) || []);
         setPaxOptions(packageData.pax_options || []);
         setTrips(packageData.trips || []);
 
@@ -153,7 +152,7 @@ export default function Package() {
           <div className="md:flex mt-4">
             <div className="lg:w-1/2 md:w-1/2 p-1">
               <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                <img src={image1} alt="" />
+                <img src={images[0]} alt="" />
                 <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                 <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                   <Link
@@ -171,7 +170,7 @@ export default function Package() {
               <div className="flex">
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={image2} alt="" />
+                    <img src={images[1]} alt="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -187,7 +186,7 @@ export default function Package() {
 
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={image3} alt="" />
+                    <img src={images[2]} alt="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -205,7 +204,7 @@ export default function Package() {
               <div className="flex">
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={image4} alt="" />
+                    <img src={images[3]} alt="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -221,7 +220,7 @@ export default function Package() {
 
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={image5} alt="" />
+                    <img src={images[5]} alt="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -242,7 +241,14 @@ export default function Package() {
         <div className="container relative md:mt-24 mt-16">
           <div className="grid md:grid-cols-12 grid-cols-1 gap-6">
             <div className="lg:col-span-8 md:col-span-7">
+              <div className="">
+                <span className="text-[12px] text-slate-400 mr-1">UP TO</span>
+                <span className="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">
+                  {packageDetails?.display_discount_percentage}% OFF
+                </span>
+              </div>
               <h5 className="text-2xl font-semibold">{packageDetails?.name}</h5>
+              <h5 className="text-2xl text-red-500 font-semibold">starts at just ₹ {packageDetails?.display_price}*/-</h5>
               <p className="flex items-center text-slate-400 font-medium mt-2">
                 <FiClock className="text-red-500 size-4 me-1" />{" "}
                 {packageDetails?.duration}
@@ -300,6 +306,11 @@ export default function Package() {
                               <div className="font-medium inline-flex gap-1 items-center">
                                 {getIconByName(eventRecord.event.name)}{" "}
                                 {eventRecord.event.name}
+                                {eventRecord.event.standard_option && (
+                                  <div className="text-slate-400">
+                                    - {eventRecord.event.standard_option}
+                                  </div>
+                                )}
                               </div>
                               <p className="text-sm text-slate-400">
                                 {eventRecord.event.description}
