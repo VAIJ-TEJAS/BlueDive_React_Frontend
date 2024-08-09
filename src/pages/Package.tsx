@@ -511,9 +511,9 @@ export default function Package() {
                 </div>
 
                 <div className="mt-4">
-                  <button className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full">
+                  <Link to={`/booking/${package_name}`} className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full">
                     Book Now
-                  </button>
+                  </Link>
                 </div>
 
                 {/* <div className="mt-6">
