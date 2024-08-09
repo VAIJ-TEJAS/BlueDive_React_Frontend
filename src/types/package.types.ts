@@ -1,70 +1,103 @@
-interface Package {
+import { ITrip } from "./trip.types";
+
+export interface IPackage {
     id: number;
     name: string;
-    duration: string;
+    duration?: string;
     description?: string;
-    days?: Day[];
-    events?: Event[];
-    pax_options?: PaxOptions[];
-    day_records?: DayRecord[];
+    cover_image?: string;
+    display_price?: number | null;
+    display_discount_percentage?: number | null;
+    day_records?: IDayRecord[];
+    pax_options?: IPaxOptions[];
+    meal_records?: IMealRecords[];
+    vehicle?: IVehicle;
+    accommodation?: IAccommodation;
+    trips?: ITrip[]; 
 }
 
-interface Day {
+export interface IDay {
     id: number;
     name: string;
     description?: string;
-    package?: Package;
-    event_records?: EventRecord[];
-    day_records?: DayRecord[];
+    package?: IPackage;
+    event_records?: IEventRecord[];
+    day_records?: IDayRecord[];
 }
 
-interface Event {
+export interface IEvent {
     id: number;
     name: string;
     standard_option?: string;
     description?: string;
-    package?: Package;
-    options?: Option[];
-    event_records?: EventRecord[];
+    package?: IPackage;
+    options?: IOption[];
+    event_records?: IEventRecord[];
 }
 
-interface Option {
+export interface IOption {
     id: number;
     name: string;
     price?: number;
     description?: string;
-    event?: Event;
+    event?: IEvent;
 }
 
-interface EventRecord {
+export interface IEventRecord {
     id: number;
-    event: Event;
-    day: Day;
+    event: IEvent;
+    day: IDay;
 }
 
-interface DayRecord {
+export interface IDayRecord {
     id: number;
-    day: Day;
-    package: Package;
+    day: IDay;
+    package: IPackage;
 }
 
-interface Meal {
+export interface IMeal {
     id: number;
     name: string;
 }
 
-interface PaxOptions {
+export interface IPaxOptions {
     id: number;
     pax: number;
     discount?: number;
-    package?: Package;
-    meal_records?: MealRecords[];
+    package?: IPackage;
+    meal_records?: IMealRecords[];
 }
 
-interface MealRecords {
+export interface IMealRecords {
     id: number;
-    pax_option: PaxOptions;
-    meal: Meal;
+    pax_option: IPaxOptions;
+    meal: IMeal;
     price?: number;
     discounted_price?: number;
+}
+
+export interface IVehicle {
+    id: number;
+    name: string;
+    details?: string;
+    images?: IVehicleImage[];
+}
+
+export interface IVehicleImage {
+    id: number;
+    vehicle: IVehicle;
+    image: string;
+}
+
+export interface IAccommodation {
+    id: number;
+    name: string;
+    details?: string;
+    images?: IAccommodationImage[];
+}
+
+export interface IAccommodationImage {
+    id: number;
+    accommodation: IAccommodation;
+    image: string;
 }

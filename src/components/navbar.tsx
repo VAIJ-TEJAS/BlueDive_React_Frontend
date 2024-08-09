@@ -7,7 +7,6 @@ import logoWhite from "../assets/images/logo-white.png";
 import userImg from "../assets/images/client/16.jpg";
 
 import {
-  FiSearch,
   FiUser,
   FiHelpCircle,
   FiSettings,
@@ -24,10 +23,8 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
   let [scrolling, setScrolling] = useState(false);
   let [manu, setManu] = useState("");
   let [subManu, setSubManu] = useState("");
-  let [isOpen, setIsOpen] = useState(false);
   let [userManu, setUserManu] = useState(false);
 
-  let dropdownRef = useRef<HTMLLIElement>(null);
   let userRef = useRef<HTMLLIElement>(null);
 
   useEffect(() => {
@@ -36,11 +33,6 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
       setScrolling(isScrolling);
     };
 
-    const handleOutsideClick = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
-      }
-    };
 
     const userOutsideClick = (e: MouseEvent) => {
       if (userRef.current && !userRef.current.contains(e.target as Node)) {
@@ -49,7 +41,6 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
     };
 
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("click", handleOutsideClick);
     window.addEventListener("click", userOutsideClick);
 
     let current = window.location.pathname;
@@ -59,7 +50,6 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("click", handleOutsideClick);
       window.removeEventListener("click", userOutsideClick);
     };
   }, []);
@@ -878,63 +868,6 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
           </div>
 
           <ul className="buy-button list-none mb-0 space-x-1">
-            {navlight === true ? (
-              <li
-                className="dropdown inline-block relative pe-1"
-                ref={dropdownRef}
-              >
-                <button
-                  className="dropdown-toggle align-middle inline-flex search-dropdown"
-                  type="button"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <FiSearch className="size-5 dark-icon"></FiSearch>
-                  <FiSearch className="size-5 white-icon text-white"></FiSearch>
-                </button>
-                {isOpen && (
-                  <div className="dropdown-menu absolute overflow-hidden end-0 m-0 mt-5 z-10 md:w-52 w-48 rounded-md bg-white dark:bg-slate-900 shadow dark:shadow-gray-800">
-                    <div className="relative">
-                      <FiSearch className="size-4 absolute top-[9px] end-3"></FiSearch>
-                      <input
-                        type="text"
-                        className="h-9 px-3 pe-10 w-full border-0 focus:ring-0 outline-none bg-white dark:bg-slate-900"
-                        name="s"
-                        id="searchItem"
-                        placeholder="Search..."
-                      />
-                    </div>
-                  </div>
-                )}
-              </li>
-            ) : (
-              <li
-                className="dropdown inline-block relative pe-1"
-                ref={dropdownRef}
-              >
-                <button
-                  className="dropdown-toggle align-middle inline-flex search-dropdown"
-                  type="button"
-                  onClick={() => setIsOpen(!isOpen)}
-                >
-                  <FiSearch className="size-5"></FiSearch>
-                </button>
-                {isOpen && (
-                  <div className="dropdown-menu absolute overflow-hidden end-0 m-0 mt-5 z-10 md:w-52 w-48 rounded-md bg-white shadow dark:shadow-gray-800">
-                    <div className="relative">
-                      <FiSearch className="size-4 absolute top-[9px] end-3"></FiSearch>
-                      <input
-                        type="text"
-                        className="h-9 px-3 pe-10 w-full border-0 focus:ring-0 outline-none bg-white"
-                        name="s"
-                        id="searchItem"
-                        placeholder="Search..."
-                      />
-                    </div>
-                  </div>
-                )}
-              </li>
-            )}
-
             <li className="dropdown inline-block relative ps-0.5" ref={userRef}>
               <button
                 className="dropdown-toggle items-center"
