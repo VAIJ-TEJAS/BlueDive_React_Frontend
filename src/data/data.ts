@@ -320,21 +320,33 @@ export const footerCompany = [
         link:'/aboutus'
     },
     {
-        name:'Services',
-        link:'/services'
+        name:'Contact us',
+        link:'/contact'
+    },
+    // {
+    //     name:'Services',
+    //     link:'/services'
+    // },
+    // {
+    //     name:'Team',
+    //     link:'/team'
+    // },
+    {
+        name:'Terms of Service',
+        link:'/terms-of-service'
     },
     {
-        name:'Team',
-        link:'/team'
+        name:'Privacy Policy',
+        link:'/privacy-policy'
     },
-    {
-        name:'Pricing',
-        link:'/pricing'
-    },
-    {
-        name:'Blog',
-        link:'/blogs'
-    },
+    // {
+    //     name:'Pricing',
+    //     link:'/pricing'
+    // },
+    // {
+    //     name:'Blog',
+    //     link:'/blogs'
+    // },
     {
         name:' Login',
         link:'/login'

@@ -44,7 +44,7 @@ export default function Footer(){
                                         <div className="flex mt-4">
                                             <FiMail className="size-4 text-red-500 me-2 mt-1"></FiMail>
                                             <div className="">
-                                                <Link to="mailto:contact@example.com" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">contact@bluedive.in</Link>
+                                                <Link to="mailto:contact@bluedive.in" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">contact@bluedive.in</Link>
                                             </div>
                                         </div>
                         
