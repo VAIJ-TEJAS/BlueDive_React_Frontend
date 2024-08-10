@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
-import logoWhite from "../assets/images/logo-white.png";
+// import logoWhite from "../assets/images/logo-white.png";
 import userImg from "../assets/images/client/16.jpg";
 
 import {
@@ -64,17 +64,17 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
         {navlight && (
           <Link className="logo" to="/">
             <span className="inline-block">
-              <img src={logoDark} className="h-7 l-dark" alt="" />
-              <img src={logoLight} className="h-7 l-light" alt="" />
+              <img src={logoDark} className="h-12 l-dark" alt="" />
+              <img src={logoLight} className="h-12 l-light" alt="" />
             </span>
-            <img src={logoWhite} className="hidden" alt="" />
+            {/* <img src={logoWhite} className="hidden" alt="" /> */}
           </Link>
         )}
         {!navlight && (
           <Link className="logo" to="/">
             <div>
-              <img src={logoDark} className="h-7 inline-block" alt="" />
-              <img src={logoWhite} className="h-7 hidden" alt="" />
+              <img src={logoDark} className="h-12 inline-block" alt="" />
+              {/* <img src={logoWhite} className="h-7 hidden" alt="" /> */}
             </div>
           </Link>
         )}

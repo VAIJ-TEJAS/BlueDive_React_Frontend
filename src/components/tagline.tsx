@@ -1,4 +1,4 @@
-import {FiClock, FiMapPin, FiMail, FiFacebook, FiInstagram, FiTwitter, FiPhone} from '../assets/icons/vander'
+import {FiClock, FiMapPin, FiMail, FiFacebook, FiInstagram, FiPhone} from '../assets/icons/vander'
 
 export default function Tagline(){
     return(
@@ -14,7 +14,7 @@ export default function Tagline(){
                             </li>
                             <li className="inline-flex items-center ms-2">
                                 <FiMapPin className="text-red-500 size-4"></FiMapPin>
-                                <span className="ms-2 text-slate-300">Houston, USA 485</span>
+                                <span className="ms-2 text-slate-300">Pune-411019, Maharashtra</span>
                             </li>
                         </ul>
 
@@ -27,7 +27,7 @@ export default function Tagline(){
                                 <ul className="list-none space-x-3">
                                     <li className="inline-flex mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiFacebook className="size-4 align-middle" title="facebook"></FiFacebook></a></li>
                                     <li className="inline-flex ms-2 mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiInstagram className="size-4 align-middle" title="instagram"></FiInstagram></a></li>
-                                    <li className="inline-flex ms-2 mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiTwitter className="size-4 align-middle" title="twitter"></FiTwitter></a></li>
+                                    {/* <li className="inline-flex ms-2 mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiTwitter className="size-4 align-middle" title="twitter"></FiTwitter></a></li> */}
                                     <li className="inline-flex ms-2 mb-0"><a href="tel:+152534-468-854" className="text-slate-300 hover:text-red-500"><FiPhone className="size-4 align-middle" title="phone"></FiPhone></a></li>
                                 </ul>
                             </li>

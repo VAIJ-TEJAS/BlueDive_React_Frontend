@@ -34,7 +34,7 @@ import payment2 from '../assets/images/payments/american-express.jpg'
 import payment3 from '../assets/images/payments/discover.jpg'
 import payment4 from '../assets/images/payments/mastercard.jpg'
 
-import {FiShoppingCart,FiDribbble, FiLinkedin,FiFacebook,FiInstagram,FiTwitter,FiMail,FiClock,FiActivity, FiUsers, FiGlobe,FiDollarSign,FiYoutube,FiHelpCircle,FiBookmark,FiSettings,FiGithub,FiGitlab} from "../assets/icons/vander"
+import {FiLinkedin,FiFacebook,FiInstagram,FiTwitter,FiMail,FiClock,FiActivity, FiUsers, FiGlobe,FiDollarSign,FiYoutube,FiHelpCircle,FiBookmark,FiSettings,FiGithub,FiGitlab} from "../assets/icons/vander"
 
 export const topDestination = [
     {
@@ -284,18 +284,18 @@ export const blogData = [
 ]
 
 export const footerSocial = [
-    {
-        icon:FiShoppingCart,
-        link:'https://1.envato.market/travosy-react'
-    },
-    {
-        icon:FiDribbble,
-        link:'https://dribbble.com/shreethemes'
-    },
-    {
-        icon:FiLinkedin,
-        link:'http://linkedin.com/company/shreethemes'
-    },
+    // {
+    //     icon:FiShoppingCart,
+    //     link:'https://1.envato.market/travosy-react'
+    // },
+    // {
+    //     icon:FiDribbble,
+    //     link:'https://dribbble.com/shreethemes'
+    // },
+    // {
+    //     icon:FiLinkedin,
+    //     link:'http://linkedin.com/company/shreethemes'
+    // },
     {
         icon:FiFacebook,
         link:'https://www.facebook.com/shreethemes'
@@ -304,10 +304,10 @@ export const footerSocial = [
         icon:FiInstagram,
         link:'https://www.instagram.com/shreethemes'
     },
-    {
-        icon:FiTwitter,
-        link:'https://twitter.com/shreethemes'
-    },
+    // {
+    //     icon:FiTwitter,
+    //     link:'https://twitter.com/shreethemes'
+    // },
     {
         icon:FiMail,
         link:'mailto:support@shreethemes.in'

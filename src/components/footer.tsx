@@ -13,7 +13,7 @@ export default function Footer(){
                     <div className="col-span-12">
                         <div className="py-[60px] px-0">
                             <div className="grid md:grid-cols-12 grid-cols-1 gap-6">
-                                <div className="lg:col-span-3 md:col-span-12">
+                                <div className="lg:col-span-4 md:col-span-12">
                                     <Link to="#" className="text-[22px] focus:outline-none">
                                         <img src={logoLight} alt=""/>
                                     </Link>
@@ -29,35 +29,35 @@ export default function Footer(){
                                     </ul>
                                 </div>
 
-                                <div className="lg:col-span-3 md:col-span-4">
+                                <div className="lg:col-span-4 md:col-span-6">
                                     <div className="lg:ms-8">
                                         <h5 className="tracking-[1px] text-gray-100 font-semibold">Office</h5>
-                                        <h5 className="tracking-[1px] text-gray-100 mt-6">Travosy Tour & Travels</h5>
+                                        <h5 className="tracking-[1px] text-gray-100 mt-6">BlueDive Konkan Wonders</h5>
 
                                         <div className="flex mt-4">
                                             <FiMapPin className="size-4 text-red-500 me-2 mt-1"></FiMapPin>
                                             <div className="">
-                                                <h6 className="text-gray-300">C/54 Northwest Freeway, <br/> Suite 558, <br/> Houston, USA 485</h6>
+                                                <h6 className="text-gray-300">Pune-411019, <br/> Maharashtra, <br/> India</h6>
                                             </div>
                                         </div>
 
                                         <div className="flex mt-4">
                                             <FiMail className="size-4 text-red-500 me-2 mt-1"></FiMail>
                                             <div className="">
-                                                <Link to="mailto:contact@example.com" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">contact@example.com</Link>
+                                                <Link to="mailto:contact@example.com" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">contact@bluedive.in</Link>
                                             </div>
                                         </div>
                         
                                         <div className="flex mt-4">
                                             <FiPhone className="size-4 text-red-500 me-2 mt-1"></FiPhone>
                                             <div className="">
-                                                <Link to="tel:+152534-468-854" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">+152 534-468-854</Link>
+                                                <Link to="tel:+91-866-890-4446" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">+91-866-890-4446</Link>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                 
-                                <div className="lg:col-span-3 md:col-span-4">
+                                <div className="lg:col-span-4 md:col-span-6">
                                     <div className="lg:ms-8">
                                         <h5 className="tracking-[1px] text-gray-100 font-semibold">Company</h5>
                                         <ul className="list-none footer-list mt-6">
@@ -70,7 +70,7 @@ export default function Footer(){
                                     </div>
                                 </div>
     
-                                <div className="lg:col-span-3 md:col-span-4">
+                                {/* <div className="lg:col-span-3 md:col-span-4">
                                     <h5 className="tracking-[1px] text-gray-100 font-semibold">Newsletter</h5>
                                     <p className="mt-6">Sign up and receive the latest tips via email.</p>
                                     <form>
@@ -86,7 +86,7 @@ export default function Footer(){
                                             <button type="submit" id="submitsubscribe" name="send" className="py-2 px-5 inline-block font-semibold tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">Subscribe</button>
                                         </div>
                                     </form>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>
@@ -97,7 +97,7 @@ export default function Footer(){
                 <div className="container relative text-center">
                     <div className="grid grid-cols-1">
                         <div className="text-center">
-                            <p className="mb-0">© {new Date().getFullYear()} Travosy. Design & Develop with <i className="mdi mdi-heart text-red-600"></i> by <Link to="https://shreethemes.in/" target="_blank" className="text-reset">Shreethemes</Link>.</p>
+                            <p className="mb-0">© {new Date().getFullYear()} BlueDive Konkan Wonders</p>
                         </div>
                     </div>
                 </div>
