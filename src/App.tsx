@@ -11,23 +11,33 @@ import Privacy from "./pages/Privacy";
 import Terms from "./pages/Terms";
 import UserProfile from "./pages/UserProfile";
 import UserSetting from "./pages/UserSettings";
+import Auth from "./components/auth";
+import { Context } from "./context/context.provider";
 
 function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/tour-packages/" element={<TourPackages />} />
-      <Route path="/package/:package_name" element={<Package />} />
-      <Route path="/booking/:package_name" element={<Booking />} />
-      <Route path="/aboutus/" element={<Aboutus />} />
-      <Route path="/contact/" element={<Contact />} />
-      <Route path="/privacy-policy/" element={<Privacy />} />
-      <Route path="/terms-of-service/" element={<Terms />} />
+  const { userAuthenticated } = Context();
 
-      {/* Authenticated Routes  */}
-      <Route path="/user-profile/" element={<UserProfile />} />
-      <Route path="/user-setting/" element={<UserSetting />} />
-    </Routes>
+  return (
+    <div>
+      <Auth />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tour-packages/" element={<TourPackages />} />
+        <Route path="/package/:package_name" element={<Package />} />
+        <Route path="/booking/:package_name" element={<Booking />} />
+        <Route path="/aboutus/" element={<Aboutus />} />
+        <Route path="/contact/" element={<Contact />} />
+        <Route path="/privacy-policy/" element={<Privacy />} />
+        <Route path="/terms-of-service/" element={<Terms />} />
+
+        {userAuthenticated && (
+          <>
+            <Route path="/user-profile/" element={<UserProfile />} />
+            <Route path="/user-setting/" element={<UserSetting />} />
+          </>
+        )}
+      </Routes>
+    </div>
   );
 }
 

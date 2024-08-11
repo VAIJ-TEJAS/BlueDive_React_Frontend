@@ -4,13 +4,10 @@ import { Link } from "react-router-dom";
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
 // import logoWhite from "../assets/images/logo-white.png";
-import userImg from "../assets/images/client/16.jpg";
 
-import {
-  FiUser,
-  FiSettings,
-  FiLogOut,
-} from "../assets/icons/vander";
+import { FiUser, FiSettings } from "../assets/icons/vander";
+import { Context } from "../context/context.provider";
+import { IUserData } from "../types/user.types";
 
 interface NavbarProps {
   navclass: string;
@@ -25,12 +22,28 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
 
   let userRef = useRef<HTMLLIElement>(null);
 
+  const { userAuthenticated, showAuthModal } = Context();
+
+  const username = () => {
+    if (userAuthenticated) {
+      const user_data: IUserData = JSON.parse(
+        localStorage.getItem("bluedive-user-data") || ""
+      );
+      if (user_data?.first_name) {
+        return user_data.first_name + " " + user_data.last_name;
+      } else {
+        return user_data.username;
+      }
+    } else {
+      return "LOGIN";
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const isScrolling = window.scrollY > 50;
       setScrolling(isScrolling);
     };
-
 
     const userOutsideClick = (e: MouseEvent) => {
       if (userRef.current && !userRef.current.contains(e.target as Node)) {
@@ -50,10 +63,6 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
       window.removeEventListener("click", userOutsideClick);
     };
   }, []);
-
-//   const toggleMenu = () => {
-//     setToggle(!isToggle);
-//   };
 
   return (
     <nav id="topnav" className={`${navclass} ${scrolling ? "nav-sticky" : ""}`}>
@@ -77,13 +86,9 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
         )}
 
         <div className="flex">
-          <div
-            id="navigation"
-            
-          >
+          <div id="navigation">
             <ul className={`navigation-menu ${manuclass}`}>
-
-            <li className={`${manu === "/tour-packages" ? "active" : ""}`}>
+              <li className={`${manu === "/tour-packages" ? "active" : ""}`}>
                 <Link to="/tour-packages" className="sub-menu-item">
                   Packages
                 </Link>
@@ -108,10 +113,10 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
               <button
                 className="dropdown-toggle items-center"
                 type="button"
-                onClick={() => setUserManu(!userManu)}
+                onClick={() => userAuthenticated ? setUserManu(!userManu) : showAuthModal()}
               >
-                <span className="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-md border border-red-500 bg-red-500 text-white">
-                  <img src={userImg} className="rounded-md" alt="" />
+                <span className="px-2 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-md border border-red-500 bg-red-500 text-white">
+                  {username()}
                 </span>
               </button>
               {userManu && (
@@ -132,15 +137,6 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
                       >
                         <FiSettings className="size-4 me-2"></FiSettings>
                         Settings
-                      </Link>
-                    </li>
-                    <li className="border-t border-gray-100 dark:border-gray-800 my-2"></li>
-                    <li>
-                      <Link
-                        to="/login"
-                        className="flex items-center font-medium py-2 px-4 dark:text-white/70 hover:text-red-500 dark:hover:text-white"
-                      >
-                        <FiLogOut className="size-4 me-2"></FiLogOut>Logout
                       </Link>
                     </li>
                   </ul>

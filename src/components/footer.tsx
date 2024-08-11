@@ -6,6 +6,7 @@ import { footerCompany, footerSocial } from "../data/data";
 import {FiMapPin, FiMail, FiPhone} from '../assets/icons/vander'
 
 export default function Footer(){
+
     return(
         <footer className="footer bg-dark-footer relative text-gray-200 dark:text-gray-200">    
             <div className="container relative">

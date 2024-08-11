@@ -1,7 +1,8 @@
-import ReactDOM from 'react-dom/client'
-import { BrowserRouter } from 'react-router-dom';
-import App from './App.tsx'
-import './index.css'
+import ReactDOM from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { MyContextProvider } from "./context/context.provider.tsx";
+import App from "./App.tsx";
+import "./index.css";
 
 declare global {
   interface Window {
@@ -11,8 +12,10 @@ declare global {
 
 window.global ||= window;
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-)
+    <MyContextProvider>
+      <App />
+    </MyContextProvider>
+  </BrowserRouter>
+);

@@ -347,10 +347,10 @@ export const footerCompany = [
     //     name:'Blog',
     //     link:'/blogs'
     // },
-    {
-        name:' Login',
-        link:'/login'
-    },
+    // {
+    //     name:' Login',
+    //     link:'/login'
+    // },
 ]
 
 export const placeImage = [
