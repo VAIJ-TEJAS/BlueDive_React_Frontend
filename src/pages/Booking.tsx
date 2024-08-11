@@ -50,9 +50,13 @@ export default function Booking() {
     }));
 
     const paxOption = paxOptions.find((option) => option.pax === pax);
-    const defaultMealRecord = paxOption?.meal_records?.find((record) => record.meal.name === packageDetails?.default_meal_option?.name);
+    const defaultMealRecord = paxOption?.meal_records?.find(
+      (record) => record.meal.name === packageDetails?.default_meal_option?.name
+    );
     const packageCost = defaultMealRecord ? defaultMealRecord.price : 0;
-    const discountedPackageCost = defaultMealRecord ? defaultMealRecord.discounted_price : 0;
+    const discountedPackageCost = defaultMealRecord
+      ? defaultMealRecord.discounted_price
+      : 0;
 
     const newPaxRecord: IPaxRecord = {
       id: generateId(),
@@ -140,21 +144,23 @@ export default function Booking() {
           const updatedDetails = record.customer_details.map((detail, i) => {
             if (i === index) {
               const updatedDetail = { ...detail, [field]: value };
-  
+
               // Update package cost and discounted package cost if meal_option is changed
               if (field === "meal_option") {
-                const selectedMealRecord = paxOptions?.find((option) => option.pax === record.pax)?.meal_records?.find((record) => record.meal.name === value);
-  
+                const selectedMealRecord = paxOptions
+                  ?.find((option) => option.pax === record.pax)
+                  ?.meal_records?.find((record) => record.meal.name === value);
+
                 updatedDetail.package_cost = selectedMealRecord?.price || 0;
                 updatedDetail.discounted_package_cost =
                   selectedMealRecord?.discounted_price || 0;
               }
-  
+
               return updatedDetail;
             }
             return detail;
           });
-  
+
           return { ...record, customer_details: updatedDetails };
         }
         return record;
@@ -175,13 +181,47 @@ export default function Booking() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    "Veg": <GiCarrot className="size-4 text-green-500" />, // Carrot icon for Veg
+    Veg: <GiCarrot className="size-4 text-green-500" />, // Carrot icon for Veg
     "Non Veg": <GiMeat className="size-4 text-red-500" />, // Meat icon for Non Veg
-    "Mix": <GiFruitBowl className="size-4 text-orange-500" />, // Fruit Bowl icon for Mix
+    Mix: <GiFruitBowl className="size-4 text-orange-500" />, // Fruit Bowl icon for Mix
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
     return iconMatrix[name] || null;
+  };
+
+  const handlePayNow = () => {
+    if (selectedTripIndex !== null && packageDetails) {
+      const payload = {
+        package_name: packageDetails.name,
+        trip: trips[selectedTripIndex].id,
+        pax_records: paxRecords.map((record) => ({
+          pax: record.pax,
+          customer_details: record.customer_details.map((detail) => ({
+            name: detail.name,
+            contact_number: detail.contact_number,
+            pick_up_point: detail.pick_up_point,
+            meal_option: detail.meal_option,
+            watersports_option: detail.watersports_option,
+            package_cost: detail.package_cost,
+            discounted_package_cost: detail.discounted_package_cost,
+          })),
+        })),
+      };
+
+      console.log("Booking Payload:", payload);
+
+      axios
+        .post("/bookings/", payload)
+        .then((response) => {
+          console.log("Booking successful:", response.data);
+        })
+        .catch((error) => {
+          console.error("Error creating booking:", error);
+        });
+    } else {
+      console.error("Please select a trip before proceeding to payment.");
+    }
   };
 
   return (
@@ -431,7 +471,12 @@ export default function Booking() {
                               className="w-full"
                             />
                             <p className="text-slate-400">
-                              {(mealOptions.find((meal: IMeal) => meal.name === detail.meal_option))?.description}
+                              {
+                                mealOptions.find(
+                                  (meal: IMeal) =>
+                                    meal.name === detail.meal_option
+                                )?.description
+                              }
                             </p>
                           </div>
 
@@ -467,7 +512,10 @@ export default function Booking() {
             <div className="lg:col-span-4 md:col-span-5">
               <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-20">
                 <div className="mt-4">
-                  <button className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full">
+                  <button
+                    onClick={handlePayNow}
+                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
+                  >
                     Pay Now
                   </button>
                 </div>
