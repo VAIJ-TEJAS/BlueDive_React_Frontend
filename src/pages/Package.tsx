@@ -26,8 +26,7 @@ import {
   IDayRecord,
   IEventRecord,
   IPackage,
-  IPackageImages,
-  IPaxOptions,
+  IPackageImages
 } from "../types/package.types";
 import { ITrip } from "../types/trip.types";
 import moment from "moment";
@@ -40,8 +39,6 @@ export default function Package() {
   const [packageDetails, setPackageDetails] = useState<IPackage | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [trips, setTrips] = useState<ITrip[]>([]);
-  const [paxOptions, setPaxOptions] = useState<IPaxOptions[]>([]);
-  const [values, setValues] = useState<Record<string, number>>({});
   const [selectedTripIndex, setSelectedTripIndex] = useState<number | null>(
     null
   );
@@ -52,20 +49,6 @@ export default function Package() {
   let handleCLick = (index: number) => {
     setActiveIndex(index);
     setOpen(true);
-  };
-
-  const handleIncrement = (pax: number) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [pax]: (prevValues[pax] || 0) + 1,
-    }));
-  };
-
-  const handleDecrement = (pax: number) => {
-    setValues((prevValues) => ({
-      ...prevValues,
-      [pax]: Math.max((prevValues[pax] || 0) - 1, 0),
-    }));
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
@@ -100,17 +83,7 @@ export default function Package() {
         });
 
         setImages(packageData?.images?.map((image: IPackageImages) => image.image) || []);
-        setPaxOptions(packageData.pax_options || []);
         setTrips(packageData.trips || []);
-
-        const initialValues = packageData.pax_options?.reduce(
-          (acc: Record<string, number>, option: IPaxOptions) => {
-            acc[option.pax] = 0;
-            return acc;
-          },
-          {} as Record<string, number>
-        );
-        setValues(initialValues || {});
 
         console.log(packageData);
       })
@@ -472,41 +445,6 @@ export default function Package() {
                         </button>
                       );
                     })}
-                  </div>
-                </div>
-
-                <div className="mt-4">
-                  <div className="">
-                    <span className="font-medium">Pax:</span>
-                    <div className="mt-4 md:mt-0">
-                      {paxOptions.map((option) => (
-                        <li
-                          className="inline-flex items-center  w-full py-2 border-b border-slate-200"
-                          key={option.pax}
-                        >
-                          <div className="text-base font-medium mr-4">
-                            {option.pax} PAX
-                          </div>
-                          <div className="flex-1 flex justify-between items-center">
-                            <button
-                              className="inline-flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-red-500 rounded"
-                              onClick={() => handleDecrement(option.pax)}
-                            >
-                              -
-                            </button>
-                            <span className="text-base mx-2">
-                              {values[option.pax] || 0}
-                            </span>
-                            <button
-                              className="inline-flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-red-500 rounded"
-                              onClick={() => handleIncrement(option.pax)}
-                            >
-                              +
-                            </button>
-                          </div>
-                        </li>
-                      ))}
-                    </div>
                   </div>
                 </div>
 

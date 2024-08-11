@@ -12,9 +12,13 @@ export interface IPackage {
     day_records?: IDayRecord[];
     pax_options?: IPaxOptions[];
     meal_records?: IMealRecords[];
+    meals?: IMeal[]; 
+    default_meal_option?: IMeal;
     vehicle?: IVehicle;
     accommodation?: IAccommodation;
-    trips?: ITrip[]; 
+    trips?: ITrip[];
+    pickup_points?: IPickupPoint[]; 
+    water_sport_options?: IWaterSportOption[]; 
 }
 
 export interface IPackageImages {
@@ -65,6 +69,7 @@ export interface IDayRecord {
 export interface IMeal {
     id: number;
     name: string;
+    description: string;
 }
 
 export interface IPaxOptions {
@@ -107,4 +112,15 @@ export interface IAccommodationImage {
     id: number;
     accommodation: IAccommodation;
     image: string;
+}
+
+export interface IPickupPoint {
+    id: number;
+    name: string;
+    location: string;
+}
+
+export interface IWaterSportOption {
+    id: number;
+    name: string;
 }
