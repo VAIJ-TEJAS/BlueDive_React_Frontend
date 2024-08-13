@@ -24,13 +24,14 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
 
   const { userAuthenticated, showAuthModal } = Context();
 
+  const user_data: IUserData = JSON.parse(
+    localStorage.getItem("bluedive-user-data") || ""
+  );
+
   const username = () => {
     if (userAuthenticated) {
-      const user_data: IUserData = JSON.parse(
-        localStorage.getItem("bluedive-user-data") || ""
-      );
       if (user_data?.first_name) {
-        return user_data.first_name + " " + user_data.last_name;
+        return user_data.first_name[0] + user_data.last_name[0];
       } else {
         return user_data.username;
       }
@@ -113,9 +114,15 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
               <button
                 className="dropdown-toggle items-center"
                 type="button"
-                onClick={() => userAuthenticated ? setUserManu(!userManu) : showAuthModal()}
+                onClick={() =>
+                  userAuthenticated ? setUserManu(!userManu) : showAuthModal()
+                }
               >
-                <span className="px-2 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-md border border-red-500 bg-red-500 text-white">
+                <span
+                  className={`px-2 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center ${
+                    user_data?.first_name !== "" ? "rounded-full w-10 h-10" : "rounded-md"
+                  } border border-red-500 bg-red-500 text-white`}
+                >
                   {username()}
                 </span>
               </button>

@@ -2,9 +2,21 @@ import { Link } from "react-router-dom";
 
 import { FiAirplay, FiSettings, FiLogOut } from "../assets/icons/vander";
 import { IUserData } from "../types/user.types";
+import { Context } from "../context/context.provider";
+import { confirmation } from "./confirmation";
 
 export default function AccountingTab() {
   let current = window.location.pathname;
+  const { signOutUser } = Context();
+
+  const handleSignOut = async () => {
+    const confirmed = await confirmation('Are you sure you want to sign out?');
+
+    if (confirmed) {
+      signOutUser(); 
+      window.location.href = '/';  // Redirect to the home page
+    }
+  };
 
   const user_data: IUserData = JSON.parse(
     localStorage.getItem("bluedive-user-data") || ""
@@ -22,7 +34,7 @@ export default function AccountingTab() {
                     ? user_data.first_name + " " + user_data.last_name
                     : user_data.username}
                 </h5>
-                <p className="text-slate-400">{user_data.email ? user_data.email : 'Welcome'}</p>
+                <p className="text-slate-400">Welcome</p>
               </div>
             </div>
           </div>
@@ -66,15 +78,15 @@ export default function AccountingTab() {
                   current === "/lock-screen" ? "active" : ""
                 }`}
               >
-                <Link
-                  to="/lock-screen"
+                <button
+                  onClick={handleSignOut}
                   className="navbar-link text-slate-400 flex items-center py-2 rounded"
                 >
                   <span className="me-2 mb-0">
                     <FiLogOut className="size-4"></FiLogOut>
                   </span>
                   <h6 className="mb-0 font-medium">Sign Out</h6>
-                </Link>
+                </button>
               </li>
             </ul>
           </div>
