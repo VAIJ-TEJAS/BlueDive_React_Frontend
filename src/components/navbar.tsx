@@ -120,7 +120,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
               >
                 <span
                   className={`px-2 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center ${
-                    user_data?.first_name === "" ? "rounded-full w-10 h-10" : "rounded-md"
+                    username() !== "LOGIN" ? "rounded-full w-10 h-10" : "rounded-md"
                   } border border-red-500 bg-red-500 text-white`}
                 >
                   {username()}
