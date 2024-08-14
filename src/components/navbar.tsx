@@ -25,7 +25,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
   const { userAuthenticated, showAuthModal } = Context();
 
   const user_data: IUserData = JSON.parse(
-    localStorage.getItem("bluedive-user-data") || ""
+    localStorage.getItem("bluedive-user-data") || "{}"
   );
 
   const username = () => {

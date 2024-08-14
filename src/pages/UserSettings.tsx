@@ -13,7 +13,7 @@ export default function UserSetting() {
   const { signInUser } = Context();
 
   const user_data: IUserData = JSON.parse(
-    localStorage.getItem("bluedive-user-data") || ""
+    localStorage.getItem("bluedive-user-data") || "{}"
   );
 
   const [firstName, setFirstName] = useState(user_data.first_name || "");

@@ -19,7 +19,7 @@ export default function AccountingTab() {
   };
 
   const user_data: IUserData = JSON.parse(
-    localStorage.getItem("bluedive-user-data") || ""
+    localStorage.getItem("bluedive-user-data") || "{}"
   );
 
   return (

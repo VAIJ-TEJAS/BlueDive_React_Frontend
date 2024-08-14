@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL || "https://api.bluedive.in/", // Use BASE_URL from .env file in Vite
+  baseURL: import.meta.env.VITE_BASE_URL, // Use BASE_URL from .env file in Vite
 });
 
 // Add a request interceptor to include the token from localStorage
