@@ -21,6 +21,7 @@ import "react-18-image-lightbox/style.css";
 import "../../node_modules/react-datepicker/dist/react-datepicker.css";
 import "tiny-slider/dist/tiny-slider.css";
 import { ICustomerDetail, IPaxRecord } from "../types/booking-form.types";
+import { RazorpayOptions } from "../types/razorpay";
 
 const { Option } = Select;
 
@@ -151,6 +152,8 @@ export default function Booking() {
                   ?.find((option) => option.pax === record.pax)
                   ?.meal_records?.find((record) => record.meal.name === value);
 
+                updatedDetail.meal_option_id = selectedMealRecord?.id
+
                 updatedDetail.package_cost = selectedMealRecord?.price || 0;
                 updatedDetail.discounted_package_cost =
                   selectedMealRecord?.discounted_price || 0;
@@ -202,6 +205,7 @@ export default function Booking() {
             contact_number: detail.contact_number,
             pick_up_point: detail.pick_up_point,
             meal_option: detail.meal_option,
+            meal_option_id: detail.meal_option_id,
             watersports_option: detail.watersports_option,
             package_cost: detail.package_cost,
             discounted_package_cost: detail.discounted_package_cost,
@@ -212,9 +216,42 @@ export default function Booking() {
       console.log("Booking Payload:", payload);
 
       axios
-        .post("/bookings/", payload)
+        .post("/payments/", payload)
         .then((response) => {
           console.log("Booking successful:", response.data);
+
+          const { order_id, razorpay_key_id } = response.data;
+
+          const options:RazorpayOptions = {
+            "key": razorpay_key_id,
+            "currency": "INR",
+            "name": "BlueDive Konkan Wonders",
+            "description": "",
+            "image": "icon.png",
+            "order_id": order_id,
+            "handler": function (response: any) {
+
+              console.log(response);
+              axios.post("/bookings/", payload);
+              // Handle payment success
+              // alert(response.razorpay_payment_id);
+              // alert(response.razorpay_order_id);
+              // alert(response.razorpay_signature)
+            },
+            "prefill": {
+              // "name": "Gaurav Kumar",
+              // "email": "gaurav.kumar@example.com",
+              // "contact": "9999999999"
+            },
+            "notes": {},
+            "theme": {
+              "color": "#ef4444"
+            }
+          };
+
+          const rzp1 = new window.Razorpay(options);
+          rzp1.open()
+
         })
         .catch((error) => {
           console.error("Error creating booking:", error);

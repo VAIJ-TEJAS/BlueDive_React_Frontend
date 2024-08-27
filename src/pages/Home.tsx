@@ -35,6 +35,8 @@ export default function Home() {
         // Make the GET request to the '/packages' endpoint
         const response = await axios.get("/packages-overview/");
 
+        console.log(response.data)
+
         // Set the response data to the state
         setPackages(response.data);
 

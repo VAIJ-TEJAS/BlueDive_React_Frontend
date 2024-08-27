@@ -13,6 +13,7 @@ import UserProfile from "./pages/UserProfile";
 import UserSetting from "./pages/UserSettings";
 import Auth from "./components/auth";
 import { Context } from "./context/context.provider";
+import UserTour from "./pages/UserTour";
 
 function App() {
   const { userAuthenticated } = Context();
@@ -34,6 +35,7 @@ function App() {
           <>
             <Route path="/user-profile/" element={<UserProfile />} />
             <Route path="/user-setting/" element={<UserSetting />} />
+            <Route path="/user-tour/:id" element={<UserTour />} />
           </>
         )}
       </Routes>

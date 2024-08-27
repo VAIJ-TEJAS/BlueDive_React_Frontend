@@ -7,6 +7,7 @@ export interface ICustomerDetail {
     name: string;
     contact_number: string;
     pick_up_point: string;
+    meal_option_id?: number;
     meal_option: string;
     watersports_option: string;
     package_cost: number;
