@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { Select, Segmented, Input } from "antd";
+import { useLocation, useParams } from "react-router-dom";
+import { Select, Segmented, Input, Radio } from "antd";
 
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
 
-import { FiClock, GiCarrot, GiFruitBowl, GiMeat } from "../assets/icons/vander";
+import {
+  FiClock,
+  GiCarrot,
+  GiFruitBowl,
+  GiMeat,
+  GiScubaMask,
+} from "../assets/icons/vander";
 
 import axios from "../api/axios";
 import {
@@ -22,6 +28,8 @@ import "../../node_modules/react-datepicker/dist/react-datepicker.css";
 import "tiny-slider/dist/tiny-slider.css";
 import { ICustomerDetail, IPaxRecord } from "../types/booking-form.types";
 import { RazorpayOptions } from "../types/razorpay";
+import { FaTag } from "react-icons/fa6";
+import { formatNumber } from "../utils/formatNumber";
 
 const { Option } = Select;
 
@@ -30,19 +38,29 @@ const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
 
 export default function Booking() {
   const { package_name } = useParams();
+  const location = useLocation();
+
   const [packageDetails, setPackageDetails] = useState<IPackage | null>(null);
   const [trips, setTrips] = useState<ITrip[]>([]);
   const [paxOptions, setPaxOptions] = useState<IPaxOptions[]>([]);
   const [values, setValues] = useState<Record<number, number>>({});
-  const [selectedTripIndex, setSelectedTripIndex] = useState<number | null>(
-    null
-  );
+  const [selectedTrip, setSelectedTrip] = useState<ITrip | null>(null);
   const [paxRecords, setPaxRecords] = useState<IPaxRecord[]>([]);
   const [waterSportsOptions, setWaterSportsOptions] = useState<
     IWaterSportOption[]
   >([]);
   const [pickupLocations, setPickupLocations] = useState<IPickupPoint[]>([]);
   const [mealOptions, setMealOptions] = useState<IMeal[]>([]);
+
+  const [selectedPaymentOption, setSelectedPaymentOption] =
+    useState<string>("full");
+  const [advanceAmount, setAdvanceAmount] = useState<number>(0);
+  const [fullAmount, setFullAmount] = useState<number>(0);
+  const paxAdvanceCost = 1000;
+
+  const handleRadioChange = (e: any) => {
+    setSelectedPaymentOption(e.target.value);
+  };
 
   const handleIncrement = (pax: number) => {
     setValues((prevValues) => ({
@@ -67,6 +85,7 @@ export default function Booking() {
         contact_number: "",
         pick_up_point: pickupLocations[0].name || "",
         meal_option: defaultMealRecord?.meal?.name || "",
+        meal_option_id: defaultMealRecord?.id || 0,
         watersports_option: waterSportsOptions[0].name || "",
         package_cost: packageCost || 0,
         discounted_package_cost: discountedPackageCost || 0,
@@ -97,42 +116,6 @@ export default function Booking() {
     });
   };
 
-  useEffect(() => {
-    // Fetch package details
-    axios
-      .get(`/packages-trips/?name=${package_name}`)
-      .then((response) => {
-        const packageData: IPackage = response.data[0];
-
-        setPackageDetails({
-          ...packageData,
-          trips: undefined,
-          pax_options: undefined,
-          images: undefined,
-        });
-
-        setPaxOptions(packageData.pax_options || []);
-        setTrips(packageData.trips || []);
-        setWaterSportsOptions(packageData.water_sport_options || []);
-        setPickupLocations(packageData.pickup_points || []);
-        setMealOptions(packageData.meals || []);
-
-        const initialValues = packageData.pax_options?.reduce(
-          (acc: Record<string, number>, option: IPaxOptions) => {
-            acc[option.pax] = 0;
-            return acc;
-          },
-          {} as Record<string, number>
-        );
-        setValues(initialValues || {});
-
-        console.log(packageData);
-      })
-      .catch((error) => {
-        console.error("Error fetching data", error);
-      });
-  }, [package_name]);
-
   const handleInputChange = (
     paxId: string,
     index: number,
@@ -152,7 +135,7 @@ export default function Booking() {
                   ?.find((option) => option.pax === record.pax)
                   ?.meal_records?.find((record) => record.meal.name === value);
 
-                updatedDetail.meal_option_id = selectedMealRecord?.id
+                updatedDetail.meal_option_id = selectedMealRecord?.id;
 
                 updatedDetail.package_cost = selectedMealRecord?.price || 0;
                 updatedDetail.discounted_package_cost =
@@ -194,10 +177,11 @@ export default function Booking() {
   };
 
   const handlePayNow = () => {
-    if (selectedTripIndex !== null && packageDetails) {
+    if (selectedTrip !== null && packageDetails) {
       const payload = {
+        payment_type: selectedPaymentOption,
         package_name: packageDetails.name,
-        trip: trips[selectedTripIndex].id,
+        trip: selectedTrip.id,
         pax_records: paxRecords.map((record) => ({
           pax: record.pax,
           customer_details: record.customer_details.map((detail) => ({
@@ -220,38 +204,61 @@ export default function Booking() {
         .then((response) => {
           console.log("Booking successful:", response.data);
 
-          const { order_id, razorpay_key_id } = response.data;
+          const { order_id, razorpay_key_id, amount, balance_amount } = response.data;
 
-          const options:RazorpayOptions = {
-            "key": razorpay_key_id,
-            "currency": "INR",
-            "name": "BlueDive Konkan Wonders",
-            "description": "",
-            "image": "icon.png",
-            "order_id": order_id,
-            "handler": function (response: any) {
-
+          const options: RazorpayOptions = {
+            key: razorpay_key_id,
+            currency: "INR",
+            name: "BlueDive Konkan Wonders",
+            description: "",
+            image: "icon.png",
+            order_id: order_id,
+            handler: function (response: any) {
               console.log(response);
-              axios.post("/bookings/", payload);
+              const bookingPayload = {
+                ...payload,
+                order_id,
+                amount,            // Include amount
+                balance_amount ,    // Include balance_amount
+                payments: [
+                  {
+                    payment_id: "sample_payment_id", // This should be set after the payment is processed
+                    order_id,
+                    signature: "sample_signature",   // This should be set after the payment is processed
+                    amount,
+                    payment_method: "Razorpay",
+                  }
+                ]
+              };
+      
+              // Send the booking payload to the /bookings/ endpoint
+              axios.post("/bookings/", bookingPayload)
+                .then((bookingResponse) => {
+                  console.log("Booking confirmed:", bookingResponse.data);
+                  // Handle booking confirmation
+                })
+                .catch((bookingError) => {
+                  console.error("Error confirming booking:", bookingError);
+                });
+
               // Handle payment success
               // alert(response.razorpay_payment_id);
               // alert(response.razorpay_order_id);
               // alert(response.razorpay_signature)
             },
-            "prefill": {
+            prefill: {
               // "name": "Gaurav Kumar",
               // "email": "gaurav.kumar@example.com",
               // "contact": "9999999999"
             },
-            "notes": {},
-            "theme": {
-              "color": "#ef4444"
-            }
+            notes: {},
+            theme: {
+              color: "#ef4444",
+            },
           };
 
           const rzp1 = new window.Razorpay(options);
-          rzp1.open()
-
+          rzp1.open();
         })
         .catch((error) => {
           console.error("Error creating booking:", error);
@@ -260,6 +267,74 @@ export default function Booking() {
       console.error("Please select a trip before proceeding to payment.");
     }
   };
+
+  useEffect(() => {
+    // Fetch package details
+    axios
+      .get(`/packages-trips/?name=${package_name}`)
+      .then((response) => {
+        const packageData: IPackage = response.data[0];
+
+        setPackageDetails({
+          ...packageData,
+          trips: undefined,
+          pax_options: undefined,
+          images: undefined,
+        });
+
+        setPaxOptions(packageData.pax_options || []);
+        setTrips(packageData.trips || []);
+        setWaterSportsOptions(packageData.water_sport_options || []);
+        setPickupLocations(packageData.pickup_points || []);
+        setMealOptions(packageData.meals || []);
+
+        const initialValues = packageData.pax_options?.reduce(
+          (acc: Record<string, number>, option: IPaxOptions) => {
+            acc[option.pax] = 0;
+            return acc;
+          },
+          {} as Record<string, number>
+        );
+        setValues(initialValues || {});
+
+        // Set selectedTrip from location state or default to the first trip
+        const initialSelectedTrip =
+          location.state?.selectedTrip ||
+          (packageData.trips && packageData.trips[0]) ||
+          null;
+        setSelectedTrip(initialSelectedTrip);
+
+        console.log(packageData);
+      })
+      .catch((error) => {
+        console.error("Error fetching data", error);
+      });
+  }, [package_name]);
+
+  useEffect(() => {
+    let payment_advance = 0;
+    let payment_full = 0;
+
+    console.log(paxRecords);
+    if (paxRecords) {
+      paxRecords.forEach((record) => {
+        payment_advance += record.pax * paxAdvanceCost;
+
+        record.customer_details.forEach((customer) => {
+          payment_full += selectedTrip?.is_discount_applicable
+            ? customer.discounted_package_cost
+            : customer.package_cost;
+        });
+      });
+    }
+
+    setAdvanceAmount(payment_advance);
+    setFullAmount(payment_full);
+  }, [selectedTrip, paxRecords]);
+
+  useEffect(() => {
+    setSelectedPaymentOption('full')
+  },[selectedTrip])
 
   return (
     <>
@@ -293,12 +368,12 @@ export default function Booking() {
                       const end_month = moment(trip.end_date).format("MMM");
                       const end_year = moment(trip.end_date).format("YY");
 
-                      const isSelected = selectedTripIndex === index;
+                      const isSelected = selectedTrip?.id === trip.id;
 
                       return (
                         <button
                           key={index}
-                          onClick={() => setSelectedTripIndex(index)}
+                          onClick={() => setSelectedTrip(trip)}
                           className={`flex w-full justify-center gap-4 py-2 px-3 tracking-wide duration-500 text-base rounded-md
                           ${
                             isSelected
@@ -334,6 +409,65 @@ export default function Booking() {
                       );
                     })}
                   </div>
+                  <div
+                    className={`${
+                      selectedTrip?.is_scuba_free ||
+                      selectedTrip?.is_discount_applicable
+                        ? "p-2"
+                        : ""
+                    } flex flex-col items-center justify-center`}
+                  >
+                    {(selectedTrip?.is_scuba_free ||
+                      selectedTrip?.is_discount_applicable) && (
+                      <div className="text-center font-bold text-xl py-4 text-red-500">
+                        Book your trip now to grab:
+                      </div>
+                    )}
+                    <div className="flex gap-2">
+                      {selectedTrip?.is_scuba_free && (
+                        <div className="flex gap-2 px-2">
+                          <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
+                          <div>
+                            <div className="font-bold w-full text-center">
+                              Free Scuba Diving
+                            </div>
+                            <div className="text-slate-400">
+                              On booking before{" "}
+                              <span className="text-red-600">
+                                {moment(
+                                  selectedTrip?.scuba_free_until_date
+                                ).format("DD MMM YY")}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      {selectedTrip?.is_scuba_free &&
+                        selectedTrip?.is_discount_applicable && (
+                          <div className="text-center font-bold text-xl text-red-500">
+                            {"&"}
+                          </div>
+                        )}
+                      {selectedTrip?.is_discount_applicable && (
+                        <div className="flex gap-2 px-2">
+                          <FaTag className="size-16 text-red-500" />
+                          <div>
+                            <div className="font-bold w-full text-center">
+                              Exclusive Discounts
+                            </div>
+                            <div className="text-slate-400">
+                              On booking before{" "}
+                              <span className="text-red-600">
+                                {moment(
+                                  selectedTrip?.discount_applicable_until_date
+                                ).format("DD MMM YY")}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </div>
                 </div>
 
                 <div className="mt-4">
@@ -360,7 +494,7 @@ export default function Booking() {
                                 {values[option.pax] || 0}
                               </span>
                               <button
-                                className="inline-flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-red-500 rounded"
+                                className="inline-flex items-center justify-center w-8 h-8 text-base font-semibold text-white bg-green-500 rounded"
                                 onClick={() => handleIncrement(option.pax)}
                               >
                                 +
@@ -376,7 +510,6 @@ export default function Booking() {
                   </div>
                 </div>
               </div>
-
               <div className="p-4">
                 {/* Render inputs for paxRecords */}
                 {paxRecords.map((record) => (
@@ -523,19 +656,26 @@ export default function Booking() {
                               <label className="block text-sm font-medium mb-1">
                                 Package Cost
                               </label>
-                              <p className="text-3xl line-through">
+                              <p
+                                className={`text-3xl ${
+                                  selectedTrip?.is_discount_applicable
+                                    ? "line-through"
+                                    : ""
+                                }`}
+                              >
                                 ₹ {detail.package_cost}
                               </p>
                             </div>
-
-                            <div className="mb-2">
-                              <label className="block text-sm font-medium mb-1">
-                                Discounted Cost
-                              </label>
-                              <p className="text-3xl text-red-500">
-                                ₹ {detail.discounted_package_cost}
-                              </p>
-                            </div>
+                            {selectedTrip?.is_discount_applicable && (
+                              <div className="mb-2">
+                                <label className="block text-sm font-medium mb-1">
+                                  Discounted Cost
+                                </label>
+                                <p className="text-3xl text-red-500">
+                                  ₹ {detail.discounted_package_cost}
+                                </p>
+                              </div>
+                            )}
                           </div>
                         </div>
                       </div>
@@ -548,6 +688,45 @@ export default function Booking() {
             {/* Sidebar  */}
             <div className="lg:col-span-4 md:col-span-5">
               <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-20">
+                <div>
+                  <Radio.Group
+                    onChange={handleRadioChange}
+                    value={selectedPaymentOption}
+                    className="flex flex-col gap-2"
+                  >
+                    {selectedTrip?.can_do_advance_payment && (
+                      <div>
+                        <Radio value="advance" className="font-bold text-lg">
+                          PAY ADVANCE -{" "}
+                          <span className="text-xl text-green-600">
+                            {" "}
+                            ₹ {formatNumber(advanceAmount)}{" "}
+                          </span>
+                        </Radio>
+                        <div className="text-base text-slate-400">
+                          You can pay the advance amount to partially confirm your seat.
+                          You should pay the balance amount before{" "}
+                          <span className="text-xl text-red-500">
+                            {moment(
+                              selectedTrip?.advance_payment_due_date
+                            ).format("DD MMM YY")}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                    <Radio value="full" className="font-bold text-lg">
+                      PAY FULL -{" "}
+                      <span className="text-xl text-green-600">
+                        {" "}
+                        ₹ {formatNumber(fullAmount)}{" "}
+                      </span>
+                    </Radio>
+                    <div className="text-base text-slate-400">
+                          Your seat will be confirmed
+                        </div>
+                  </Radio.Group>
+                </div>
+                <hr className="mt-2" />
                 <div className="mt-4">
                   <button
                     onClick={handlePayNow}

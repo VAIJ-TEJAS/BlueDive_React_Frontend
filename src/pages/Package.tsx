@@ -26,22 +26,21 @@ import {
   IDayRecord,
   IEventRecord,
   IPackage,
-  IPackageImages
+  IPackageImages,
 } from "../types/package.types";
 import { ITrip } from "../types/trip.types";
 import moment from "moment";
 import "react-18-image-lightbox/style.css";
 import "../../node_modules/react-datepicker/dist/react-datepicker.css";
 import "tiny-slider/dist/tiny-slider.css";
+import { FaTag } from "react-icons/fa6";
 
 export default function Package() {
   const { package_name } = useParams();
   const [packageDetails, setPackageDetails] = useState<IPackage | null>(null);
   const [images, setImages] = useState<string[]>([]);
   const [trips, setTrips] = useState<ITrip[]>([]);
-  const [selectedTripIndex, setSelectedTripIndex] = useState<number | null>(
-    null
-  );
+  const [selectedTrip, setSelectedTrip] = useState<ITrip | null>(null);
 
   let [photoIndex, setActiveIndex] = useState(0);
   let [isOpen, setOpen] = useState(false);
@@ -52,15 +51,15 @@ export default function Package() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    "Pickup": <FiMapPin className="size-4 text-red-500" />,
-    "Breakfast": <MdFreeBreakfast className="size-4 text-yellow-500" />,
+    Pickup: <FiMapPin className="size-4 text-red-500" />,
+    Breakfast: <MdFreeBreakfast className="size-4 text-yellow-500" />,
     "Tea / Coffee": <FiCoffee className="size-4 text-amber-800" />,
     "Sea Safari": <GiDolphin className="size-4 text-blue-500" />,
     "Water Sports": <GiSurfBoard className="size-4 text-sky-500" />,
-    "Lunch": <MdRestaurantMenu className="size-4 text-orange-500" />,
-    "Dinner": <MdLocalDining className="size-4 text-purple-500" />,
+    Lunch: <MdRestaurantMenu className="size-4 text-orange-500" />,
+    Dinner: <MdLocalDining className="size-4 text-purple-500" />,
     "Scuba Diving": <GiScubaMask className="size-4 text-blue-600" />,
-    "Drop": <FiMapPin className="size-4 text-red-500" />,
+    Drop: <FiMapPin className="size-4 text-red-500" />,
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -72,8 +71,7 @@ export default function Package() {
     axios
       .get(`/packages-trips/?name=${package_name}`)
       .then((response) => {
-
-        const packageData:IPackage = response.data[0];
+        const packageData: IPackage = response.data[0];
 
         setPackageDetails({
           ...packageData,
@@ -82,8 +80,16 @@ export default function Package() {
           images: undefined,
         });
 
-        setImages(packageData?.images?.map((image: IPackageImages) => image.image) || []);
-        setTrips(packageData.trips || []);
+        setImages(
+          packageData?.images?.map((image: IPackageImages) => image.image) || []
+        );
+
+        const tripsData = packageData.trips || [];
+
+        setTrips(tripsData);
+        if (tripsData.length > 0) {
+          setSelectedTrip(tripsData[0]);
+        }
 
         console.log(packageData);
       })
@@ -221,7 +227,9 @@ export default function Package() {
                 </span>
               </div>
               <h5 className="text-2xl font-semibold">{packageDetails?.name}</h5>
-              <h5 className="text-2xl text-red-500 font-semibold">starts at just ₹ {packageDetails?.display_price}*/-</h5>
+              <h5 className="text-2xl text-red-500 font-semibold">
+                starts at just ₹ {packageDetails?.display_price}*/-
+              </h5>
               <p className="flex items-center text-slate-400 font-medium mt-2">
                 <FiClock className="text-red-500 size-4 me-1" />{" "}
                 {packageDetails?.duration}
@@ -403,7 +411,7 @@ export default function Package() {
 
             {/* Sidebar  */}
             <div className="lg:col-span-4 md:col-span-5">
-              <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-20">
+              <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-24">
                 <div className="flex flex-col">
                   <label className="font-medium">Trip Date:</label>
 
@@ -412,12 +420,12 @@ export default function Package() {
                       const day = moment(trip.start_date).format("DD");
                       const month = moment(trip.start_date).format("MMM");
                       const year = moment(trip.start_date).format("YY");
-                      const isSelected = selectedTripIndex === index;
+                      const isSelected = selectedTrip?.id === trip.id;
 
                       return (
                         <button
                           key={index}
-                          onClick={() => setSelectedTripIndex(index)}
+                          onClick={() => setSelectedTrip(trip)}
                           className={`py-2 px-3 inline-block tracking-wide duration-500 text-base rounded-md
                           ${
                             isSelected
@@ -446,10 +454,71 @@ export default function Package() {
                       );
                     })}
                   </div>
+                  <div
+                    className={`${
+                      selectedTrip?.is_scuba_free ||
+                      selectedTrip?.is_discount_applicable
+                        ? "p-2"
+                        : ""
+                    }`}
+                  >
+                    {(selectedTrip?.is_scuba_free ||
+                      selectedTrip?.is_discount_applicable) && (
+                      <div className="text-center font-bold text-xl py-4 text-red-500">
+                        Book your trip now to grab:
+                      </div>
+                    )}
+                    {selectedTrip?.is_scuba_free && (
+                      <div className="flex gap-2 px-2">
+                        <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
+                        <div>
+                          <div className="font-bold w-full text-center">
+                            Free Scuba Diving
+                          </div>
+                          <div className="text-slate-400">
+                            On booking before{" "}
+                            <span className="text-red-600">
+                              {moment(
+                                selectedTrip?.scuba_free_until_date
+                              ).format("DD MMM YY")}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedTrip?.is_scuba_free &&
+                      selectedTrip?.is_discount_applicable && (
+                        <div className="text-center font-bold text-xl text-red-500">
+                          {"&"}
+                        </div>
+                      )}
+                    {selectedTrip?.is_discount_applicable && (
+                      <div className="flex gap-2 px-2">
+                        <FaTag className="size-16 text-red-500" />
+                        <div>
+                          <div className="font-bold w-full text-center">
+                            Exclusive Discounts
+                          </div>
+                          <div className="text-slate-400">
+                            On booking before{" "}
+                            <span className="text-red-600">
+                              {moment(
+                                selectedTrip?.discount_applicable_until_date
+                              ).format("DD MMM YY")}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 <div className="mt-4">
-                  <Link to={`/booking/${package_name}`} className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full">
+                  <Link
+                    to={`/booking/${package_name}`} // Set the route
+                    state={{ selectedTrip: selectedTrip }}
+                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
+                  >
                     Book Now
                   </Link>
                 </div>
