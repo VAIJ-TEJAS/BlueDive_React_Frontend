@@ -11,7 +11,7 @@ import Client from "../components/client";
 import faqImg from "../assets/images/bg/6.jpg";
 import heroImg from "../assets/images/bg/main.jpg";
 
-import { FiChevronDown } from "../assets/icons/vander";
+import { FiChevronDown, FiVideo } from "../assets/icons/vander";
 
 import ModalVideo from "react-modal-video";
 import "../../node_modules/react-modal-video/scss/modal-video.scss";
@@ -98,20 +98,20 @@ export default function Home() {
                 >
                   View Packages
                 </Link>
-                {/* <Link
+                <Link
                   to="#!"
                   onClick={() => setOpen(true)}
                   className="size-10 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full border border-red-500 bg-red-500 text-white ms-1 lightbox"
                 >
                   <FiVideo className="h-4 w-4"></FiVideo>
-                </Link> */}
+                </Link>
                 <span className="font-semibold ms-1 align-middle"></span>
               </div>
               <ModalVideo
                 channel="youtube"
                 youtube={{ mute: 0, autoplay: 0 }}
                 isOpen={isOpen}
-                videoId="S_CGed6E610"
+                videoId="LDx3-ZrW0ms"
                 onClose={() => setOpen(false)}
               />
             </div>
