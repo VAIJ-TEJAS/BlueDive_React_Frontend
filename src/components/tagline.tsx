@@ -26,7 +26,7 @@ export default function Tagline(){
                             <li className="inline-flex items-center ms-2">
                                 <ul className="list-none space-x-3">
                                     <li className="inline-flex mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiFacebook className="size-4 align-middle" title="facebook"></FiFacebook></a></li>
-                                    <li className="inline-flex ms-2 mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiInstagram className="size-4 align-middle" title="instagram"></FiInstagram></a></li>
+                                    <li className="inline-flex ms-2 mb-0"><a href="https://www.instagram.com/bluedive_konkan_wonders?igsh=MTJ3dmk4Z3JsenpzcA%3D%3D&utm_source=qr" className="text-slate-300 hover:text-red-500"><FiInstagram className="size-4 align-middle" title="instagram"></FiInstagram></a></li>
                                     {/* <li className="inline-flex ms-2 mb-0"><a href="#!" className="text-slate-300 hover:text-red-500"><FiTwitter className="size-4 align-middle" title="twitter"></FiTwitter></a></li> */}
                                     <li className="inline-flex ms-2 mb-0"><a href="tel:+152534-468-854" className="text-slate-300 hover:text-red-500"><FiPhone className="size-4 align-middle" title="phone"></FiPhone></a></li>
                                 </ul>

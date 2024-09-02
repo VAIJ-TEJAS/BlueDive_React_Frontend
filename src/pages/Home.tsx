@@ -109,7 +109,7 @@ export default function Home() {
               </div>
               <ModalVideo
                 channel="youtube"
-                youtube={{ mute: 0, autoplay: 0 }}
+                youtube={{ mute: 1, autoplay: 1 }}
                 isOpen={isOpen}
                 videoId="LDx3-ZrW0ms"
                 onClose={() => setOpen(false)}

@@ -308,7 +308,7 @@ export const footerSocial = [
     },
     {
         icon:FiInstagram,
-        link:'https://www.instagram.com/shreethemes'
+        link:'https://www.instagram.com/bluedive_konkan_wonders?igsh=MTJ3dmk4Z3JsenpzcA%3D%3D&utm_source=qr'
     },
     // {
     //     icon:FiTwitter,
