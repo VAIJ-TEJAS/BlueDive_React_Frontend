@@ -13,7 +13,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ item }) => {
       <div className="relative overflow-hidden rounded-t-md shadow dark:shadow-gray-700 mx-3 mt-3">
         <img
           src={item.cover_image}
-          className="scale-125 group-hover:scale-100 duration-500"
+          className=""
           alt={"Package"}
         />
         {item.display_discount_percentage && (
