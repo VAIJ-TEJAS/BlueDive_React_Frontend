@@ -5,7 +5,7 @@ import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
 // import logoWhite from "../assets/images/logo-white.png";
 
-import { FiUser, FiSettings } from "../assets/icons/vander";
+import { FiSettings, FiCompass } from "../assets/icons/vander";
 import { Context } from "../context/context.provider";
 import { IUserData } from "../types/user.types";
 
@@ -134,7 +134,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
                         to="/user-profile"
                         className="flex items-center font-medium py-2 px-4 dark:text-white/70 hover:text-red-500 dark:hover:text-white"
                       >
-                        <FiUser className="size-4 me-2"></FiUser>Profile
+                        <FiCompass className="size-4 me-2"></FiCompass>My Tours
                       </Link>
                     </li>
                     <li>

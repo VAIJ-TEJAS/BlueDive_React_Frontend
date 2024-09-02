@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Select, Segmented, Input, Radio } from "antd";
 
 import Navbar from "../components/navbar";
@@ -30,6 +30,7 @@ import { ICustomerDetail, IPaxRecord } from "../types/booking-form.types";
 import { RazorpayOptions } from "../types/razorpay";
 import { FaTag } from "react-icons/fa6";
 import { formatNumber } from "../utils/formatNumber";
+import { Context } from "../context/context.provider";
 
 const { Option } = Select;
 
@@ -38,7 +39,10 @@ const generateId = () => "_" + Math.random().toString(36).substr(2, 9);
 
 export default function Booking() {
   const { package_name } = useParams();
+  const { userAuthenticated, showAuthModal } = Context();
   const location = useLocation();
+  const navigate = useNavigate();
+
 
   const [packageDetails, setPackageDetails] = useState<IPackage | null>(null);
   const [trips, setTrips] = useState<ITrip[]>([]);
@@ -167,9 +171,9 @@ export default function Booking() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    Veg: <GiCarrot className="size-4 text-green-500" />, // Carrot icon for Veg
+    "Veg": <GiCarrot className="size-4 text-green-500" />, // Carrot icon for Veg
     "Non Veg": <GiMeat className="size-4 text-red-500" />, // Meat icon for Non Veg
-    Mix: <GiFruitBowl className="size-4 text-orange-500" />, // Fruit Bowl icon for Mix
+    "Mix": <GiFruitBowl className="size-4 text-orange-500" />, // Fruit Bowl icon for Mix
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -222,10 +226,10 @@ export default function Booking() {
                 balance_amount ,    // Include balance_amount
                 payments: [
                   {
-                    payment_id: "sample_payment_id", // This should be set after the payment is processed
-                    order_id,
-                    signature: "sample_signature",   // This should be set after the payment is processed
-                    amount,
+                    payment_id: response.razorpay_payment_id,
+                    order_id: response.razorpay_order_id,
+                    signature: response.razorpay_signature,
+                    amount: amount,
                     payment_method: "Razorpay",
                   }
                 ]
@@ -235,7 +239,8 @@ export default function Booking() {
               axios.post("/bookings/", bookingPayload)
                 .then((bookingResponse) => {
                   console.log("Booking confirmed:", bookingResponse.data);
-                  // Handle booking confirmation
+                  // Navigate to the UserTour route without saving history
+                  navigate(`/user-tour/${bookingResponse.data.id}`, { replace: true });
                 })
                 .catch((bookingError) => {
                   console.error("Error confirming booking:", bookingError);
@@ -335,6 +340,12 @@ export default function Booking() {
   useEffect(() => {
     setSelectedPaymentOption('full')
   },[selectedTrip])
+
+  useEffect(() => {
+    if(userAuthenticated && paxRecords){
+      handlePayNow()
+    }
+  }, [userAuthenticated])
 
   return (
     <>
@@ -729,7 +740,7 @@ export default function Booking() {
                 <hr className="mt-2" />
                 <div className="mt-4">
                   <button
-                    onClick={handlePayNow}
+                    onClick={userAuthenticated ? handlePayNow : showAuthModal}
                     className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
                   >
                     Pay Now

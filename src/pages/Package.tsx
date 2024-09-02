@@ -412,117 +412,130 @@ export default function Package() {
             {/* Sidebar  */}
             <div className="lg:col-span-4 md:col-span-5">
               <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-24">
-                <div className="flex flex-col">
-                  <label className="font-medium">Trip Date:</label>
+                {trips.length > 0 ? (
+                  <div>
+                    <div className="flex flex-col">
+                      <label className="font-medium">Trip Date:</label>
 
-                  <div className="flex flex-wrap gap-2 mt-4 md:mt-2">
-                    {trips.map((trip, index) => {
-                      const day = moment(trip.start_date).format("DD");
-                      const month = moment(trip.start_date).format("MMM");
-                      const year = moment(trip.start_date).format("YY");
-                      const isSelected = selectedTrip?.id === trip.id;
+                      <div className="flex flex-wrap gap-2 mt-4 md:mt-2">
+                        {trips.map((trip, index) => {
+                          const day = moment(trip.start_date).format("DD");
+                          const month = moment(trip.start_date).format("MMM");
+                          const year = moment(trip.start_date).format("YY");
+                          const isSelected = selectedTrip?.id === trip.id;
 
-                      return (
-                        <button
-                          key={index}
-                          onClick={() => setSelectedTrip(trip)}
-                          className={`py-2 px-3 inline-block tracking-wide duration-500 text-base rounded-md
-                          ${
-                            isSelected
-                              ? "border border-yellow-400 bg-red-500 text-white"
-                              : "border border-red-500 text-red-500"
-                          }`}
-                        >
-                          <div className="flex items-center gap-1">
-                            <p className="text-lg font-bold">{day}</p>
-                            <p className="text-xs">{month}</p>
-                            <p className="text-xs">{year}</p>
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <p
-                              className={`text-lg font-bold
-                                ${isSelected ? "text-yellow-400" : "text-black"}
-                            `}
+                          return (
+                            <button
+                              key={index}
+                              onClick={() => setSelectedTrip(trip)}
+                              className={`py-2 px-3 inline-block tracking-wide duration-500 text-base rounded-md
+                            ${
+                              isSelected
+                                ? "border border-yellow-400 bg-red-500 text-white"
+                                : "border border-red-500 text-red-500"
+                            }`}
                             >
-                              {trip.available_seats.toString().padStart(2, "0")}
-                            </p>
-                            <p className="text-xs text-wrap w-min text-left">
-                              seats available
-                            </p>
-                          </div>
-                        </button>
-                      );
-                    })}
-                  </div>
-                  <div
-                    className={`${
-                      selectedTrip?.is_scuba_free ||
-                      selectedTrip?.is_discount_applicable
-                        ? "p-2"
-                        : ""
-                    }`}
-                  >
-                    {(selectedTrip?.is_scuba_free ||
-                      selectedTrip?.is_discount_applicable) && (
-                      <div className="text-center font-bold text-xl py-4 text-red-500">
-                        Book your trip now to grab:
+                              <div className="flex items-center gap-1">
+                                <p className="text-lg font-bold">{day}</p>
+                                <p className="text-xs">{month}</p>
+                                <p className="text-xs">{year}</p>
+                              </div>
+                              <div className="flex items-center gap-1">
+                                <p
+                                  className={`text-lg font-bold
+                                  ${
+                                    isSelected
+                                      ? "text-yellow-400"
+                                      : "text-black"
+                                  }
+                              `}
+                                >
+                                  {trip.available_seats
+                                    .toString()
+                                    .padStart(2, "0")}
+                                </p>
+                                <p className="text-xs text-wrap w-min text-left">
+                                  seats available
+                                </p>
+                              </div>
+                            </button>
+                          );
+                        })}
                       </div>
-                    )}
-                    {selectedTrip?.is_scuba_free && (
-                      <div className="flex gap-2 px-2">
-                        <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
-                        <div>
-                          <div className="font-bold w-full text-center">
-                            Free Scuba Diving
+                      <div
+                        className={`${
+                          selectedTrip?.is_scuba_free ||
+                          selectedTrip?.is_discount_applicable
+                            ? "p-2"
+                            : ""
+                        }`}
+                      >
+                        {(selectedTrip?.is_scuba_free ||
+                          selectedTrip?.is_discount_applicable) && (
+                          <div className="text-center font-bold text-xl py-4 text-red-500">
+                            Book your trip now to grab:
                           </div>
-                          <div className="text-slate-400">
-                            On booking before{" "}
-                            <span className="text-red-600">
-                              {moment(
-                                selectedTrip?.scuba_free_until_date
-                              ).format("DD MMM YY")}
-                            </span>
+                        )}
+                        {selectedTrip?.is_scuba_free && (
+                          <div className="flex gap-2 px-2">
+                            <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
+                            <div>
+                              <div className="font-bold w-full text-center">
+                                Free Scuba Diving
+                              </div>
+                              <div className="text-slate-400">
+                                On booking before{" "}
+                                <span className="text-red-600">
+                                  {moment(
+                                    selectedTrip?.scuba_free_until_date
+                                  ).format("DD MMM YY")}
+                                </span>
+                              </div>
+                            </div>
                           </div>
-                        </div>
+                        )}
+                        {selectedTrip?.is_scuba_free &&
+                          selectedTrip?.is_discount_applicable && (
+                            <div className="text-center font-bold text-xl text-red-500">
+                              {"&"}
+                            </div>
+                          )}
+                        {selectedTrip?.is_discount_applicable && (
+                          <div className="flex gap-2 px-2">
+                            <FaTag className="size-16 text-red-500" />
+                            <div>
+                              <div className="font-bold w-full text-center">
+                                Exclusive Discounts
+                              </div>
+                              <div className="text-slate-400">
+                                On booking before{" "}
+                                <span className="text-red-600">
+                                  {moment(
+                                    selectedTrip?.discount_applicable_until_date
+                                  ).format("DD MMM YY")}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
-                    )}
-                    {selectedTrip?.is_scuba_free &&
-                      selectedTrip?.is_discount_applicable && (
-                        <div className="text-center font-bold text-xl text-red-500">
-                          {"&"}
-                        </div>
-                      )}
-                    {selectedTrip?.is_discount_applicable && (
-                      <div className="flex gap-2 px-2">
-                        <FaTag className="size-16 text-red-500" />
-                        <div>
-                          <div className="font-bold w-full text-center">
-                            Exclusive Discounts
-                          </div>
-                          <div className="text-slate-400">
-                            On booking before{" "}
-                            <span className="text-red-600">
-                              {moment(
-                                selectedTrip?.discount_applicable_until_date
-                              ).format("DD MMM YY")}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                </div>
+                    </div>
 
-                <div className="mt-4">
-                  <Link
-                    to={`/booking/${package_name}`} // Set the route
-                    state={{ selectedTrip: selectedTrip }}
-                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
-                  >
-                    Book Now
-                  </Link>
-                </div>
-
+                    <div className="mt-4">
+                      <Link
+                        to={`/booking/${package_name}`} // Set the route
+                        state={{ selectedTrip: selectedTrip }}
+                        className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
+                      >
+                        Book Now
+                      </Link>
+                    </div>
+                  </div>
+                ) : (
+                  <div>
+                    No trips available for this package at the moment, please visit again soon
+                  </div>
+                )}
                 {/* <div className="mt-6">
                   <h5 className="text-lg font-medium">Tour Map</h5>
 

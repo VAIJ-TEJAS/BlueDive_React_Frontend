@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Tagline from "../components/tagline";
@@ -11,7 +11,7 @@ import Client from "../components/client";
 import faqImg from "../assets/images/bg/6.jpg";
 import heroImg from "../assets/images/bg/main.jpg";
 
-import { FiVideo, FiChevronDown } from "../assets/icons/vander";
+import { FiChevronDown } from "../assets/icons/vander";
 
 import ModalVideo from "react-modal-video";
 import "../../node_modules/react-modal-video/scss/modal-video.scss";
@@ -27,6 +27,7 @@ export default function Home() {
   let [isOpen, setOpen] = useState(false);
   let [activeIndex, setActiveIndex] = useState(1);
 
+  const packagesSectionRef = useRef<HTMLDivElement>(null);
   const [packages, setPackages] = useState([]);
 
   useEffect(() => {
@@ -88,18 +89,22 @@ export default function Home() {
 
               <div className="mt-6">
                 <Link
-                  to=""
+                  to="#"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    packagesSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+                  }}
                   className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md"
                 >
                   View Packages
                 </Link>
-                <Link
+                {/* <Link
                   to="#!"
                   onClick={() => setOpen(true)}
                   className="size-10 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-full border border-red-500 bg-red-500 text-white ms-1 lightbox"
                 >
                   <FiVideo className="h-4 w-4"></FiVideo>
-                </Link>
+                </Link> */}
                 <span className="font-semibold ms-1 align-middle"></span>
               </div>
               <ModalVideo
@@ -139,7 +144,7 @@ export default function Home() {
       <section className="relative md:py-24 py-16">
         <TopDestinationOne />
 
-        <div className="container relative md:mt-24 mt-16">
+        <div className="container relative md:mt-24 mt-16" ref={packagesSectionRef}>
           <div className="grid grid-cols-1 pb-8 text-center">
             <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">
               Tours Packages

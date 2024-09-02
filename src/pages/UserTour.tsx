@@ -8,6 +8,7 @@ import { ITour } from "../types/tours.types";
 import { FiClock } from "react-icons/fi";
 import { IPackage } from "../types/package.types";
 import { IPaxRecord } from "../types/booking-form.types";
+import { RazorpayOptions } from "../types/razorpay";
 
 export default function UserTour() {
   const [booking, setBooking] = useState<ITour | null>(null);
@@ -37,6 +38,71 @@ export default function UserTour() {
     }
   }, [id]);
 
+  const handlePayment = async () => {
+    if (!booking) return;
+
+    try {
+      // Create a payment order on the server
+      const orderResponse = await axios.post("/balance-payments/", {
+        booking_id: booking.id,
+      });
+
+      const { order_id, razorpay_key_id, amount } = orderResponse.data;
+
+      const options: RazorpayOptions = {
+        key: razorpay_key_id, // Replace with your Razorpay key
+        currency: "INR",
+        name: "BlueDive Konkan Wonders",
+        description: "Balance Payment",
+        order_id: order_id,
+        handler: async function (response: any) {
+          console.log(response);
+          try {
+            // Confirm the booking after payment verification
+            const bookingConfirmationResponse = await axios.post(`/bookings/${booking.id}/confirm/`,
+              {
+                payment: {
+                  payment_id: response.razorpay_payment_id,
+                  order_id: response.razorpay_order_id,
+                  signature: response.razorpay_signature,
+                  amount: amount,
+                  payment_method: "Razorpay",
+                },
+              }
+            );
+
+            if (bookingConfirmationResponse.status === 200) {
+              window.location.reload();
+              console.log(
+                "Booking confirmed:",
+                bookingConfirmationResponse.data
+              );
+            } else {
+              console.log("Failed to confirm booking");
+            }
+          } catch (error) {
+            console.error("Error during payment processing:", error);
+          }
+        },
+        prefill: {
+          // name: "Customer Name",
+          // email: "customer@example.com",
+          // contact: "9999999999",
+        },
+        notes: {},
+        theme: {
+          color: "#ef4444",
+        },
+      };
+
+      const rzp1 = new window.Razorpay(options);
+      rzp1.open();
+    } catch (err) {
+      // Handle any errors
+      console.log(err);
+    }
+  };
+
   return (
     <>
       <Navbar
@@ -51,7 +117,20 @@ export default function UserTour() {
         </div>
 
         <div className="container relative md:mt-12 mt-8">
-          <div className="md:mb-12 mb-8 p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700"></div>
+          <div className="md:mb-12 mb-8 p-4 flex flex-col gap-4 rounded-md shadow dark:shadow-gray-700">
+            <div>
+              <h6 className="text-lg font-semibold">Balance Amount: </h6>
+              <p className="text-xl font-bold text-red-500">
+                ₹{booking?.balance_amount}
+              </p>
+              <button
+                onClick={handlePayment}
+                className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md"
+              >
+                Pay Balance
+              </button>
+            </div>
+          </div>
           <div className="">
             <span className="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">
               {booking?.status}

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import { FiAirplay, FiSettings, FiLogOut } from "../assets/icons/vander";
+import { FiSettings, FiLogOut, FiCompass } from "../assets/icons/vander";
 import { IUserData } from "../types/user.types";
 import { Context } from "../context/context.provider";
 import { confirmation } from "./confirmation";
@@ -51,9 +51,9 @@ export default function AccountingTab() {
                   className="navbar-link text-slate-400 flex items-center py-2 rounded"
                 >
                   <span className="me-2 mb-0">
-                    <FiAirplay className="size-4"></FiAirplay>
+                    <FiCompass className="size-4"></FiCompass>
                   </span>
-                  <h6 className="mb-0 font-medium">Profile</h6>
+                  <h6 className="mb-0 font-medium">My Tours</h6>
                 </Link>
               </li>
 
