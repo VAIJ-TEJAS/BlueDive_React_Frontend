@@ -1,3 +1,4 @@
+import listing0 from '../assets/images/listing/0.jpg'
 import listing1 from '../assets/images/listing/1.jpg'
 import listing2 from '../assets/images/listing/2.jpg'
 import listing3 from '../assets/images/listing/3.jpg'
@@ -37,6 +38,11 @@ import payment4 from '../assets/images/payments/mastercard.jpg'
 import {FiLinkedin,FiFacebook,FiInstagram,FiTwitter,FiMail,FiClock,FiActivity, FiUsers, FiGlobe,FiDollarSign,FiYoutube,FiHelpCircle,FiBookmark,FiSettings,FiGithub,FiGitlab} from "../assets/icons/vander"
 
 export const topDestination = [
+    {
+        image:listing0,
+        place:'Rome, Italy',
+        hotels:'3 Hotels'
+    },
     {
         image:listing1,
         place:'Rome, Italy',
