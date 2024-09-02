@@ -8,7 +8,7 @@ import Footer from "../components/footer";
 
 import { teamData, placeImage } from "../data/data";
 
-import { FiFacebook, FiInstagram, FiLinkedin } from "../assets/icons/vander";
+import { FiFacebook, FiInstagram } from "../assets/icons/vander";
 
 import TinySlider from "tiny-slider-react";
 import "tiny-slider/dist/tiny-slider.css";
@@ -141,7 +141,7 @@ export default function Aboutus() {
                       <ul className="list-none absolute start-0 end-0 -bottom-20 group-hover:bottom-5 duration-500 space-x-1">
                         <li className="inline">
                           <Link
-                            to=""
+                            to="https://www.facebook.com/Bluedivekonkanwonders.in?mibextid=LQQJ4d"
                             className="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-md border border-red-500 bg-red-500 text-white"
                           >
                             <FiFacebook className="size-4"></FiFacebook>
@@ -156,14 +156,14 @@ export default function Aboutus() {
                             <FiInstagram className="size-4"></FiInstagram>
                           </Link>
                         </li>
-                        <li className="inline">
+                        {/* <li className="inline">
                           <Link
                             to=""
                             className="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-md border border-red-500 bg-red-500 text-white"
                           >
                             <FiLinkedin className="size-4"></FiLinkedin>
                           </Link>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
 

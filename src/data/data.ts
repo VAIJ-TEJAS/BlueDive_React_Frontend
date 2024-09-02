@@ -304,7 +304,7 @@ export const footerSocial = [
     // },
     {
         icon:FiFacebook,
-        link:'https://www.facebook.com/shreethemes'
+        link:'https://www.facebook.com/Bluedivekonkanwonders.in?mibextid=LQQJ4d'
     },
     {
         icon:FiInstagram,

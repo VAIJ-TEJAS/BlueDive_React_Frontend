@@ -52,7 +52,7 @@ export default function Footer(){
                                         <div className="flex mt-4">
                                             <FiPhone className="size-4 text-red-500 me-2 mt-1"></FiPhone>
                                             <div className="">
-                                                <Link to="tel:+91-866-890-4446" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">+91-866-890-4446</Link>
+                                                <Link to="tel:+918668904446" className="text-slate-300 hover:text-slate-400 duration-500 ease-in-out">+91-866-890-4446</Link>
                                             </div>
                                         </div>
                                     </div>
