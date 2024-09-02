@@ -41,7 +41,7 @@ const PackageCard: React.FC<PackageCardProps> = ({ item }) => {
 
         <div className="mt-4 pt-4 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
           <h5 className="text-lg font-medium text-red-500">
-            ₹ {item.display_price}
+            starts at ₹ {item.display_price}
           </h5>
 
           <Link to={`/package/${item.name}`} className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">

@@ -20,16 +20,6 @@ import client5 from '../assets/images/client/05.jpg'
 import client6 from '../assets/images/client/06.jpg'
 import client7 from '../assets/images/client/07.jpg'
 
-import blog1 from '../assets/images/blog/1.jpg'
-import blog2 from '../assets/images/blog/2.jpg'
-import blog3 from '../assets/images/blog/3.jpg'
-import blog4 from '../assets/images/blog/4.jpg'
-import blog5 from '../assets/images/blog/5.jpg'
-import blog6 from '../assets/images/blog/6.jpg'
-import blog7 from '../assets/images/blog/7.jpg'
-import blog8 from '../assets/images/blog/8.jpg'
-import blog9 from '../assets/images/blog/9.jpg'
-
 import payment1 from '../assets/images/payments/visa.jpg'
 import payment2 from '../assets/images/payments/american-express.jpg'
 import payment3 from '../assets/images/payments/discover.jpg'
@@ -214,94 +204,7 @@ export const ClientData = [
     },
 ]
 
-export const blogData = [
-    {
-        id:1,
-        image:blog1,
-        date:'13th Sep 2024',
-        title:'This Spanish city is a feast for the eyes: Travosy',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Travel'
-    },
-    {
-        id:2,
-        image:blog2,
-        date:'29th Nov 2024',
-        title:'New Zealand’s South Island brims with majestic',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Tour'
-    },
-    {
-        id:3,
-        image:blog3,
-        date:'29th Dec 2024',
-        title:'When you visit the Eternal Rome City: Travosy',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Tourist'
-    },
-    {
-        id:4,
-        image:blog4,
-        date:'13th March 2024',
-        title:'My Story When I Backpacked Around The World',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Flight'
-    },
-    {
-        id:5,
-        image:blog5,
-        date:'5th May 2024',
-        title:'Organization of accounting at the enterprise',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Arab'
-    },
-    {
-        id:6,
-        image:blog6,
-        date:'19th June 2024',
-        title:'Three of the Best Day Trips to Make from Francisco',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Dubai'
-    },
-    {
-        id:7,
-        image:blog7,
-        date:'20th June 2024',
-        title:'Why Do People Travel ? Reasons People Travel in 2023',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Maldivas'
-    },
-    {
-        id:8,
-        image:blog8,
-        date:'31st Aug 2024',
-        title:'Jungles In Australia: Vermont’s Rugged, Retro Ski Mountain',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'News'
-    },
-    {
-        id:9,
-        image:blog9,
-        date:'1st Sep 2024',
-        title:'Traveller Visiting Ice Cave With Amazing Eye-catching Scenes',
-        desc:'This is required when, for example, the final text is not yet available.',
-        tag:'Packages'
-    },
-]
-
 export const footerSocial = [
-    // {
-    //     icon:FiShoppingCart,
-    //     link:'https://1.envato.market/travosy-react'
-    // },
-    // {
-    //     icon:FiDribbble,
-    //     link:'https://dribbble.com/shreethemes'
-    // },
-    // {
-    //     icon:FiLinkedin,
-    //     link:'http://linkedin.com/company/shreethemes'
-    // },
     {
         icon:FiFacebook,
         link:'https://www.facebook.com/Bluedivekonkanwonders.in?mibextid=LQQJ4d'
@@ -310,13 +213,9 @@ export const footerSocial = [
         icon:FiInstagram,
         link:'https://www.instagram.com/bluedive_konkan_wonders?igsh=MTJ3dmk4Z3JsenpzcA%3D%3D&utm_source=qr'
     },
-    // {
-    //     icon:FiTwitter,
-    //     link:'https://twitter.com/shreethemes'
-    // },
     {
         icon:FiMail,
-        link:'mailto:support@shreethemes.in'
+        link:'mailto:contact@bluedive.in'
     },
 ]
 
@@ -371,7 +270,7 @@ export const faqData = [
     },
     {
         id:2,
-        title:'Do I need a designer to use Travosy ?',
+        title:'Do I need a designer to use Bluedive ?',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'
     },
     {
@@ -516,51 +415,6 @@ export const helpAbout = [
         title:'Support Request',
         desc:'The phrasal sequence of the is now so that many campaign and benefit',
         link:'/helpcenter-support'
-    },
-]
-
-export const guidesData = [
-    {
-        title:'Getting started',
-        subData:[
-            'Deciding to purchase','List your space','Landing an experience or adventure','Top uses questions'
-        ]
-    },
-    {
-        title:'Your calendar',
-        subData:[
-            'Pricing & availability','Booking settings','Responding to enquiries & requests','Snoozing or deactivating your listing'
-        ]
-    },
-    {
-        title:'Your listings',
-        subData:[
-            'Updating your listing','Neighbourhoods','Listing photos & photography','Travosy Plus','API-connected software'
-        ]
-    },
-    {
-        title:'How payouts work',
-        subData:[
-            'Getting paid','Adding payout info','Your payout status','Donations','Taxes'
-        ]
-    },
-    {
-        title:'Your reservations',
-        subData:[
-            'Travosy safely','Travosy Experiences and Adventures','Changing a reservation','Cancelling a reservation','Long-term reservations'
-        ]
-    },
-    {
-        title:'Reservation help',
-        subData:[
-            'Help with a reservation or guest','Guest cancellations',
-        ]
-    },
-    {
-        title:'Your account',
-        subData:[
-            'Your profile','Account security','Identification & verifications','Reviews','Superhost status'
-        ]
     },
 ]
 
