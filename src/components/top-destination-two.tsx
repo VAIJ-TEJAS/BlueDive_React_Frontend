@@ -42,7 +42,7 @@ export default function TopDestinationTwo(){
                 <div className="grid grid-cols-1 pb-8 text-center">
                     <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">Thrills for you</h3>
 
-                    <p className="text-slate-400 max-w-xl mx-auto">Planning for a trip? We will organize your trip with the best places and within best budget!</p>
+                    <p className="text-slate-400 max-w-xl mx-auto">Thinking a trip to Konkan? Leave it to our team! We have multiple packages for you to choose…</p>
                 </div>
 
                 <div className="grid grid-cols-1 relative mt-4">

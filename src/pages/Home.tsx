@@ -77,14 +77,14 @@ export default function Home() {
           <div className="grid lg:grid-cols-12 md:grid-cols-2 mt-10 items-center gap-6">
             <div className="lg:col-span-7">
               <h5 className="text-3xl font-dancing text-white">
-                See your Sea Weekends...
+                Dive into the Weekend
               </h5>
               <h4 className="font-bold text-white lg:leading-normal leading-normal text-4xl lg:text-6xl mb-6 mt-5">
-                Where Do You <br /> Want To Go?
+                Experience the Nature's <br /> Music with us
               </h4>
               <p className="text-white/70 text-xl max-w-xl">
-                Planning for a trip? We will organize your trip with the best
-                places and within best budget!
+                Thinking a trip to Konkan? Leave it to our team!
+                We have multiple packages for you to choose…
               </p>
 
               <div className="mt-6">
@@ -151,8 +151,7 @@ export default function Home() {
             </h3>
 
             <p className="text-slate-400 max-w-xl mx-auto">
-              Planning for a trip? We will organize your trip with the best
-              places and within best budget!
+            Pre-book any of our tour Pakages in advance <br/> to get FREE Scuba Diving Experience
             </p>
           </div>
 

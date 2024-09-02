@@ -18,7 +18,7 @@ export default function Footer(){
                                     <Link to="#" className="text-[22px] focus:outline-none">
                                         <img src={logoLight} alt=""/>
                                     </Link>
-                                    <p className="mt-6 text-gray-300">Planning for a trip? We will organize your trip with the best places and within best budget!</p>
+                                    <p className="mt-6 text-gray-300">Thinking a trip to Konkan? Leave it to our team! We have multiple packages for you to choose…</p>
                                     <ul className="list-none mt-6 space-x-1">
                                         {footerSocial.map((item,index)=>{
                                             let Icon = item.icon

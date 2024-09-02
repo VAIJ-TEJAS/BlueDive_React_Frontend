@@ -42,9 +42,9 @@ export default function TopDestinationOne(){
     return(
         <div className="container relative">
             <div className="grid grid-cols-1 pb-8 text-center">
-                <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">Top Destinations</h3>
+                <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">THINGS TO ENJOY</h3>
 
-                <p className="text-slate-400 max-w-xl mx-auto">Planning for a trip? We will organize your trip with the best places and within best budget!</p>
+                <p className="text-slate-400 max-w-xl mx-auto">Our tour covers majority of top quality watersports & destinations<br/>Below are some glimses for you</p>
             </div>
 
             <div className="grid grid-cols-1 relative mt-6">
