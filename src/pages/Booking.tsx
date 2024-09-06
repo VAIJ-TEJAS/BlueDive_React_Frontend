@@ -740,11 +740,15 @@ export default function Booking() {
                 <hr className="mt-2" />
                 <div className="mt-4">
                   <button
+                    disabled
                     onClick={userAuthenticated ? handlePayNow : showAuthModal}
-                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
+                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-gray-500 text-white rounded-md w-full"
                   >
                     Pay Now
                   </button>
+                  <div className="text-center">
+                      Booking for the trip will start soon, please check again after few days
+                  </div>
                 </div>
               </div>
             </div>

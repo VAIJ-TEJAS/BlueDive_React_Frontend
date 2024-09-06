@@ -51,15 +51,15 @@ export default function Package() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    Pickup: <FiMapPin className="size-4 text-red-500" />,
-    Breakfast: <MdFreeBreakfast className="size-4 text-yellow-500" />,
+    "Pickup": <FiMapPin className="size-4 text-red-500" />,
+    "Breakfast": <MdFreeBreakfast className="size-4 text-yellow-500" />,
     "Tea / Coffee": <FiCoffee className="size-4 text-amber-800" />,
     "Sea Safari": <GiDolphin className="size-4 text-blue-500" />,
     "Water Sports": <GiSurfBoard className="size-4 text-sky-500" />,
-    Lunch: <MdRestaurantMenu className="size-4 text-orange-500" />,
-    Dinner: <MdLocalDining className="size-4 text-purple-500" />,
+    "Lunch": <MdRestaurantMenu className="size-4 text-orange-500" />,
+    "Dinner": <MdLocalDining className="size-4 text-purple-500" />,
     "Scuba Diving": <GiScubaMask className="size-4 text-blue-600" />,
-    Drop: <FiMapPin className="size-4 text-red-500" />,
+    "Drop": <FiMapPin className="size-4 text-red-500" />,
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -72,6 +72,8 @@ export default function Package() {
       .get(`/packages-trips/?name=${package_name}`)
       .then((response) => {
         const packageData: IPackage = response.data[0];
+
+        console.log(packageData)
 
         setPackageDetails({
           ...packageData,
@@ -149,7 +151,7 @@ export default function Package() {
               <div className="flex">
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={images[1]} alt="" />
+                    <img src={images[1]} alt="" className=""/>
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -165,7 +167,7 @@ export default function Package() {
 
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={images[2]} alt="" />
+                    <img src={images[2]} alt="" className=""/>
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -199,7 +201,7 @@ export default function Package() {
 
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={images[5]} alt="" />
+                    <img src={images[4]} alt="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link

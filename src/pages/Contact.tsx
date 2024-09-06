@@ -51,7 +51,7 @@ export default function Contact(){
                 <div className="grid grid-cols-1">
                     <div className="w-full leading-[0] border-0">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d39206.002432144705!2d-95.4973981212445!3d29.709510002925988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8640c16de81f3ca5%3A0xf43e0b60ae539ac9!2sGerald+D.+Hines+Waterwall+Park!5e0!3m2!1sen!2sin!4v1566305861440!5m2!1sen!2sin"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d236.2544476761244!2d73.80434479802867!3d18.660802358989933!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2b8285781f645%3A0x8353c96ff3c016a6!2s18%2F42%2C%20Shivtej%20Nagar%2C%20Bhosari%2C%20Pimpri%20Chinchwad%2C%20Pimpri-Chinchwad%2C%20Maharashtra%20411019!5e0!3m2!1sen!2sin!4v1725652100258!5m2!1sen!2sin"
                             style={{ border: '0' }}
                             title="bluedive"
                             className="w-full h-[500px]"
@@ -154,10 +154,10 @@ export default function Contact(){
 
                             <div className="content mt-7">
                                 <h5 className="h5 text-lg font-semibold">Phone</h5>
-                                <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p>
+                                {/* <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p> */}
 
                                 <div className="mt-5">
-                                    <Link to="tel:+152534-468-854" className="text-red-500 font-medium">+152 534-468-854</Link>
+                                    <Link to="tel:+918668904446" className="text-red-500 font-medium">+91 866-890-4446</Link>
                                 </div>
                             </div>
                         </div>
@@ -171,10 +171,10 @@ export default function Contact(){
 
                             <div className="content mt-7">
                                 <h5 className="h5 text-lg font-semibold">Email</h5>
-                                <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p>
+                                {/* <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p> */}
 
                                 <div className="mt-5">
-                                    <Link to="mailto:contact@example.com" className="text-red-500 font-medium">contact@example.com</Link>
+                                    <Link to="mailto:contact@bluedive.com" className="text-red-500 font-medium">contact@bluedive.in</Link>
                                 </div>
                             </div>
                         </div>
@@ -188,10 +188,10 @@ export default function Contact(){
 
                             <div className="content mt-7">
                                 <h5 className="h5 text-lg font-semibold">Location</h5>
-                                <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p>
+                                {/* <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p> */}
 
                                 <div className="mt-5">
-                                    <Link to="#" className="text-red-500 font-medium">New York City</Link>
+                                    <Link to="#" className="text-red-500 font-medium">Pune-411019, Maharashtra, India</Link>
                                 </div>
                             </div>
                         </div>

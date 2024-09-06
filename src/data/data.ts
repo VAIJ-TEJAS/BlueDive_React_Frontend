@@ -12,13 +12,13 @@ import listing10 from '../assets/images/listing/10.jpg'
 import listing11 from '../assets/images/listing/11.jpg'
 import listing12 from '../assets/images/listing/12.jpg'
 
+import founder from '../assets/images/client/founder.webp'
 import client1 from '../assets/images/client/01.jpg'
 import client2 from '../assets/images/client/02.jpg'
 import client3 from '../assets/images/client/03.jpg'
 import client4 from '../assets/images/client/04.jpg'
 import client5 from '../assets/images/client/05.jpg'
 import client6 from '../assets/images/client/06.jpg'
-import client7 from '../assets/images/client/07.jpg'
 
 import payment1 from '../assets/images/payments/visa.jpg'
 import payment2 from '../assets/images/payments/american-express.jpg'
@@ -30,48 +30,48 @@ import {FiLinkedin,FiFacebook,FiInstagram,FiTwitter,FiMail,FiClock,FiActivity, F
 export const topDestination = [
     {
         image:listing0,
-        place:'Rome, Italy',
-        hotels:'3 Hotels'
+        place:'Fun on Beach',
+        hotels:''
     },
     {
         image:listing1,
-        place:'Rome, Italy',
-        hotels:'3 Hotels'
+        place:'Prawns Fry',
+        hotels:''
     },
     {
         image:listing2,
-        place:'Singapore',
-        hotels:'3 Hotels'
+        place:'Parasailing',
+        hotels:''
     },
     {
         image:listing3,
-        place:'Paris, France',
-        hotels:'3 Hotels'
+        place:'Adventure',
+        hotels:''
     },
     {
         image:listing4,
-        place:'Goa, India',
-        hotels:'3 Hotels'
+        place:'Beach',
+        hotels:''
     },
     {
         image:listing5,
-        place:'Whistler, Canada',
-        hotels:'3 Hotels'
+        place:'Banana Ride',
+        hotels:''
     },
     {
         image:listing6,
-        place:'Lumpur, Malaysia',
-        hotels:'3 Hotels'
+        place:'Scuba Diving',
+        hotels:''
     },
     {
         image:listing7,
-        place:'Sydney, Australia',
-        hotels:'3 Hotels'
+        place:'Jetski',
+        hotels:''
     },
     {
         image:listing8,
-        place:'Virginia Beach',
-        hotels:'3 Hotels'
+        place:'Lifetime Memories',
+        hotels:''
     },
 ]
 
@@ -168,38 +168,38 @@ export const packages = [
 export const ClientData = [
     {
         image:client1,
-        desc:'" It seems that only fragments of the original text remain in the Lorem Ipsum texts used today. "',
-        name:'Calvin Carlo',
+        desc:'" This Best Kokan trip was a great gateway from our every day stressed like, we enjoyed your company a lot and I hope you all did the same "',
+        name:'Sachin Gujar',
         possition:'Manager'
     },
     {
         image:client2,
-        desc:'"The most well-known dummy text is the Lorem Ipsum, which is said to have originated in the 16th century."',
-        name:'Christa Smith',
+        desc:'" Thanks for organizing an amazing trip we thought was impossible. Your authenticity and dedication are truly inspiring. Best wishes for your future adventures. "',
+        name:'Shubhangi',
         possition:'Manager'
     },
     {
         image:client3,
-        desc:'" One disadvantage of Lorum Ipsum is that in Latin certain letters appear more frequently than others. "',
-        name:'Jemina CLone',
+        desc:'" Your planning and attention to detail made the trip unforgettable. We were amazed by your preparation and how smoothly everything went. Many thanks for the fantastic experience! "',
+        name:'Tejas Vaij',
         possition:'Manager'
     },
     {
         image:client4,
-        desc:'" Thus, Lorem Ipsum has only limited suitability as a visual filler for German texts. "',
-        name:'Smith Vodka',
+        desc:'" Thank you for the amazing Konkan trip. Your planning, food, and activities made it unforgettable. The Sovani family is truly grateful! "',
+        name:'Syam Sohoni',
         possition:'Manager'
     },
     {
         image:client5,
-        desc:'" There is now an abundance of readable dummy texts. These are usually used when a text is required. "',
-        name:'Cristino Murfi',
+        desc:'" Had an amazing time with BlueDive Konkan at Bhogwe Beach, enjoying parasailing and scuba diving. A safe, fun, and memorable experience! "',
+        name:'Ganesh Tambe',
         possition:'Manager'
     },
     {
         image:client6,
-        desc:'" According to most sources, Lorum Ipsum can be traced back to a text composed by Cicero. "',
-        name:'Cristino Murfi',
+        desc:'" Thanks to Uttam and his team, we had an incredible experience with sky and underwater adventures. A truly unforgettable trip! "',
+        name:'Nilima Lanjewar',
         possition:'Manager'
     },
 ]
@@ -236,14 +236,14 @@ export const footerCompany = [
     //     name:'Team',
     //     link:'/team'
     // },
-    {
-        name:'Terms of Service',
-        link:'/terms-of-service'
-    },
-    {
-        name:'Privacy Policy',
-        link:'/privacy-policy'
-    },
+    // {
+    //     name:'Terms of Service',
+    //     link:'/terms-of-service'
+    // },
+    // {
+    //     name:'Privacy Policy',
+    //     link:'/privacy-policy'
+    // },
     // {
     //     name:'Pricing',
     //     link:'/pricing'
@@ -265,28 +265,28 @@ export const placeImage = [
 export const faqData = [
     {
         id:1,
-        title:'How does it work ?',
-        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'
+        title:'How should I book?',
+        desc:'There are multiple packages with food option choices, select the best one as per your choice and book from our website.'
     },
     {
         id:2,
-        title:'Do I need a designer to use Bluedive ?',
-        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'
+        title:'Can I cancel my booking?',
+        desc:'Unfortunately, we have no cancellation policy. However, you can give us a replacement booking.'
     },
     {
         id:3,
-        title:'What do I need to do to start selling ?',
-        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'
+        title:'How can I get my scuba free?',
+        desc:'You need to book your journey minimum 21 days before the trip date to get your scuba along with complementary video absolutely free.'
     },
     {
         id:4,
-        title:'What happens when I receive an order ?',
-        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'
+        title:'How much is a discount & how do I get it?',
+        desc:'All our packages have 20% discount, you need to pay 100% of your package price minimum 10 days in advance.'
     },
     {
         id:5,
-        title:'How does it work ?',
-        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.'
+        title:'Can I book my journey on any other days appart from planned dates?',
+        desc:'Yes, you can book your journey on any other days appart from planned dates provided you have a headcount of minimum 6.'
     },
 ]
 
@@ -320,25 +320,25 @@ export const tourDetailAbout = [
 
 export const teamData = [
     {
-        image:client4,
-        name:'Jack John',
-        possition:'Agent'
+        image:founder,
+        name:'Smita Amberkar',
+        possition:'Founder & Director'
     },
-    {
-        image:client5,
-        name:'Krista John',
-        possition:'Agent'
-    },
-    {
-        image:client6,
-        name:'Roger Jackson',
-        possition:'Agent'
-    },
-    {
-        image:client7,
-        name:'Johnny English',
-        possition:'Agent'
-    },
+    // {
+    //     image:client5,
+    //     name:'Krista John',
+    //     possition:'Agent'
+    // },
+    // {
+    //     image:client6,
+    //     name:'Roger Jackson',
+    //     possition:'Agent'
+    // },
+    // {
+    //     image:client7,
+    //     name:'Johnny English',
+    //     possition:'Agent'
+    // },
 ]
 
 export const paymentData = [

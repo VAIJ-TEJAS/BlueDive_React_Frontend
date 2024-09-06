@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import about from '../assets/images/about.jpg'
 import map from '../assets/images/map-plane-big.png'
@@ -21,8 +21,8 @@ export default function About(){
                                 <FiUsers className="size-6"></FiUsers>
                             </div>
                             <div className="flex-1">
-                                <span className="text-slate-400">Visitor</span>
-                                <p className="text-xl font-bold"><CountUp className="counter-value" start={0} end={4589}/></p>
+                                <span className="text-slate-400">Travellers</span>
+                                <p className="text-xl font-bold"><CountUp className="counter-value" start={0} end={500}/>+</p>
                             </div>
                         </div>
 
@@ -31,7 +31,7 @@ export default function About(){
                                 <FiGlobe className="size-6"></FiGlobe>
                             </div>
                             <div className="flex-1">
-                                <span className="text-slate-400">Travel Packages</span>
+                                <span className="text-slate-400">Trips</span>
                                 <p className="text-xl font-bold"><CountUp className="counter-value" start={0} end={50}/>+</p>
                             </div>
                         </div>
@@ -40,11 +40,11 @@ export default function About(){
 
                 <div className="md:col-span-7">
                     <div className="lg:ms-8">
-                        <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">World Best Travel <br/> Agency: Bluedive</h3>
+                        <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">About Us</h3>
 
-                        <p className="text-slate-400 max-w-xl mb-6">Get instant helpful resources about anything on the go, easily implement secure money transfer solutions, boost your daily efficiency, connect to other app users and create your own Bluedive network, and much more with just a few taps. commodo consequat. Duis aute irure.</p>
+                        <p className="text-slate-400 max-w-xl mb-6">At BlueDive we have built a culture to ensure your End to End Konkan Tour is taken care with great hospitality  and at a truly affordable price! This offcourse includes 100% safety measures . We already follow high quality standards when it comes to hygine, now with COVID-19 pandemic passing by we have taken extra steps to ensure your safety - by introducing Travel safety kit which includes - Pre-checkups, facemasks, sanitizers & Hygenic travels & stay.</p>
 
-                        <Link to="" className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">Read More <i className="mdi mdi-chevron-right align-middle ms-0.5"></i></Link>
+                        {/* <Link to="" className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">Read More <i className="mdi mdi-chevron-right align-middle ms-0.5"></i></Link> */}
                     </div>
                 </div>
 

@@ -32,9 +32,9 @@ export default function Client(){
     return(
         <div className="container relative md:mt-24 mt-16">
         <div className="grid grid-cols-1 pb-6 text-center">
-            <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">What Our Users Say</h3>
+            <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">What Our Travellers Say</h3>
 
-            <p className="text-slate-400 max-w-xl mx-auto">This is just a simple text made for this unique and awesome template, you can replace it with any text.</p>
+            <p className="text-slate-400 max-w-xl mx-auto">We always receive positive responses from our travellers.</p>
         </div>
 
         <div className="grid grid-cols-1 mt-6">
@@ -57,9 +57,9 @@ export default function Client(){
                                     </div>
                                     
                                     <div className="text-center mt-5">
-                                        <img src={item.image} className="size-14 rounded-full shadow-md dark:shadow-gray-700 mx-auto" alt=""/>
+                                        {/* <img src={item.image} className="size-14 rounded-full shadow-md dark:shadow-gray-700 mx-auto" alt=""/> */}
                                         <h6 className="mt-2 font-semibold">{item.name}</h6>
-                                        <span className="text-slate-400 text-sm">{item.possition}</span>
+                                        {/* <span className="text-slate-400 text-sm">{item.possition}</span> */}
                                     </div>
                                 </div>
                             </div>

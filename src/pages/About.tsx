@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../components/navbar";
 import { Link } from "react-router-dom";
 
@@ -6,79 +5,14 @@ import Client from "../components/client";
 import About from "../components/about";
 import Footer from "../components/footer";
 
-import { teamData, placeImage } from "../data/data";
+import { teamData } from "../data/data";
 
-import { FiFacebook, FiInstagram } from "../assets/icons/vander";
-
-import TinySlider from "tiny-slider-react";
 import "tiny-slider/dist/tiny-slider.css";
 
-import Lightbox from "react-18-image-lightbox";
 import "react-18-image-lightbox/style.css";
 
 export default function Aboutus() {
-  let [isOpen, setisOpen] = useState(false);
-  let [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  let handleMovePrev = () => {
-    setCurrentImageIndex(
-      (prevIndex) => (prevIndex + placeImage.length - 1) % placeImage.length
-    );
-  };
-
-  let handleMoveNext = () => {
-    setCurrentImageIndex((prevIndex) => (prevIndex + 1) % placeImage.length);
-  };
-  let currentImage = placeImage[currentImageIndex];
-
-  let handleImageClick = (index: number) => {
-    setCurrentImageIndex(index);
-    setisOpen(true);
-  };
-
-  const settings = {
-    container: ".tiny-twelve-item",
-    controls: true,
-    mouseDrag: true,
-    loop: true,
-    rewind: true,
-    autoplay: true,
-    autoplayButtonOutput: false,
-    autoplayTimeout: 3000,
-    navPosition: "bottom",
-    controlsText: [
-      '<i class="mdi mdi-chevron-left "></i>',
-      '<i class="mdi mdi-chevron-right"></i>',
-    ],
-    nav: false,
-    speed: 400,
-    gutter: 0,
-    responsive: {
-      1025: {
-        items: 12,
-      },
-
-      992: {
-        items: 8,
-      },
-
-      767: {
-        items: 6,
-      },
-
-      575: {
-        items: 5,
-      },
-
-      420: {
-        items: 3,
-      },
-
-      320: {
-        items: 2,
-      },
-    },
-  };
   return (
     <>
       <Navbar
@@ -129,7 +63,7 @@ export default function Aboutus() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-12 grid-cols-1 mt-8 gap-[30px]">
+          <div className="grid md:grid-cols-1 grid-cols-1 mt-8 gap-[30px]">
             {teamData.map((item, index) => {
               return (
                 <div className="lg:col-span-3 md:col-span-6" key={index}>
@@ -138,7 +72,7 @@ export default function Aboutus() {
                       <img src={item.image} className="" alt="" />
                       <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black h-52 w-52 rounded-full opacity-0 group-hover:opacity-100 duration-500"></div>
 
-                      <ul className="list-none absolute start-0 end-0 -bottom-20 group-hover:bottom-5 duration-500 space-x-1">
+                      {/* <ul className="list-none absolute start-0 end-0 -bottom-20 group-hover:bottom-5 duration-500 space-x-1">
                         <li className="inline">
                           <Link
                             to="https://www.facebook.com/Bluedivekonkanwonders.in?mibextid=LQQJ4d"
@@ -156,15 +90,15 @@ export default function Aboutus() {
                             <FiInstagram className="size-4"></FiInstagram>
                           </Link>
                         </li>
-                        {/* <li className="inline">
+                        <li className="inline">
                           <Link
                             to=""
                             className="size-8 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center rounded-md border border-red-500 bg-red-500 text-white"
                           >
                             <FiLinkedin className="size-4"></FiLinkedin>
                           </Link>
-                        </li> */}
-                      </ul>
+                        </li>
+                      </ul> */}
                     </div>
 
                     <div className="content mt-3">
@@ -185,7 +119,7 @@ export default function Aboutus() {
 
         <Client />
       </section>
-      <div className="container-fluid relative">
+      {/* <div className="container-fluid relative">
         <div className="grid grid-cols-1 relative">
           <div className="tiny-twelve-item">
             <TinySlider settings={settings}>
@@ -235,7 +169,7 @@ export default function Aboutus() {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );

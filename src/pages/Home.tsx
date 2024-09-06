@@ -8,7 +8,6 @@ import TopDestinationOne from "../components/top-destination-one";
 import About from "../components/about";
 import Client from "../components/client";
 
-import faqImg from "../assets/images/bg/6.jpg";
 import heroImg from "../assets/images/bg/main.jpg";
 
 import { FiChevronDown, FiVideo } from "../assets/icons/vander";
@@ -163,7 +162,7 @@ export default function Home() {
 
           <div className="mt-6 text-center">
             <Link
-              to="/grid-right-sidebar"
+              to="/tour-packages"
               className="text-slate-400 hover:text-red-500 inline-block"
             >
               See More Tours{" "}
@@ -183,15 +182,14 @@ export default function Home() {
             </h3>
 
             <p className="text-slate-400 max-w-xl mx-auto">
-              This is just a simple text made for this unique and awesome
-              template, you can replace it with any text.
+              These are some of the most common questions that we have encountered
             </p>
           </div>
 
           <div className="relative grid md:grid-cols-12 grid-cols-1 items-center mt-6 gap-6">
             <div className="md:col-span-6">
               <img
-                src={faqImg}
+                src={heroImg}
                 className="w-full h-[540px] object-cover rounded-md shadow dark:shadow-gray-800"
                 alt=""
               />
