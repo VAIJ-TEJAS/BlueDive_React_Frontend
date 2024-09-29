@@ -5,6 +5,7 @@ export interface ITrip {
     start_date: string; 
     end_date: string;
     available_seats: number;
+    available_rooms: number; 
     status: 'Scheduled' | 'Ongoing' | 'Completed' | 'Cancelled';
     package: IPackage;
     is_scuba_free: boolean; // Indicates if scuba diving is free based on the limit

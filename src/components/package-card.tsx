@@ -9,6 +9,13 @@ interface PackageCardProps {
 
 const PackageCard: React.FC<PackageCardProps> = ({ item }) => {
   return (
+    <div>
+      <div className="text-lg font-medium bg-black text-white text-[12px] px-2.5 py-1 rounded-md text-center">
+            Starts at just <span className="text-yellow-500">
+            ₹ {item.display_price}*
+              </span>
+          </div>
+    
     <div className="group rounded-md shadow dark:shadow-gray-700">
       <div className="relative overflow-hidden rounded-t-md shadow dark:shadow-gray-700 mx-3 mt-3">
         <img
@@ -40,15 +47,14 @@ const PackageCard: React.FC<PackageCardProps> = ({ item }) => {
         <p className="text-slate-400 pt-2">{item.description}</p>
 
         <div className="mt-4 pt-4 flex justify-between items-center border-t border-slate-100 dark:border-gray-800">
-          <h5 className="text-lg font-medium text-red-500">
-            starts at ₹ {item.display_price}
-          </h5>
+          
 
-          <Link to={`/package/${item.name}`} className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">
+          <Link to={`/package/${item.name}`} className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full">
             Book Now <i className="mdi mdi-arrow-right"></i>
           </Link>
         </div>
       </div>
+    </div>
     </div>
   );
 };

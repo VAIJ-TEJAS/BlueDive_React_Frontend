@@ -43,7 +43,6 @@ export default function Booking() {
   const location = useLocation();
   const navigate = useNavigate();
 
-
   const [packageDetails, setPackageDetails] = useState<IPackage | null>(null);
   const [trips, setTrips] = useState<ITrip[]>([]);
   const [paxOptions, setPaxOptions] = useState<IPaxOptions[]>([]);
@@ -60,7 +59,7 @@ export default function Booking() {
     useState<string>("full");
   const [advanceAmount, setAdvanceAmount] = useState<number>(0);
   const [fullAmount, setFullAmount] = useState<number>(0);
-  const paxAdvanceCost = 1000;
+  const paxAdvanceCost = 2500;
 
   const handleRadioChange = (e: any) => {
     setSelectedPaymentOption(e.target.value);
@@ -171,9 +170,9 @@ export default function Booking() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    "Veg": <GiCarrot className="size-4 text-green-500" />, // Carrot icon for Veg
+    Veg: <GiCarrot className="size-4 text-green-500" />, // Carrot icon for Veg
     "Non Veg": <GiMeat className="size-4 text-red-500" />, // Meat icon for Non Veg
-    "Mix": <GiFruitBowl className="size-4 text-orange-500" />, // Fruit Bowl icon for Mix
+    Mix: <GiFruitBowl className="size-4 text-orange-500" />, // Fruit Bowl icon for Mix
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -208,7 +207,8 @@ export default function Booking() {
         .then((response) => {
           console.log("Booking successful:", response.data);
 
-          const { order_id, razorpay_key_id, amount, balance_amount } = response.data;
+          const { order_id, razorpay_key_id, amount, balance_amount } =
+            response.data;
 
           const options: RazorpayOptions = {
             key: razorpay_key_id,
@@ -222,8 +222,8 @@ export default function Booking() {
               const bookingPayload = {
                 ...payload,
                 order_id,
-                amount,            // Include amount
-                balance_amount ,    // Include balance_amount
+                amount, // Include amount
+                balance_amount, // Include balance_amount
                 payments: [
                   {
                     payment_id: response.razorpay_payment_id,
@@ -231,16 +231,19 @@ export default function Booking() {
                     signature: response.razorpay_signature,
                     amount: amount,
                     payment_method: "Razorpay",
-                  }
-                ]
+                  },
+                ],
               };
-      
+
               // Send the booking payload to the /bookings/ endpoint
-              axios.post("/bookings/", bookingPayload)
+              axios
+                .post("/bookings/", bookingPayload)
                 .then((bookingResponse) => {
                   console.log("Booking confirmed:", bookingResponse.data);
                   // Navigate to the UserTour route without saving history
-                  navigate(`/user-tour/${bookingResponse.data.id}`, { replace: true });
+                  navigate(`/user-tour/${bookingResponse.data.id}`, {
+                    replace: true,
+                  });
                 })
                 .catch((bookingError) => {
                   console.error("Error confirming booking:", bookingError);
@@ -338,14 +341,14 @@ export default function Booking() {
   }, [selectedTrip, paxRecords]);
 
   useEffect(() => {
-    setSelectedPaymentOption('full')
-  },[selectedTrip])
+    setSelectedPaymentOption("full");
+  }, [selectedTrip]);
 
   useEffect(() => {
-    if(userAuthenticated && paxRecords){
-      handlePayNow()
+    if (userAuthenticated && paxRecords) {
+      handlePayNow();
     }
-  }, [userAuthenticated])
+  }, [userAuthenticated]);
 
   return (
     <>
@@ -416,6 +419,17 @@ export default function Booking() {
                             </p>
                             <p className="text-xs">seats available</p>
                           </div>
+                          <div>|</div>
+                          <div className="flex items-center gap-1">
+                            <p
+                              className={`text-lg font-bold
+                                ${isSelected ? "text-white-400" : "text-black"}
+                            `}
+                            >
+                              {trip.available_rooms.toString().padStart(2, "0")}
+                            </p>
+                            <p className="text-xs">rooms available</p>
+                          </div>
                         </button>
                       );
                     })}
@@ -435,18 +449,22 @@ export default function Booking() {
                       </div>
                     )}
                     <div className="flex gap-2">
-                      {selectedTrip?.is_scuba_free && (
+                      {selectedTrip?.is_discount_applicable && (
                         <div className="flex gap-2 px-2">
-                          <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
+                          <FaTag className="size-16 text-red-500" />
                           <div>
                             <div className="font-bold w-full text-center">
-                              Free Scuba Diving
+                              Exclusive{" "}
+                              <span className="px-1 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">
+                                20%
+                              </span>{" "}
+                              Discounts
                             </div>
                             <div className="text-slate-400">
                               On booking before{" "}
                               <span className="text-red-600">
                                 {moment(
-                                  selectedTrip?.scuba_free_until_date
+                                  selectedTrip?.discount_applicable_until_date
                                 ).format("DD MMM YY")}
                               </span>
                             </div>
@@ -459,18 +477,19 @@ export default function Booking() {
                             {"&"}
                           </div>
                         )}
-                      {selectedTrip?.is_discount_applicable && (
+
+                      {selectedTrip?.is_scuba_free && (
                         <div className="flex gap-2 px-2">
-                          <FaTag className="size-16 text-red-500" />
+                          <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
                           <div>
                             <div className="font-bold w-full text-center">
-                              Exclusive Discounts
+                              Free Scuba Diving
                             </div>
                             <div className="text-slate-400">
                               On booking before{" "}
                               <span className="text-red-600">
                                 {moment(
-                                  selectedTrip?.discount_applicable_until_date
+                                  selectedTrip?.scuba_free_until_date
                                 ).format("DD MMM YY")}
                               </span>
                             </div>
@@ -512,9 +531,9 @@ export default function Booking() {
                               </button>
                             </div>
                           </li>
-                          <span className="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">
+                          {/* <span className="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">
                             {option.discount}% OFF
-                          </span>
+                          </span> */}
                         </div>
                       ))}
                     </div>
@@ -623,23 +642,7 @@ export default function Booking() {
                             <label className="block text-sm font-medium mb-1">
                               Meal Option
                             </label>
-                            <Segmented
-                              block
-                              options={mealOptions.map((meal) => ({
-                                label: (
-                                  <div
-                                    className={`flex items-center justify-center gap-2 ${
-                                      detail.meal_option === meal.name
-                                        ? "text-red-500"
-                                        : ""
-                                    }`}
-                                  >
-                                    <span>{getIconByName(meal.name)}</span>
-                                    <span>{meal.name}</span>
-                                  </div>
-                                ),
-                                value: meal.name,
-                              }))}
+                            <Select
                               value={detail.meal_option}
                               onChange={(value) =>
                                 handleInputChange(
@@ -650,7 +653,20 @@ export default function Booking() {
                                 )
                               }
                               className="w-full"
-                            />
+                            >
+                              {mealOptions.map((meal) => (
+                                <Select.Option
+                                  key={meal.name}
+                                  value={meal.name}
+                                >
+                                  <div className="flex items-center gap-2">
+                                    <span>{getIconByName(meal.name)}</span>
+                                    <span>{meal.name}</span>
+                                  </div>
+                                </Select.Option>
+                              ))}
+                            </Select>
+
                             <p className="text-slate-400">
                               {
                                 mealOptions.find(
@@ -698,7 +714,7 @@ export default function Booking() {
 
             {/* Sidebar  */}
             <div className="lg:col-span-4 md:col-span-5">
-              <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-20">
+              <div className="p-4 rounded-md shadow dark:shadow-gray-700 sticky top-24">
                 <div>
                   <Radio.Group
                     onChange={handleRadioChange}
@@ -715,8 +731,8 @@ export default function Booking() {
                           </span>
                         </Radio>
                         <div className="text-base text-slate-400">
-                          You can pay the advance amount to partially confirm your seat.
-                          You should pay the balance amount before{" "}
+                          You can pay the advance amount to partially confirm
+                          your seat. You should pay the balance amount before{" "}
                           <span className="text-xl text-red-500">
                             {moment(
                               selectedTrip?.advance_payment_due_date
@@ -733,22 +749,18 @@ export default function Booking() {
                       </span>
                     </Radio>
                     <div className="text-base text-slate-400">
-                          Your seat will be confirmed
-                        </div>
+                      Your seat will be confirmed
+                    </div>
                   </Radio.Group>
                 </div>
                 <hr className="mt-2" />
                 <div className="mt-4">
                   <button
-                    disabled
                     onClick={userAuthenticated ? handlePayNow : showAuthModal}
-                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-gray-500 text-white rounded-md w-full"
+                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full"
                   >
                     Pay Now
                   </button>
-                  <div className="text-center">
-                      Booking for the trip will start soon, please check again after few days
-                  </div>
                 </div>
               </div>
             </div>

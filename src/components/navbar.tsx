@@ -5,9 +5,9 @@ import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
 // import logoWhite from "../assets/images/logo-white.png";
 
-// import { FiSettings, FiCompass } from "../assets/icons/vander";
-// import { Context } from "../context/context.provider";
-// import { IUserData } from "../types/user.types";
+import { FiSettings, FiCompass } from "../assets/icons/vander";
+import { Context } from "../context/context.provider";
+import { IUserData } from "../types/user.types";
 
 interface NavbarProps {
   navclass: string;
@@ -18,27 +18,27 @@ interface NavbarProps {
 export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
   let [scrolling, setScrolling] = useState(false);
   let [manu, setManu] = useState("");
-  // let [userManu, setUserManu] = useState(false);
+  let [userManu, setUserManu] = useState(false);
 
   let userRef = useRef<HTMLLIElement>(null);
 
-  // const { userAuthenticated, showAuthModal } = Context();
+  const { userAuthenticated, showAuthModal } = Context();
 
-  // const user_data: IUserData = JSON.parse(
-  //   localStorage.getItem("bluedive-user-data") || "{}"
-  // );
+  const user_data: IUserData = JSON.parse(
+    localStorage.getItem("bluedive-user-data") || "{}"
+  );
 
-  // const username = () => {
-  //   if (userAuthenticated) {
-  //     if (user_data?.first_name) {
-  //       return user_data.first_name[0] + user_data.last_name[0];
-  //     } else {
-  //       return user_data.username;
-  //     }
-  //   } else {
-  //     return "LOGIN";
-  //   }
-  // };
+  const username = () => {
+    if (userAuthenticated) {
+      if (user_data?.first_name) {
+        return user_data.first_name[0] + user_data.last_name[0];
+      } else {
+        return user_data.username;
+      }
+    } else {
+      return "LOGIN";
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -109,7 +109,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
             </ul>
           </div>
 
-          {/* <ul className="buy-button list-none mb-0 space-x-1">
+          <ul className="buy-button list-none mb-0 space-x-1">
             <li className="dropdown inline-block relative ps-0.5" ref={userRef}>
               <button
                 className="dropdown-toggle items-center"
@@ -150,7 +150,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
                 </div>
               )}
             </li>
-          </ul> */}
+          </ul>
         </div>
       </div>
     </nav>

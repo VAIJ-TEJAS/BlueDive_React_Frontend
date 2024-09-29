@@ -51,15 +51,15 @@ export default function Package() {
   };
 
   const iconMatrix: Record<string, JSX.Element> = {
-    "Pickup": <FiMapPin className="size-4 text-red-500" />,
-    "Breakfast": <MdFreeBreakfast className="size-4 text-yellow-500" />,
+    Pickup: <FiMapPin className="size-4 text-red-500" />,
+    Breakfast: <MdFreeBreakfast className="size-4 text-yellow-500" />,
     "Tea / Coffee": <FiCoffee className="size-4 text-amber-800" />,
     "Sea Safari": <GiDolphin className="size-4 text-blue-500" />,
     "Water Sports": <GiSurfBoard className="size-4 text-sky-500" />,
-    "Lunch": <MdRestaurantMenu className="size-4 text-orange-500" />,
-    "Dinner": <MdLocalDining className="size-4 text-purple-500" />,
+    Lunch: <MdRestaurantMenu className="size-4 text-orange-500" />,
+    Dinner: <MdLocalDining className="size-4 text-purple-500" />,
     "Scuba Diving": <GiScubaMask className="size-4 text-blue-600" />,
-    "Drop": <FiMapPin className="size-4 text-red-500" />,
+    Drop: <FiMapPin className="size-4 text-red-500" />,
   };
 
   const getIconByName = (name: string): JSX.Element | null => {
@@ -73,7 +73,7 @@ export default function Package() {
       .then((response) => {
         const packageData: IPackage = response.data[0];
 
-        console.log(packageData)
+        console.log(packageData);
 
         setPackageDetails({
           ...packageData,
@@ -151,7 +151,7 @@ export default function Package() {
               <div className="flex">
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={images[1]} alt="" className=""/>
+                    <img src={images[1]} alt="" className="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -167,7 +167,7 @@ export default function Package() {
 
                 <div className="w-1/2 p-1">
                   <div className="group relative overflow-hidden rounded-md shadow dark:shadow-gray-800">
-                    <img src={images[2]} alt="" className=""/>
+                    <img src={images[2]} alt="" className="" />
                     <div className="absolute inset-0 group-hover:bg-slate-900/70 duration-500 ease-in-out"></div>
                     <div className="absolute top-1/2 -translate-y-1/2 start-0 end-0 text-center opacity-0 group-hover:opacity-100 duration-500">
                       <Link
@@ -460,6 +460,20 @@ export default function Package() {
                                   seats available
                                 </p>
                               </div>
+                              <div className="flex items-center gap-1">
+                                <p
+                                  className={`text-lg font-bold
+                                  ${isSelected ? "text-white" : "text-black"}
+                              `}
+                                >
+                                  {trip.available_rooms
+                                    .toString()
+                                    .padStart(2, "0")}
+                                </p>
+                                <p className="text-xs text-wrap w-min text-left">
+                                  rooms available
+                                </p>
+                              </div>
                             </button>
                           );
                         })}
@@ -478,6 +492,31 @@ export default function Package() {
                             Book your trip now to grab:
                           </div>
                         )}
+                        {selectedTrip?.is_discount_applicable && (
+                          <div className="flex gap-2 px-2">
+                            <FaTag className="size-16 text-red-500" />
+                            <div>
+                              <div className="font-bold w-full text-center">
+                                Exclusive <span className="px-1 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">20%</span> Discounts
+                              </div>
+                              <div className="text-slate-400">
+                                On booking before{" "}
+                                <span className="text-red-600">
+                                  {moment(
+                                    selectedTrip?.discount_applicable_until_date
+                                  ).format("DD MMM YY")}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {selectedTrip?.is_scuba_free &&
+                          selectedTrip?.is_discount_applicable && (
+                            <div className="text-center font-bold text-xl text-red-500">
+                              {"&"}
+                            </div>
+                          )}
                         {selectedTrip?.is_scuba_free && (
                           <div className="flex gap-2 px-2">
                             <GiScubaMask className="flex-shrink-0 size-16 text-blue-600" />
@@ -490,30 +529,6 @@ export default function Package() {
                                 <span className="text-red-600">
                                   {moment(
                                     selectedTrip?.scuba_free_until_date
-                                  ).format("DD MMM YY")}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        )}
-                        {selectedTrip?.is_scuba_free &&
-                          selectedTrip?.is_discount_applicable && (
-                            <div className="text-center font-bold text-xl text-red-500">
-                              {"&"}
-                            </div>
-                          )}
-                        {selectedTrip?.is_discount_applicable && (
-                          <div className="flex gap-2 px-2">
-                            <FaTag className="size-16 text-red-500" />
-                            <div>
-                              <div className="font-bold w-full text-center">
-                                Exclusive Discounts
-                              </div>
-                              <div className="text-slate-400">
-                                On booking before{" "}
-                                <span className="text-red-600">
-                                  {moment(
-                                    selectedTrip?.discount_applicable_until_date
                                   ).format("DD MMM YY")}
                                 </span>
                               </div>
@@ -535,7 +550,8 @@ export default function Package() {
                   </div>
                 ) : (
                   <div>
-                    No trips available for this package at the moment, please visit again soon
+                    No trips available for this package at the moment, please
+                    visit again soon
                   </div>
                 )}
                 {/* <div className="mt-6">

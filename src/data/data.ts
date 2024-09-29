@@ -236,10 +236,10 @@ export const footerCompany = [
     //     name:'Team',
     //     link:'/team'
     // },
-    // {
-    //     name:'Terms of Service',
-    //     link:'/terms-of-service'
-    // },
+    {
+        name:'Terms of Service',
+        link:'/terms-of-service'
+    },
     // {
     //     name:'Privacy Policy',
     //     link:'/privacy-policy'
