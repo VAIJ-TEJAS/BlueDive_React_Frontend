@@ -550,8 +550,7 @@ export default function Package() {
                   </div>
                 ) : (
                   <div>
-                    No trips available for this package at the moment, please
-                    visit again soon
+                    Please call on +91-866-890-4446 for booking this package
                   </div>
                 )}
                 {/* <div className="mt-6">
