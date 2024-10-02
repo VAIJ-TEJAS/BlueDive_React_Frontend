@@ -5,7 +5,7 @@ import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
 // import logoWhite from "../assets/images/logo-white.png";
 
-import { FiSettings, FiCompass } from "../assets/icons/vander";
+import { FiSettings, FiCompass, FiUsers } from "../assets/icons/vander";
 import { Context } from "../context/context.provider";
 import { IUserData } from "../types/user.types";
 
@@ -27,9 +27,9 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
   const user_data: IUserData = JSON.parse(
     localStorage.getItem("bluedive-user-data") || "{}"
   );
-
+  
   const username = () => {
-    if (userAuthenticated) {
+    if (userAuthenticated) {     
       if (user_data?.first_name) {
         return user_data.first_name[0] + user_data.last_name[0];
       } else {
@@ -106,6 +106,12 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
                   Contact Us
                 </Link>
               </li>
+
+              <li className={`${manu === "/partner" ? "active" : ""}`}>
+                <Link to="/partner" className=" sub-menu-item">
+                  Become a Partner
+                </Link>
+              </li>
             </ul>
           </div>
 
@@ -120,7 +126,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
               >
                 <span
                   className={`px-2 inline-flex items-center justify-center tracking-wide align-middle duration-500 text-base text-center ${
-                    username() !== "LOGIN" ? "rounded-full w-10 h-10" : "rounded-md"
+                    ((username().length === 13) || (username() === "LOGIN")) ? "rounded-md" : "rounded-full w-10 h-10"
                   } border border-red-500 bg-red-500 text-white`}
                 >
                   {username()}
@@ -135,6 +141,14 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
                         className="flex items-center font-medium py-2 px-4 dark:text-white/70 hover:text-red-500 dark:hover:text-white"
                       >
                         <FiCompass className="size-4 me-2"></FiCompass>My Tours
+                      </Link>
+                    </li>
+                    <li>
+                      <Link
+                        to="/partner"
+                        className="flex items-center font-medium py-2 px-4 dark:text-white/70 hover:text-red-500 dark:hover:text-white"
+                      >
+                        <FiUsers className="size-4 me-2"></FiUsers>Become a Partner
                       </Link>
                     </li>
                     <li>

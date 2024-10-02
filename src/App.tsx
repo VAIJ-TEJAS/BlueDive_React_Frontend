@@ -14,6 +14,7 @@ import UserSetting from "./pages/UserSettings";
 import Auth from "./components/auth";
 import { Context } from "./context/context.provider";
 import UserTour from "./pages/UserTour";
+import Partner from "./pages/Partner";
 
 function App() {
   const { userAuthenticated } = Context();
@@ -30,6 +31,7 @@ function App() {
         <Route path="/contact/" element={<Contact />} />
         <Route path="/privacy-policy/" element={<Privacy />} />
         <Route path="/terms-of-service/" element={<Terms />} />
+        <Route path="/partner/" element={<Partner />} />
 
         {userAuthenticated && (
           <>

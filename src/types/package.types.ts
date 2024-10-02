@@ -34,6 +34,7 @@ export interface IDay {
     package?: IPackage;
     event_records?: IEventRecord[];
     day_records?: IDayRecord[];
+    food_records?: IFoodRecord[];
 }
 
 export interface IEvent {
@@ -123,4 +124,22 @@ export interface IPickupPoint {
 export interface IWaterSportOption {
     id: number;
     name: string;
+}
+
+export interface IFoodOption {
+    id: number;
+    name: string;
+}
+
+export interface IMealFoodRecord {
+    id: number;
+    food_record: IFoodRecord;
+    food_options: IFoodOption[];
+    meal_type: 'lunch' | 'dinner';
+}
+
+export interface IFoodRecord {
+    id: number;
+    meal: IMeal;
+    meal_food_records: IMealFoodRecord[];
 }

@@ -9,6 +9,7 @@ import { FiClock } from "react-icons/fi";
 import { IPackage } from "../types/package.types";
 import { IPaxRecord } from "../types/booking-form.types";
 import { RazorpayOptions } from "../types/razorpay";
+import moment from "moment";
 
 export default function UserTour() {
   const [booking, setBooking] = useState<ITour | null>(null);
@@ -59,7 +60,8 @@ export default function UserTour() {
           console.log(response);
           try {
             // Confirm the booking after payment verification
-            const bookingConfirmationResponse = await axios.post(`/bookings/${booking.id}/confirm/`,
+            const bookingConfirmationResponse = await axios.post(
+              `/bookings/${booking.id}/confirm/`,
               {
                 payment: {
                   payment_id: response.razorpay_payment_id,
@@ -135,6 +137,11 @@ export default function UserTour() {
             <span className="bg-red-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5">
               {booking?.status}
             </span>
+            {booking?.scuba_included && 
+            <span className="bg-blue-500 text-white text-[12px] px-2.5 py-1 font-medium rounded-md h-5 mx-2">
+              Scuba Included
+            </span>
+            }
             <h5 className="text-2xl font-semibold">{packageDetails?.name}</h5>
             <p className="flex items-center text-slate-400 font-medium mt-2">
               <FiClock className="text-red-500 size-4 me-1" />{" "}
@@ -142,6 +149,12 @@ export default function UserTour() {
             </p>
 
             <div className="mt-6">
+              <div className="mt-4 mb-4 py-4 space-y-2 border-y border-slate-100 dark:border-gray-800 ">
+                <div>
+                  Starts:{" "}
+                  {moment(booking?.trip.start_date).format("DD MMM YYYY")}
+                </div>
+              </div>
               <h5 className="text-xl font-semibold  mb-6 text-sky-500">
                 Customers
               </h5>

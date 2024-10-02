@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { Select, Segmented, Input, Radio } from "antd";
+import { Select, Input, Radio, Badge } from "antd";
 
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
@@ -667,14 +667,14 @@ export default function Booking() {
                               ))}
                             </Select>
 
-                            <p className="text-slate-400">
+                            {/* <p className="text-slate-400">
                               {
                                 mealOptions.find(
                                   (meal: IMeal) =>
                                     meal.name === detail.meal_option
                                 )?.description
                               }
-                            </p>
+                            </p> */}
                           </div>
 
                           <div className="grid grid-cols-2 gap-4">
@@ -704,6 +704,62 @@ export default function Booking() {
                               </div>
                             )}
                           </div>
+                        </div>
+
+                        <div className="md:flex gap-4">
+                          {packageDetails?.day_records?.map(
+                            (day_record, index) => {
+                              const food_records =
+                                day_record?.day?.food_records?.find(
+                                  (food_record) =>
+                                    food_record.meal.name === detail.meal_option
+                                );
+
+                              return (
+                                <div className="w-full">
+                                  {
+                                    <div className="shadow rounded-md p-2 flex flex-col h-full">
+                                      <div className="p-1 font-bold">
+                                        Day {index + 1}
+                                      </div>
+                                      {food_records &&
+                                      food_records.meal_food_records &&
+                                      food_records.meal_food_records.length >
+                                        0 ? (
+                                        food_records?.meal_food_records?.map(
+                                          (meal_food_record) => (
+                                            <div key={meal_food_record.id}>
+                                              <div className="text-center font-dancing text-blue-600">
+                                                {meal_food_record.meal_type}
+                                              </div>
+                                              <div className="flex flex-col">
+                                                {meal_food_record.food_options.map(
+                                                  (food_option) => (
+                                                    <Badge
+                                                      className="p-1"
+                                                      key={food_option.id}
+                                                    >
+                                                      {" "}
+                                                      {/* Use key for unique identification */}
+                                                      {food_option.name}
+                                                    </Badge>
+                                                  )
+                                                )}
+                                              </div>
+                                            </div>
+                                          )
+                                        )
+                                      ) : (
+                                        <div className="text-center text-gray-500 p-2">
+                                          No meals for this day
+                                        </div>
+                                      )}
+                                    </div>
+                                  }
+                                </div>
+                              );
+                            }
+                          )}
                         </div>
                       </div>
                     ))}
@@ -761,6 +817,48 @@ export default function Booking() {
                   >
                     Pay Now
                   </button>
+                </div>
+                {/* Packages */}
+                <div className="mt-6 text-sm">
+                  <div className="w-full text-left">
+                    <div className="flex flex-col gap-4">
+                      {paxOptions?.map((pax_option) => {
+                        return (
+                          <div>
+                              <div className="w-full text-center bg-blue-800 text-white font-bold">
+                                {pax_option.pax} PAX
+                              </div>
+                            <div className="flex w-full text-white bg-gray-600">
+                              <div className="border px-2 py-1 w-3/4">Meal Type</div>
+                              <div className="border px-2 py-1 w-3/4">Pkg. Cost</div>
+                              <div className="border px-2 py-1 w-full">
+                                20% Disc. Pkg.
+                              </div>
+                            </div>
+                            <div className="">
+                              {pax_option?.meal_records?.map((meal) => {
+                                return (
+                                  <div key={meal.id} className="flex">
+                                    <div className="border px-2 py-1 w-3/4">
+                                      {meal.meal.name}
+                                    </div>
+                                    <div className="border px-2 py-1 w-3/4">
+                                      <span className="line-through text-red-600">
+                                        ₹ {meal.price}
+                                      </span>
+                                    </div>
+                                    <div className="border px-2 py-1 w-full">
+                                      ₹ {meal.discounted_price}
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

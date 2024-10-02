@@ -47,7 +47,7 @@ export default function UserProfile() {
             <AccountingTab />
 
             <div className="lg:w-3/4 md:w-2/3 md:px-3">
-              <div>
+              {/* <div>
                 <p className="text-slate-400 mt-4">
                   Nam libero tempore, cum soluta nobis est eligendi optio cumque
                   nihil impedit quo minus id quod maxime placeat facere
@@ -62,7 +62,7 @@ export default function UserProfile() {
                   pariatur asperiores. Sed impedit reprehenderit deserunt culpa
                   incidunt iste laborum placeat molestiae illo?
                 </p>
-              </div>
+              </div> */}
 
               <div className="mt-6">
                 <h5 className="text-lg font-semibold mb-6">My Tours</h5>
