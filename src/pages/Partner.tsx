@@ -6,8 +6,12 @@ import Footer from "../components/footer";
 import { FiPhone, FiMail, FiMapPin } from "../assets/icons/vander";
 import axiosInstance from "../api/axios";
 import { Link } from "react-router-dom";
+import { Context } from "../context/context.provider";
 
 export default function Partner() {
+
+    const { userAuthenticated, showAuthModal } = Context();
+
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
@@ -218,7 +222,7 @@ export default function Partner() {
                       </div>
                     </div>
                     <button
-                      type="submit"
+                      onClick={userAuthenticated ? handleSubmit : showAuthModal}
                       id="submit"
                       name="send"
                       className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md mt-2"
