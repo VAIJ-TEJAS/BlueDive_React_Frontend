@@ -232,10 +232,10 @@ export const footerCompany = [
     //     name:'Services',
     //     link:'/services'
     // },
-    // {
-    //     name:'Team',
-    //     link:'/team'
-    // },
+    {
+        name:'Become a Partner',
+        link:'/partner'
+    },
     {
         name:'Terms of Service',
         link:'/terms-of-service'
