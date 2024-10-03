@@ -73,7 +73,7 @@ export default function Partner() {
               Become a Partner
             </h3>
             <h4 className="text-2xl leading-normal font-semibold text-slate-400">
-                Earn 5% commision on every booking
+                Earn commision on every booking
             </h4>
           </div>
         </div>
