@@ -271,22 +271,22 @@ export const faqData = [
     {
         id:2,
         title:'Can I cancel my booking?',
-        desc:'Unfortunately, we have no cancellation policy. However, you can give us a replacement booking.'
+        desc:'We understand that sometimes plans change. Our refund and cancellation policy is designed to be fair and transparent, Please read our Terms of Service.'
     },
     {
         id:3,
         title:'How can I get my scuba free?',
-        desc:'You need to book your journey minimum 21 days before the trip date to get your scuba along with complementary video absolutely free.'
+        desc:'You will need to pay 100% of your package amount minimum 10 days before the Journey start date to get your Scuba for FREE.'
     },
     {
         id:4,
         title:'How much is a discount & how do I get it?',
-        desc:'All our packages have 20% discount, you need to pay 100% of your package price minimum 10 days in advance.'
+        desc:'20% Discount is applicable for all our packages - For which you are required to make a payment of Rs. 2500/- as advance (Per Person) minimum 20 days before the planned Journey.'
     },
     {
         id:5,
         title:'Can I book my journey on any other days appart from planned dates?',
-        desc:'Yes, you can book your journey on any other days appart from planned dates provided you have a headcount of minimum 6.'
+        desc:'Yes, you can plan & book your Journey with us apart from the Standard package Journey dates - Please call us on +91 8668904446 to get details'
     },
 ]
 

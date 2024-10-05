@@ -486,7 +486,7 @@ export default function Booking() {
                               Free Scuba Diving
                             </div>
                             <div className="text-slate-400">
-                              On booking before{" "}
+                              On 100% payment before{" "}
                               <span className="text-red-600">
                                 {moment(
                                   selectedTrip?.scuba_free_until_date
