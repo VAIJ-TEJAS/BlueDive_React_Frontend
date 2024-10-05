@@ -15,8 +15,6 @@ export default function Partner() {
     const [formData, setFormData] = useState({
         first_name: "",
         last_name: "",
-        pan_no: "",
-        adhaar_no: "",
         address: "",
         contact_no: "",
         whatsapp_no: "",
@@ -45,8 +43,6 @@ export default function Partner() {
       setFormData({
         first_name: "",
         last_name: "",
-        pan_no: "",
-        adhaar_no: "",
         address: "",
         contact_no: "",
         whatsapp_no: "",
@@ -122,38 +118,6 @@ export default function Partner() {
                           onChange={handleChange}
                           className="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
                           placeholder="Last Name"
-                          required
-                        />
-                      </div>
-
-                      <div className="lg:col-span-6">
-                        <label htmlFor="pan_no" className="font-semibold">
-                          PAN No:
-                        </label>
-                        <input
-                          name="pan_no"
-                          id="pan_no"
-                          type="text"
-                          value={formData.pan_no}
-                          onChange={handleChange}
-                          className="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                          placeholder="PAN No"
-                          required
-                        />
-                      </div>
-
-                      <div className="lg:col-span-6">
-                        <label htmlFor="adhaar_no" className="font-semibold">
-                          Aadhar No:
-                        </label>
-                        <input
-                          name="adhaar_no"
-                          id="adhaar_no"
-                          type="text"
-                          value={formData.adhaar_no}
-                          onChange={handleChange}
-                          className="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
-                          placeholder="Aadhar No"
                           required
                         />
                       </div>
