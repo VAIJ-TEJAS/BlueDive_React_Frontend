@@ -388,7 +388,7 @@ export default function Booking() {
                         <button
                           key={index}
                           onClick={() => setSelectedTrip(trip)}
-                          className={`flex w-full justify-center gap-4 py-2 px-3 tracking-wide duration-500 text-base rounded-md
+                          className={`flex w-full justify-center gap-1 lg:gap-4 py-2 px-3 tracking-wide duration-500 text-base rounded-md
                           ${
                             isSelected
                               ? "border border-yellow-400 bg-red-500 text-white"
@@ -448,7 +448,7 @@ export default function Booking() {
                         Book your trip now to grab:
                       </div>
                     )}
-                    <div className="flex gap-2">
+                    <div className="flex flex-col lg:flex-row gap-2">
                       {selectedTrip?.is_discount_applicable && (
                         <div className="flex gap-2 px-2">
                           <FaTag className="size-16 text-red-500" />

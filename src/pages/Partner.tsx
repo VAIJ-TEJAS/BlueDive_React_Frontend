@@ -62,7 +62,7 @@ export default function Partner() {
         navlight={false}
         manuclass="justify-end"
       />
-      <section className="relative table w-full py-32 lg:py-40 bg-gray-50 dark:bg-slate-800">
+      <section className="relative table w-full py-16 lg:py-20 bg-gray-50 dark:bg-slate-800">
         <div className="container relative">
           <div className="grid grid-cols-1 text-center mt-10">
             <h3 className="text-3xl leading-normal font-semibold">

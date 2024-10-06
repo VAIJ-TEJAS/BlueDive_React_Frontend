@@ -58,8 +58,7 @@ export default function Aboutus() {
             </h3>
 
             <p className="text-slate-400 max-w-xl mx-auto">
-              This is just a simple text made for this unique and awesome
-              template, you can replace it with any text.
+              Our team is a dynamic and innovative solo operation, driven by a passionate individual dedicated to delivering exceptional results.
             </p>
           </div>
 
