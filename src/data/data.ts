@@ -170,37 +170,37 @@ export const ClientData = [
         image:client1,
         desc:'" This Best Kokan trip was a great gateway from our every day stressed like, we enjoyed your company a lot and I hope you all did the same "',
         name:'Sachin Gujar',
-        possition:'Manager'
+        position:'Manager'
     },
     {
         image:client2,
         desc:'" Thanks for organizing an amazing trip we thought was impossible. Your authenticity and dedication are truly inspiring. Best wishes for your future adventures. "',
         name:'Shubhangi',
-        possition:'Manager'
+        position:'Manager'
     },
     {
         image:client3,
         desc:'" Your planning and attention to detail made the trip unforgettable. We were amazed by your preparation and how smoothly everything went. Many thanks for the fantastic experience! "',
         name:'Tejas Vaij',
-        possition:'Manager'
+        position:'Manager'
     },
     {
         image:client4,
         desc:'" Thank you for the amazing Konkan trip. Your planning, food, and activities made it unforgettable. The Sovani family is truly grateful! "',
         name:'Syam Sohoni',
-        possition:'Manager'
+        position:'Manager'
     },
     {
         image:client5,
         desc:'" Had an amazing time with BlueDive Konkan at Bhogwe Beach, enjoying parasailing and scuba diving. A safe, fun, and memorable experience! "',
         name:'Ganesh Tambe',
-        possition:'Manager'
+        position:'Manager'
     },
     {
         image:client6,
         desc:'" Thanks to Uttam and his team, we had an incredible experience with sky and underwater adventures. A truly unforgettable trip! "',
         name:'Nilima Lanjewar',
-        possition:'Manager'
+        position:'Manager'
     },
 ]
 
@@ -322,22 +322,22 @@ export const teamData = [
     {
         image:founder,
         name:'Smita Amberkar',
-        possition:'Founder & Director'
+        position:'Founder & Director'
     },
     // {
     //     image:client5,
     //     name:'Krista John',
-    //     possition:'Agent'
+    //     position:'Agent'
     // },
     // {
     //     image:client6,
     //     name:'Roger Jackson',
-    //     possition:'Agent'
+    //     position:'Agent'
     // },
     // {
     //     image:client7,
     //     name:'Johnny English',
-    //     possition:'Agent'
+    //     position:'Agent'
     // },
 ]
 
