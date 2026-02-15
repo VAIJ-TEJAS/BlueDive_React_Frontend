@@ -73,8 +73,6 @@ export default function Package() {
       .then((response) => {
         const packageData: IPackage = response.data[0];
 
-        console.log(packageData);
-
         setPackageDetails({
           ...packageData,
           trips: undefined,
@@ -93,7 +91,6 @@ export default function Package() {
           setSelectedTrip(tripsData[0]);
         }
 
-        console.log(packageData);
       })
       .catch((error) => {
         console.error("Error fetching data", error);

@@ -200,13 +200,9 @@ export default function Booking() {
         })),
       };
 
-      console.log("Booking Payload:", payload);
-
       axios
         .post("/payments/", payload)
         .then((response) => {
-          console.log("Booking successful:", response.data);
-
           const { order_id, razorpay_key_id, amount, balance_amount } =
             response.data;
 
@@ -218,7 +214,6 @@ export default function Booking() {
             image: "icon.png",
             order_id: order_id,
             handler: function (response: any) {
-              console.log(response);
               const bookingPayload = {
                 ...payload,
                 order_id,
@@ -239,7 +234,6 @@ export default function Booking() {
               axios
                 .post("/bookings/", bookingPayload)
                 .then((bookingResponse) => {
-                  console.log("Booking confirmed:", bookingResponse.data);
                   // Navigate to the UserTour route without saving history
                   navigate(`/user-tour/${bookingResponse.data.id}`, {
                     replace: true,

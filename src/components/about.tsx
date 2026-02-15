@@ -1,5 +1,3 @@
-// import { Link } from "react-router-dom";
-
 import about from '../assets/images/about.jpg'
 import map from '../assets/images/map-plane-big.png'
 
