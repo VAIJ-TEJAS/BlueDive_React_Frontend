@@ -15,12 +15,11 @@ export default function UserProfile() {
         // Make the GET request to the '/packages' endpoint
         const response = await axios.get("/bookings/");
 
-        console.log(response.data);
         // Set the response data to the state
         setPackages(response.data);
       } catch (err) {
         // Handle any errors
-        console.log(err);
+        console.error(err);
       } finally {
         // Finally set some variables
       }

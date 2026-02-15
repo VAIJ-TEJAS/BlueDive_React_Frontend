@@ -56,7 +56,7 @@ export default function UserTour() {
         description: "Balance Payment",
         order_id: order_id,
         handler: async function (response: any) {
-          console.log(response);
+          // Verify payment response
           try {
             // Confirm the booking after payment verification
             const bookingConfirmationResponse = await axios.post(
@@ -74,12 +74,9 @@ export default function UserTour() {
 
             if (bookingConfirmationResponse.status === 200) {
               window.location.reload();
-              console.log(
-                "Booking confirmed:",
-                bookingConfirmationResponse.data
-              );
+              // Booking confirmed successfully
             } else {
-              console.log("Failed to confirm booking");
+              console.error("Failed to confirm booking");
             }
           } catch (error) {
             console.error("Error during payment processing:", error);
