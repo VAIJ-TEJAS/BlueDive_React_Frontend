@@ -63,7 +63,7 @@ export default function Contact(){
                 <div className="container">
                     <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-6">
                         <div className="lg:col-span-7 md:col-span-6">
-                            <img src={travel} className="w-full max-w-[500px] mx-auto" alt="" />
+                            <img src={travel} className="w-full max-w-[500px] mx-auto" alt="Travel illustration" />
                         </div>
 
                         <div className="lg:col-span-5 md:col-span-6">

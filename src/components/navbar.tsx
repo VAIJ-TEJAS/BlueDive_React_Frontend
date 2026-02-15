@@ -69,8 +69,8 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
         {navlight && (
           <Link className="logo" to="/">
             <span className="inline-block">
-              <img src={logoDark} className="h-12 l-dark" alt="" />
-              <img src={logoLight} className="h-12 l-light" alt="" />
+              <img src={logoDark} className="h-12 l-dark" alt="BlueDive Logo" />
+              <img src={logoLight} className="h-12 l-light" alt="BlueDive Logo" />
             </span>
             {/* <img src={logoWhite} className="hidden" alt="" /> */}
           </Link>
@@ -78,7 +78,7 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
         {!navlight && (
           <Link className="logo" to="/">
             <div>
-              <img src={logoDark} className="h-12 inline-block" alt="" />
+              <img src={logoDark} className="h-12 inline-block" alt="BlueDive Logo" />
               {/* <img src={logoWhite} className="h-7 hidden" alt="" /> */}
             </div>
           </Link>
