@@ -57,7 +57,7 @@ export const MyContextProvider: React.FC<{ children: ReactNode }> = ({
 export const Context = (): any => {
   const context = useContext(MyContext);
   if (!context) {
-    throw new Error("useMyContext must be used within a MyContextProvider");
+    throw new Error("Context must be used within a MyContextProvider");
   }
   return context;
 };
