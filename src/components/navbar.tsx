@@ -22,9 +22,20 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
 
   const { userAuthenticated, showAuthModal } = Context();
 
-  const user_data: IUserData = JSON.parse(
-    localStorage.getItem("bluedive-user-data") || "{}"
-  );
+  const getUserData = (): IUserData => {
+    try {
+      const userData = localStorage.getItem("bluedive-user-data");
+      if (!userData) return {} as IUserData;
+      return JSON.parse(userData);
+    } catch (error) {
+      console.error("Error parsing user data from localStorage:", error);
+      // Clear corrupted data
+      localStorage.removeItem("bluedive-user-data");
+      return {} as IUserData;
+    }
+  };
+
+  const user_data: IUserData = getUserData();
   
   const username = () => {
     if (userAuthenticated) {     
