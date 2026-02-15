@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
-// import logoWhite from "../assets/images/logo-white.png";
-
 import { FiSettings, FiCompass, FiUsers } from "../assets/icons/vander";
 import { Context } from "../context/context.provider";
 import { IUserData } from "../types/user.types";

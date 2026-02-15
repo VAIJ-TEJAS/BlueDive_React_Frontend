@@ -23,7 +23,6 @@ export default function UserTour() {
         // Make the GET request to fetch the specific booking by id
         const response = await axios.get(`/bookings/${id}/`);
 
-        console.log(response.data);
         // Set the response data to the state
         setBooking(response.data);
         setPaxRecords(response.data.pax_records);

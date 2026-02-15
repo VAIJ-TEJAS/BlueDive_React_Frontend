@@ -107,7 +107,7 @@ export default function Aboutus() {
                       >
                         {item.name}
                       </Link>
-                      <p className="text-slate-400">{item.possition}</p>
+                      <p className="text-slate-400">{item.position}</p>
                     </div>
                   </div>
                 </div>

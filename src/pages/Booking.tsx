@@ -312,7 +312,6 @@ export default function Booking() {
           null;
         setSelectedTrip(initialSelectedTrip);
 
-        console.log(packageData);
       })
       .catch((error) => {
         console.error("Error fetching data", error);
@@ -323,7 +322,6 @@ export default function Booking() {
     let payment_advance = 0;
     let payment_full = 0;
 
-    console.log(paxRecords);
     if (paxRecords) {
       paxRecords.forEach((record) => {
         payment_advance += record.pax * paxAdvanceCost;

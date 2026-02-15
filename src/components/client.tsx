@@ -59,7 +59,7 @@ export default function Client(){
                                     <div className="text-center mt-5">
                                         {/* <img src={item.image} className="size-14 rounded-full shadow-md dark:shadow-gray-700 mx-auto" alt=""/> */}
                                         <h6 className="mt-2 font-semibold">{item.name}</h6>
-                                        {/* <span className="text-slate-400 text-sm">{item.possition}</span> */}
+                                        {/* <span className="text-slate-400 text-sm">{item.position}</span> */}
                                     </div>
                                 </div>
                             </div>
