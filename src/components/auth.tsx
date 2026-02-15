@@ -13,6 +13,12 @@ export default function Auth() {
   const [otp, setOtp] = useState("");
 
   const sendOtp = async () => {
+    // Validate phone number before sending OTP
+    if (!phoneNumber || phoneNumber.length !== 10 || !/^\d+$/.test(phoneNumber)) {
+      message.error("Please enter a valid 10-digit phone number");
+      return;
+    }
+
     try {
       const response = await axios.post("/send-otp/", { phone: "+91"+phoneNumber });
   
@@ -21,13 +27,21 @@ export default function Auth() {
         message.success(response.data.message);
       } else {
         console.error("Failed to send OTP");
+        message.error("Failed to send OTP. Please try again.");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error sending OTP:", error);
+      message.error(error.response?.data?.message || "Failed to send OTP. Please try again.");
     }
   };
   
   const verifyOtp = async () => {
+    // Validate OTP before sending
+    if (!otp || otp.length !== 6 || !/^\d+$/.test(otp)) {
+      message.error("Please enter a valid 6-digit OTP");
+      return;
+    }
+
     try {
       const response = await axios.post("/verify-otp/", {
         phone: "+91"+phoneNumber,
@@ -38,11 +52,13 @@ export default function Auth() {
         const authData: IAuthResponse = response.data;
         signInUser(authData);
         hideAuthModal();
+        message.success("Login successful!");
       } else {
         message.error("Invalid OTP");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error verifying OTP:", error);
+      message.error(error.response?.data?.message || "Invalid OTP. Please try again.");
     }
   };
 
