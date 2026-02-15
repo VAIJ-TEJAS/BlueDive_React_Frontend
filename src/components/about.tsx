@@ -11,7 +11,7 @@ export default function About(){
             <div className="grid md:grid-cols-12 grid-cols-1 items-center gap-6 relative">
                 <div className="md:col-span-5">
                     <div className="relative">
-                        <img src={about} className="mx-auto rounded-3xl shadow dark:shadow-gray-700 w-[90%]" alt=""/>
+                        <img src={about} className="mx-auto rounded-3xl shadow dark:shadow-gray-700 w-[90%]" alt="About BlueDive"/>
                         
 
                         <div className="absolute flex items-center bottom-16 md:-start-10 -start-5 p-4 rounded-lg shadow-md dark:shadow-gray-800 bg-white dark:bg-slate-900 w-56 m-3">

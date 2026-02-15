@@ -69,7 +69,7 @@ export default function Auth() {
           <div className="flex justify-center">
             <div className="max-w-[400px] w-full p-6 bg-white dark:bg-slate-900 shadow-md dark:shadow-gray-700 rounded-md">
               <Link to="/">
-                <img src={logo} className="mx-auto" alt="" />
+                <img src={logo} className="mx-auto" alt="BlueDive" />
               </Link>
               <h5 className="my-2 text-xl font-semibold">
                 {otpSent ? "Enter OTP" : "Phone Number"}

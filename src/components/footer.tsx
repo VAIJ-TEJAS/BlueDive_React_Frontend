@@ -16,7 +16,7 @@ export default function Footer(){
                             <div className="grid md:grid-cols-12 grid-cols-1 gap-6">
                                 <div className="lg:col-span-4 md:col-span-12">
                                     <Link to="#" className="text-[22px] focus:outline-none">
-                                        <img src={logoLight} alt=""/>
+                                        <img src={logoLight} alt="BlueDive Logo"/>
                                     </Link>
                                     <p className="mt-6 text-gray-300">Thinking a trip to Konkan? Leave it to our team! We have multiple packages for you to choose…</p>
                                     <ul className="list-none mt-6 space-x-1">
