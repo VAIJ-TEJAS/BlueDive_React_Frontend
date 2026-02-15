@@ -174,7 +174,7 @@ export default function Contact(){
                                 {/* <p className="text-slate-400 mt-3">The phrasal sequence of the is now so that many campaign and benefit</p> */}
 
                                 <div className="mt-5">
-                                    <Link to="mailto:contact@bluedive.com" className="text-red-500 font-medium">contact@bluedive.in</Link>
+                                    <Link to="mailto:contact@bluedive.in" className="text-red-500 font-medium">contact@bluedive.in</Link>
                                 </div>
                             </div>
                         </div>
