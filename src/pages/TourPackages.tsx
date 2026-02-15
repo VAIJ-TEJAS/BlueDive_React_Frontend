@@ -22,7 +22,7 @@ export default function TourPackages(){
 
       } catch (err) {
         // Handle any errors
-        console.log(err);
+        console.error(err);
       } finally {
         // Finally set some variables
       }

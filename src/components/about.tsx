@@ -42,7 +42,7 @@ export default function About(){
                     <div className="lg:ms-8">
                         <h3 className="mb-6 md:text-3xl text-2xl md:leading-normal leading-normal font-semibold">About Us</h3>
 
-                        <p className="text-slate-400 max-w-xl mb-6">At BlueDive we have built a culture to ensure your End to End Konkan Tour is taken care with great hospitality  and at a truly affordable price! This offcourse includes 100% safety measures . We already follow high quality standards when it comes to hygine, now with COVID-19 pandemic passing by we have taken extra steps to ensure your safety - by introducing Travel safety kit which includes - Pre-checkups, facemasks, sanitizers & Hygenic travels & stay.</p>
+                        <p className="text-slate-400 max-w-xl mb-6">At BlueDive we have built a culture to ensure your End to End Konkan Tour is taken care with great hospitality and at a truly affordable price! This of course includes 100% safety measures. We already follow high quality standards when it comes to hygiene, now with COVID-19 pandemic passing by we have taken extra steps to ensure your safety - by introducing Travel safety kit which includes - Pre-checkups, facemasks, sanitizers & Hygienic travels & stay.</p>
 
                         {/* <Link to="" className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md">Read More <i className="mdi mdi-chevron-right align-middle ms-0.5"></i></Link> */}
                     </div>
