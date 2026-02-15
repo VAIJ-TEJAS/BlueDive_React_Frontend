@@ -1,6 +1,6 @@
-export const buildQueryString = (params: Record<string, string | number | boolean | undefined>): string => {
+export const buildQueryString = (params: Record<string, string | number | boolean | null | undefined>): string => {
     const filtered = Object.entries(params).filter(
-        ([, value]) => value !== undefined && value !== ''
+        ([, value]) => value !== undefined && value !== null && value !== ''
     );
     if (filtered.length === 0) return '';
     const query = filtered

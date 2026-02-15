@@ -34,7 +34,9 @@ export const formatDuration = (days: number, nights: number): string => {
 };
 
 export const getSavingsText = (original: number, discounted: number): string => {
-    if (!original || !discounted || discounted >= original) return '';
+    if (!original || original <= 0) return '';
+    if (discounted === null || discounted === undefined || discounted < 0) return '';
+    if (discounted >= original) return '';
     const saved = original - discounted;
     return `Save ${formatPrice(saved)}`;
 };

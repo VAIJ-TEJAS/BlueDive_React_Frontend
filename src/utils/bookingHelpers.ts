@@ -42,5 +42,6 @@ export const isBookingEditable = (status: Status): boolean => {
 };
 
 export const getAdvanceAmount = (totalPax: number, advancePerPax: number = 2500): number => {
+    if (totalPax <= 0 || advancePerPax <= 0) return 0;
     return totalPax * advancePerPax;
 };

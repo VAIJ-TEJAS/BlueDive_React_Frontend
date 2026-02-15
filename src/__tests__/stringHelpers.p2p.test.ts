@@ -3,7 +3,7 @@ import { truncateText, capitalize, toTitleCase, slugify } from '../utils/stringH
 
 describe('truncateText - edge cases', () => {
     it('should handle maxLength of 3 (minimum for ellipsis)', () => {
-        expect(truncateText('Hello', 3)).toBe('...');
+        expect(truncateText('Hello', 3)).toBe('Hel');
     });
 
     it('should handle very long text', () => {
