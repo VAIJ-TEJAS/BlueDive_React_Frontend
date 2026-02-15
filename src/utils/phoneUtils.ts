@@ -30,7 +30,9 @@ export const stripCountryCode = (phone: string): string => {
 
 export const addCountryCode = (phone: string, code: string = '91'): string => {
     if (!phone) return '';
-    const cleaned = phone.replace(/\D/g, '');
-    if (cleaned.startsWith(code)) return `+${cleaned}`;
+    const trimmed = phone.trim();
+    if (trimmed.startsWith(`+${code}`)) return trimmed;
+    const cleaned = trimmed.replace(/\D/g, '');
+    if (cleaned.startsWith(code) && cleaned.length > code.length) return `+${cleaned}`;
     return `+${code}${cleaned}`;
 };

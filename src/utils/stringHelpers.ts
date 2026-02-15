@@ -1,6 +1,8 @@
 export const truncateText = (text: string, maxLength: number): string => {
     if (!text) return '';
+    if (maxLength <= 0) return '';
     if (text.length <= maxLength) return text;
+    if (maxLength <= 3) return text.substring(0, maxLength);
     return text.substring(0, maxLength - 3) + '...';
 };
 
