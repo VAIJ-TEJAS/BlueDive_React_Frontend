@@ -30,7 +30,7 @@ export default function UserTour() {
         setPackageDetails(response.data.trip.package);
       } catch (err) {
         // Handle any errors
-        console.log(err);
+        console.error(err);
       }
     };
 
@@ -101,7 +101,7 @@ export default function UserTour() {
       rzp1.open();
     } catch (err) {
       // Handle any errors
-      console.log(err);
+      console.error(err);
     }
   };
 
