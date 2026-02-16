@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-import logoLight from '../assets/images/logo-light.png'
+import logoLight from '../assets/images/logo-light.png '
 
 import { footerCompany, footerSocial } from "../data/data";
 import {FiMapPin, FiMail, FiPhone} from '../assets/icons/vander'
