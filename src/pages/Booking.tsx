@@ -241,6 +241,8 @@ export default function Booking() {
                 })
                 .catch((bookingError) => {
                   console.error("Error confirming booking:", bookingError);
+                  // Show user-friendly error message
+                  alert("Failed to confirm booking. Please try again or contact support.");
                 });
 
               // Handle payment success
@@ -264,6 +266,8 @@ export default function Booking() {
         })
         .catch((error) => {
           console.error("Error creating booking:", error);
+          // Show user-friendly error message
+          alert("Failed to initiate payment. Please try again or contact support.");
         });
     } else {
       console.error("Please select a trip before proceeding to payment.");
@@ -309,6 +313,8 @@ export default function Booking() {
       })
       .catch((error) => {
         console.error("Error fetching data", error);
+        // Show user-friendly error message
+        alert("Failed to load package details. Please refresh the page or try again later.");
       });
   }, [package_name]);
 

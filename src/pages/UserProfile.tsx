@@ -20,6 +20,10 @@ export default function UserProfile() {
       } catch (err) {
         // Handle any errors
         console.error(err);
+        // Show user-friendly error message
+        alert("Failed to load your bookings. Please refresh the page or try again later.");
+        // Set empty array to prevent undefined errors
+        setPackages([]);
       } finally {
         // Finally set some variables
       }

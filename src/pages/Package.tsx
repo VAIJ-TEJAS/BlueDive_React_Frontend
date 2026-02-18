@@ -94,6 +94,8 @@ export default function Package() {
       })
       .catch((error) => {
         console.error("Error fetching data", error);
+        // Show user-friendly error message
+        alert("Failed to load package details. Please refresh the page or try again later.");
       });
   }, [package_name]);
 
