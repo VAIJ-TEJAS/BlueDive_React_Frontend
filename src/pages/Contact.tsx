@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback, useMemo } from "react";
 import { Link } from "react-router-dom";
 
 import travel from '../assets/images/travel-train-station.svg'
@@ -9,6 +9,13 @@ import Footer from "../components/footer";
 import {FiPhone, FiMail,FiMapPin} from '../assets/icons/vander'
 import axiosInstance from "../api/axios";
 
+interface FormErrors {
+    name?: string;
+    email?: string;
+    subject?: string;
+    message?: string;
+}
+
 export default function Contact(){
 
     const [formData, setFormData] = useState({
@@ -18,43 +25,112 @@ export default function Contact(){
         message: ''
     });
     const [responseMessage, setResponseMessage] = useState('');
+    const [errors, setErrors] = useState<FormErrors>({});
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    // Memoized validation functions
+    const validateName = useCallback((name: string): string | undefined => {
+        if (!name.trim()) {
+            return 'Name is required';
+        }
+        if (name.trim().length < 2) {
+            return 'Name must be at least 2 characters long';
+        }
+        if (name.trim().length > 100) {
+            return 'Name cannot exceed 100 characters';
+        }
+        if (!/^[a-zA-Z\s'-]+$/.test(name.trim())) {
+            return 'Name can only contain letters, spaces, hyphens, and apostrophes';
+        }
+        return undefined;
+    }, []);
+
+    const validateEmail = useCallback((email: string): string | undefined => {
+        if (!email.trim()) {
+            return 'Email is required';
+        }
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(email.trim())) {
+            return 'Please enter a valid email address';
+        }
+        if (email.trim().length > 254) {
+            return 'Email cannot exceed 254 characters';
+        }
+        return undefined;
+    }, []);
+
+    const validateSubject = useCallback((subject: string): string | undefined => {
+        if (!subject.trim()) {
+            return 'Subject is required';
+        }
+        if (subject.trim().length < 3) {
+            return 'Subject must be at least 3 characters long';
+        }
+        if (subject.trim().length > 200) {
+            return 'Subject cannot exceed 200 characters';
+        }
+        return undefined;
+    }, []);
+
+    const validateMessage = useCallback((message: string): string | undefined => {
+        if (!message.trim()) {
+            return 'Message is required';
+        }
+        if (message.trim().length < 10) {
+            return 'Message must be at least 10 characters long';
+        }
+        if (message.trim().length > 2000) {
+            return 'Message cannot exceed 2000 characters';
+        }
+        return undefined;
+    }, []);
+
+    const validateForm = useCallback((): FormErrors => {
+        const newErrors: FormErrors = {};
+        
+        const nameError = validateName(formData.name);
+        if (nameError) newErrors.name = nameError;
+        
+        const emailError = validateEmail(formData.email);
+        if (emailError) newErrors.email = emailError;
+        
+        const subjectError = validateSubject(formData.subject);
+        if (subjectError) newErrors.subject = subjectError;
+        
+        const messageError = validateMessage(formData.message);
+        if (messageError) newErrors.message = messageError;
+        
+        return newErrors;
+    }, [formData, validateName, validateEmail, validateSubject, validateMessage]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
-        setFormData({
-            ...formData,
+        setFormData(prev => ({
+            ...prev,
             [name]: value
-        });
+        }));
+        
+        // Clear error for this field when user starts typing
+        if (errors[name as keyof FormErrors]) {
+            setErrors(prev => ({
+                ...prev,
+                [name]: undefined
+            }));
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        
+        setIsSubmitting(true);
+        setResponseMessage('');
 
-        // Form validation
-        if (!formData.name.trim()) {
-            setResponseMessage('Please enter your name.');
-            return;
-        }
-
-        if (!formData.email.trim()) {
-            setResponseMessage('Please enter your email address.');
-            return;
-        }
-
-        // Email format validation
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            setResponseMessage('Please enter a valid email address.');
-            return;
-        }
-
-        if (!formData.subject.trim()) {
-            setResponseMessage('Please enter a subject.');
-            return;
-        }
-
-        if (!formData.message.trim()) {
-            setResponseMessage('Please enter your message.');
+        // Validate form
+        const formErrors = validateForm();
+        setErrors(formErrors);
+        
+        if (Object.keys(formErrors).length > 0) {
+            setIsSubmitting(false);
             return;
         }
 
@@ -67,8 +143,12 @@ export default function Contact(){
                 subject: '',
                 message: ''
             });
+            setErrors({});
         } catch (error) {
+            console.error('Error sending message:', error);
             setResponseMessage('There was an error sending your message. Please try again.');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -99,7 +179,9 @@ export default function Contact(){
                                 <div className="bg-white dark:bg-slate-900 rounded-md shadow dark:shadow-gray-800 p-6">
                                     <h3 className="mb-6 text-2xl leading-normal font-semibold">Get in touch !</h3>
                                     {responseMessage && (
-                                        <p className="mb-4 text-center text-red-500">{responseMessage}</p>
+                                        <p className={`mb-4 text-center ${responseMessage.includes('successfully') ? 'text-green-500' : 'text-red-500'}`}>
+                                            {responseMessage}
+                                        </p>
                                     )}
                                     <form onSubmit={handleSubmit}>
                                         <div className="grid lg:grid-cols-12 grid-cols-1 gap-3">
@@ -111,10 +193,13 @@ export default function Contact(){
                                                     type="text"
                                                     value={formData.name}
                                                     onChange={handleChange}
-                                                    className="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
+                                                    className={`mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border ${errors.name ? 'border-red-500' : 'border-gray-100 dark:border-gray-800'} focus:ring-0`}
                                                     placeholder="Name :"
-                                                    required
+                                                    disabled={isSubmitting}
                                                 />
+                                                {errors.name && (
+                                                    <p className="mt-1 text-sm text-red-500">{errors.name}</p>
+                                                )}
                                             </div>
 
                                             <div className="lg:col-span-6">
@@ -125,10 +210,13 @@ export default function Contact(){
                                                     type="email"
                                                     value={formData.email}
                                                     onChange={handleChange}
-                                                    className="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
+                                                    className={`mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border ${errors.email ? 'border-red-500' : 'border-gray-100 dark:border-gray-800'} focus:ring-0`}
                                                     placeholder="Email :"
-                                                    required
+                                                    disabled={isSubmitting}
                                                 />
+                                                {errors.email && (
+                                                    <p className="mt-1 text-sm text-red-500">{errors.email}</p>
+                                                )}
                                             </div>
 
                                             <div className="lg:col-span-12">
@@ -138,10 +226,13 @@ export default function Contact(){
                                                     id="subject"
                                                     value={formData.subject}
                                                     onChange={handleChange}
-                                                    className="mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
+                                                    className={`mt-2 w-full py-2 px-3 h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border ${errors.subject ? 'border-red-500' : 'border-gray-100 dark:border-gray-800'} focus:ring-0`}
                                                     placeholder="Subject :"
-                                                    required
+                                                    disabled={isSubmitting}
                                                 />
+                                                {errors.subject && (
+                                                    <p className="mt-1 text-sm text-red-500">{errors.subject}</p>
+                                                )}
                                             </div>
 
                                             <div className="lg:col-span-12">
@@ -151,19 +242,25 @@ export default function Contact(){
                                                     id="message"
                                                     value={formData.message}
                                                     onChange={handleChange}
-                                                    className="mt-2 w-full py-2 px-3 h-28 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border border-gray-100 dark:border-gray-800 focus:ring-0"
+                                                    className={`mt-2 w-full py-2 px-3 h-28 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded outline-none border ${errors.message ? 'border-red-500' : 'border-gray-100 dark:border-gray-800'} focus:ring-0`}
                                                     placeholder="Message :"
+                                                    disabled={isSubmitting}
                                                 ></textarea>
+                                                {errors.message && (
+                                                    <p className="mt-1 text-sm text-red-500">{errors.message}</p>
+                                                )}
+                                            </div>
+
+                                            <div className="lg:col-span-12">
+                                                <button 
+                                                    type="submit" 
+                                                    className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md w-full hover:bg-red-600 disabled:opacity-50 disabled:cursor-not-allowed"
+                                                    disabled={isSubmitting}
+                                                >
+                                                    {isSubmitting ? 'Sending...' : 'Send Message'}
+                                                </button>
                                             </div>
                                         </div>
-                                        <button
-                                            type="submit"
-                                            id="submit"
-                                            name="send"
-                                            className="py-2 px-5 inline-block tracking-wide align-middle duration-500 text-base text-center bg-red-500 text-white rounded-md mt-2"
-                                        >
-                                            Send Message
-                                        </button>
                                     </form>
                                 </div>
                             </div>
