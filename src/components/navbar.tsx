@@ -39,10 +39,14 @@ export default function Navbar({ navclass, navlight, manuclass }: NavbarProps) {
   
   const username = () => {
     if (userAuthenticated) {     
-      if (user_data?.first_name) {
+      if (user_data?.first_name && user_data?.last_name) {
         return user_data.first_name[0] + user_data.last_name[0];
-      } else {
+      } else if (user_data?.first_name) {
+        return user_data.first_name[0];
+      } else if (user_data?.username) {
         return user_data.username;
+      } else {
+        return "USER";
       }
     } else {
       return "LOGIN";

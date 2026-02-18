@@ -20,7 +20,8 @@ export default function Footer(){
                                     </Link>
                                     <p className="mt-6 text-gray-300">Thinking a trip to Konkan? Leave it to our team! We have multiple packages for you to choose…</p>
                                     <ul className="list-none mt-6 space-x-1">
-                                        {footerSocial.map((item,index)=>{
+                                        {footerSocial?.map((item,index)=>{
+                                            if (!item || !item.icon || !item.link) return null;
                                             let Icon = item.icon
                                             return(
 
@@ -62,7 +63,8 @@ export default function Footer(){
                                     <div className="lg:ms-8">
                                         <h5 className="tracking-[1px] text-gray-100 font-semibold">Company</h5>
                                         <ul className="list-none footer-list mt-6">
-                                            {footerCompany.map((item,index)=>{
+                                            {footerCompany?.map((item,index)=>{
+                                                if (!item || !item.link || !item.name) return null;
                                                 return(
                                                     <li className="mt-[10px] first:mt-0" key={index}><Link to={item.link} className="text-gray-300 hover:text-gray-400 duration-500 ease-in-out"><i className="mdi mdi-chevron-right"></i> {item.name}</Link></li>
                                                 )
