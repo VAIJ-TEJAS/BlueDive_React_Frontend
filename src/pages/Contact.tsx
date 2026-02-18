@@ -30,6 +30,34 @@ export default function Contact(){
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
+        // Form validation
+        if (!formData.name.trim()) {
+            setResponseMessage('Please enter your name.');
+            return;
+        }
+
+        if (!formData.email.trim()) {
+            setResponseMessage('Please enter your email address.');
+            return;
+        }
+
+        // Email format validation
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setResponseMessage('Please enter a valid email address.');
+            return;
+        }
+
+        if (!formData.subject.trim()) {
+            setResponseMessage('Please enter a subject.');
+            return;
+        }
+
+        if (!formData.message.trim()) {
+            setResponseMessage('Please enter your message.');
+            return;
+        }
+
         try {
             await axiosInstance.post('/contact-messages/', formData);
             setResponseMessage('Your message has been sent successfully!');
