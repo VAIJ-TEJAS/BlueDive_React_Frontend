@@ -63,7 +63,9 @@ export default function Auth() {
   };
 
   const handleOtpChange = (value: string) => {
-    setOtp(value);
+    // Only allow digits
+    const sanitizedValue = value.replace(/\D/g, '').slice(0, 6);
+    setOtp(sanitizedValue);
   };
 
   return (
@@ -98,9 +100,14 @@ export default function Auth() {
                       size="large"
                       addonBefore="+91"
                       value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      onChange={(e) => {
+                        // Only allow digits, max 10
+                        const sanitizedValue = e.target.value.replace(/\D/g, '').slice(0, 10);
+                        setPhoneNumber(sanitizedValue);
+                      }}
                       className="mt-3 w-full h-10 bg-transparent dark:bg-slate-900 dark:text-slate-200 rounded"
                       placeholder="Enter phone number"
+                      maxLength={10}
                       required
                     />
                   </div>
