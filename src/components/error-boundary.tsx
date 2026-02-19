@@ -4,57 +4,145 @@ interface Props {
   children: ReactNode;
   fallback?: ReactNode;
   onError?: (error: Error, errorInfo: ErrorInfo) => void;
+  maxRetries?: number;
+  resetTimeout?: number;
+  enableErrorReporting?: boolean;
+  enablePerformanceMonitoring?: boolean;
 }
 
 interface State {
   hasError: boolean;
   error?: Error;
   errorInfo?: ErrorInfo;
+  retryCount: number;
+  errorId?: string;
+  isRetrying: boolean;
+  performanceMetrics?: {
+    renderTime: number;
+    memoryUsage: number;
+    componentCount: number;
+  };
 }
 
 class ErrorBoundary extends Component<Props, State> {
+  private renderStartTime = 0;
+  private retryTimeouts: ReturnType<typeof setTimeout>[] = [];
+
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false };
+    this.state = { 
+      hasError: false,
+      retryCount: 0,
+      isRetrying: false
+    };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  componentDidMount() {
+    this.renderStartTime = performance.now();
+    if (this.props.enablePerformanceMonitoring) {
+      this.collectPerformanceMetrics();
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.props.enablePerformanceMonitoring) {
+      this.collectPerformanceMetrics();
+    }
+  }
+
+  componentWillUnmount() {
+    // Clear any pending retry timeouts
+    this.retryTimeouts.forEach(timeout => clearTimeout(timeout));
+    this.retryTimeouts = [];
+  }
+
+  static getDerivedStateFromError(error: Error): Partial<State> {
     // Update state so the next render will show the fallback UI
-    return { hasError: true, error };
+    return { 
+      hasError: true, 
+      error,
+      retryCount: 0,
+      isRetrying: false
+    };
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    // Log error details for debugging
-    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    // Generate unique error ID
+    const errorId = this.generateErrorId();
     
+    // Collect performance metrics if enabled
+    const performanceMetrics = this.props.enablePerformanceMonitoring 
+      ? this.collectPerformanceMetrics() 
+      : undefined;
+
     // Store error info in state
     this.setState({
       error,
-      errorInfo
+      errorInfo,
+      errorId,
+      performanceMetrics
     });
 
+    // Log error details for debugging
+    console.error('ErrorBoundary caught an error:', error, errorInfo);
+    
     // Call custom error handler if provided
     if (this.props.onError) {
       this.props.onError(error, errorInfo);
     }
 
     // Log to external service in production
-    if (process.env.NODE_ENV === 'production') {
-      this.logErrorToService(error, errorInfo);
+    if (process.env.NODE_ENV === 'production' || this.props.enableErrorReporting) {
+      this.logErrorToService(error, errorInfo, errorId, performanceMetrics);
+    }
+
+    // Start auto-retry if enabled
+    if (this.props.resetTimeout && this.props.resetTimeout > 0) {
+      this.handleAutoRetry();
     }
   }
 
-  logErrorToService = (error: Error, errorInfo: ErrorInfo) => {
+  generateErrorId = (): string => {
+    return `error_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+  };
+
+  collectPerformanceMetrics = () => {
+    const renderTime = performance.now() - this.renderStartTime;
+    const memoryUsage = (performance as any).memory ? {
+      usedJSHeapSize: (performance as any).memory.usedJSHeapSize,
+      totalJSHeapSize: (performance as any).memory.totalJSHeapSize,
+      jsHeapSizeLimit: (performance as any).memory.jsHeapSizeLimit
+    } : null;
+
+    return {
+      renderTime,
+      memoryUsage: memoryUsage?.usedJSHeapSize || 0,
+      componentCount: this.countComponents()
+    };
+  };
+
+  countComponents = (): number => {
+    // Simple component counting based on DOM elements
+    const elementCount = document.querySelectorAll('[data-reactroot]').length;
+    return elementCount;
+  };
+
+  logErrorToService = (error: Error, errorInfo: ErrorInfo, errorId?: string, performanceMetrics?: any) => {
     // In a real application, you would send this to an error tracking service
     // like Sentry, LogRocket, or your own logging endpoint
     try {
       const errorData = {
+        errorId,
         message: error.message,
         stack: error.stack,
         componentStack: errorInfo.componentStack,
         timestamp: new Date().toISOString(),
         userAgent: navigator.userAgent,
-        url: window.location.href
+        url: window.location.href,
+        performanceMetrics,
+        retryCount: this.state.retryCount,
+        environment: process.env.NODE_ENV,
+        buildVersion: process.env.REACT_APP_VERSION || 'unknown'
       };
 
       // Example: Send to logging endpoint
@@ -73,7 +161,42 @@ class ErrorBoundary extends Component<Props, State> {
   };
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: undefined, errorInfo: undefined });
+    const maxRetries = this.props.maxRetries || 3;
+    const currentRetryCount = this.state.retryCount;
+
+    if (currentRetryCount >= maxRetries) {
+      console.warn('Maximum retry attempts reached');
+      return;
+    }
+
+    this.setState({ 
+      isRetrying: true,
+      retryCount: currentRetryCount + 1
+    });
+
+    // Reset error state after a short delay
+    const timeout = setTimeout(() => {
+      this.setState({ 
+        hasError: false, 
+        error: undefined, 
+        errorInfo: undefined,
+        isRetrying: false
+      });
+    }, 1000);
+
+    this.retryTimeouts.push(timeout);
+  };
+
+  handleAutoRetry = () => {
+    const resetTimeout = this.props.resetTimeout || 30000; // 30 seconds default
+    
+    const timeout = setTimeout(() => {
+      if (this.state.hasError && this.state.retryCount < (this.props.maxRetries || 3)) {
+        this.handleRetry();
+      }
+    }, resetTimeout);
+
+    this.retryTimeouts.push(timeout);
   };
 
   render() {
@@ -109,6 +232,11 @@ class ErrorBoundary extends Component<Props, State> {
               <p className="mt-2 text-sm text-gray-600">
                 We apologize for the inconvenience. An unexpected error occurred.
               </p>
+              {this.state.errorId && (
+                <p className="mt-1 text-xs text-gray-500">
+                  Error ID: {this.state.errorId}
+                </p>
+              )}
             </div>
             
             <div className="mt-8 space-y-4">
@@ -160,9 +288,14 @@ class ErrorBoundary extends Component<Props, State> {
               <div className="flex space-x-4">
                 <button
                   onClick={this.handleRetry}
-                  className="flex-1 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition duration-150 ease-in-out"
+                  disabled={this.state.isRetrying || this.state.retryCount >= (this.props.maxRetries || 3)}
+                  className={`flex-1 py-2 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition duration-150 ease-in-out ${
+                    this.state.isRetrying || this.state.retryCount >= (this.props.maxRetries || 3)
+                      ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                      : 'bg-blue-600 text-white hover:bg-blue-700 focus:ring-blue-500'
+                  }`}
                 >
-                  Try Again
+                  {this.state.isRetrying ? 'Retrying...' : `Try Again${this.state.retryCount > 0 ? ` (${this.state.retryCount}/${this.props.maxRetries || 3})` : ''}`}
                 </button>
                 <button
                   onClick={() => window.location.reload()}
